@@ -28,3 +28,7 @@ This project is V2 of my earlier project called [Podcastify-It](https://github.c
 - [ ] One colour theme for every weekday
 - [ ] Recommended usage tips for the application
 
+
+# Design ideas
+- Background image SVG for listening animation
+- Bulb icon at various points for pro-tips
