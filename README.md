@@ -12,8 +12,11 @@ This project is V2 of my earlier project called [Podcastify-It](https://github.c
 - [ ] Support for listening on desktop by minimising/in background
 - [ ] Fresh sticky player controls
 - [ ] Better visualisation for listening indication
+- [ ] Implement better analytics
+
 ## Medium
 - [ ] Fresh dark design theme
+- [ ] Review latest analytics data
 - [ ] Show recommended voices across operating systems
 - [ ] Register listening as media event in the browser
 - [ ] Better PWA manifest
