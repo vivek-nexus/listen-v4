@@ -2,6 +2,9 @@
 
 This project is V2 of my earlier project called [Podcastify-It](https://github.com/yakshaG/podcastify-it)
 
+# Deployment
+This project is deployed at https://yakshag.github.io/lizen/ with Github pages
+
 # Implementation
 ## High
 - [x] New name
