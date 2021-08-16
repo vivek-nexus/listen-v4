@@ -5,7 +5,7 @@ This project is V2 of my earlier project called [Podcastify-It](https://github.c
 # Deployment
 This project is deployed at https://yakshag.github.io/lizen/ with Github pages
 
-# Implementation
+# Implementation plan
 ## High
 - [x] New name
 - [ ] Refresh hero area for new name
