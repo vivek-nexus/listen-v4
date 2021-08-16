@@ -23,6 +23,7 @@ This project is deployed at https://yakshag.github.io/lizen/ with Github pages
 - [ ] Show recommended voices across operating systems
 - [ ] Register listening as media event in the browser
 - [ ] Better PWA manifest
+- [ ] Add UTM links to various source links for source tracking
 
 ## Low
 - [ ] Auto fill/reduce choices for voices based by auto detecting language of pasted content
