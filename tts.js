@@ -37,7 +37,7 @@ animation.style.display='none';
 
 // Site Analytics
 let telegramMessage='';
-telegramMessage=`Landing Page Vistor%0A${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}%0A${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}%0A${navigator.platform}%0A${navigator.userAgent}`;
+telegramMessage=`Landing Page Vistor$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
 
 fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
@@ -126,7 +126,7 @@ function populateVoices(){
 
 async function fetchArticle(){
   // Function Analytics
-  telegramMessage=`Used Fetch Option%0A${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}%0A${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}%0A${navigator.platform}%0A${navigator.userAgent}`;
+  telegramMessage=`Used Fetch Option$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
   fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
   let result='';
@@ -182,7 +182,7 @@ async function parseSentences(){
 
 
   // Function Analytics
-  telegramMessage=`Used Parse and Play Option%0A${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}%0A${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}%0A${navigator.platform}%0A${navigator.userAgent}`;
+  telegramMessage=`Used Parse and Play Option$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
   fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
   speakButton.style.display = 'none';
