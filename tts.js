@@ -39,7 +39,7 @@ animation.style.display='none';
 let telegramMessage='';
 telegramMessage=`Landing Page Vistor$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
 
-fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
+// fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
 
 
@@ -127,7 +127,7 @@ function populateVoices(){
 async function fetchArticle(){
   // Function Analytics
   telegramMessage=`Used Fetch Option$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
-  fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
+  // fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
   let result='';
   inputText.value='';
@@ -183,7 +183,7 @@ async function parseSentences(){
 
   // Function Analytics
   telegramMessage=`Used Parse and Play Option$${date.getFullYear()}%20${date.getMonth()+1}%20${date.getDate()}$${date.getHours()}%20${date.getMinutes()}%20${date.getSeconds()}$${navigator.platform}$${navigator.userAgent}~`;
-  fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
+  // fetch(`https://api.telegram.org/bot1391541181:AAF86uEn063OXGO7hiNhNtAQVuE7oYoxVCA/sendMessage?chat_id=425970658&text=${telegramMessage}&parse_mode=Markdown`);
 
   speakButton.style.display = 'none';
   pauseButton.style.display = 'inline';
