@@ -17,6 +17,10 @@ const fetchButton=document.querySelector('#fetch-button');
 const fetchAnimation=document.querySelector('#fetch-animation');
 const progressBar=document.querySelector('#progress-bar');
 const a2hsButton=document.querySelector('#a2hs');
+const lizen=document.querySelector('#lizen');
+const playerContainer=document.querySelector('.player-container');
+const eyes=document.querySelector('#eyes');
+const playingDiv=document.querySelector('#playing-div');
 
 
 
@@ -34,6 +38,8 @@ nextButton.disabled=true;
 pauseButton.style.display = 'none';
 resumeButton.style.display = 'none';
 animation.style.display='none';
+playingDiv.style.display='none';
+playerContainer.style.display='flex';
 
 // Site Analytics
 let telegramMessage='';
@@ -56,6 +62,7 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 //   document.body.requestFullscreen();
 // });
 
+
 fetchButton.addEventListener('click', fetchArticle);
 
 resetButton.addEventListener('click', function(){
@@ -65,7 +72,18 @@ resetButton.addEventListener('click', function(){
 
 speakButton.addEventListener('click', function(){
   parseSentences();
+  lizen.disabled=true;
 });
+
+lizen.addEventListener('click', function(){
+  parseSentences();
+  lizen.disabled=true;
+  playerContainer.style.display='block';
+  eyes.style.display='none';
+  playingDiv.style.display='block';
+  
+});
+
 stopButton.addEventListener('click', stopAllFunction);
 
 pauseButton.addEventListener('click', function(){
@@ -175,10 +193,10 @@ async function parseSentences(){
     return;
   }
 
-  if(inputText.value===''){
-    alert("Text Box is empty! Add some content or fetch from a URL.");
-    return;
-  }
+  // if(inputText.value===''){
+  //   alert("Text Box is empty! Add some content or fetch from a URL.");
+  //   return;
+  // }
 
 
   // Function Analytics
@@ -238,7 +256,7 @@ async function showReadingText(textPart){
   // screenLock.enable();
   // console.log('Screen Locked!');
   readingText.textContent=textPart;
-  inputVoice.scrollIntoView();
+  // inputVoice.scrollIntoView();
   await speaker(textPart);
   // screenLock.disable();
   // console.log('Screen Unlocked.');
@@ -282,6 +300,7 @@ function stopAllFunction(){
   speechSynthesis.cancel(); 
   readingText.textContent=''; 
   progressBar.style.width = `${0}%`;
+  lizen.disabled=false;
 
   stopAll=true;
 }
