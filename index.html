@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"> 
     <link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="https://yakshag.github.io/lizen/images/headphones.png"/>
 </head>
@@ -29,36 +30,42 @@
                     <img class="headphones mb-5" src="https://yakshag.github.io/lizen/images/headphones.png" alt="headphones">
                 </div>
                 <div>
-                    <h5>WHY STARE AT THE SCREEN?</h5>
-                    <h1>Lizen!</h1>
+                    <h5 class="subtitle">WHY STARE AT THE SCREEN?</h5>
+                    <h1 class="title">Lizen!</h1>
                 </div>
             </div>
             <div class="col-12 col-lg-8">
                 <div class="mx-lg-4">
                     <h5 class="mb-4 text-center text-lg-start">HOW?</h5>
                     <div class="mx-auto mx-lg-0" style="width: max-content;">
-                        <div class="how-to-cards" style="background-color: #03DAC53D;">
+                        <div class="how-to-cards h-card-1">
                             <span class="material-icons me-3">notes</span>                            
                             Paste or fetch an article
                         </div>
                         <div class="text-center">
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="#03DAC5"/>
+                                <path class="arrow-1" d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="black"/>
                             </svg>
                         </div>
-                        <div class="how-to-cards">
+                        <div class="how-to-cards h-card-2">
                             <span class="material-icons me-3">speaker_notes</span>
                             Pick a voice
                         </div>
                         <div class="text-center">
                             <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="#03DAC5"/>
+                                <path class="arrow-2" d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="black"/>
                             </svg>
                         </div>
-                        <div class="how-to-cards mb-4">
+                        <div class="how-to-cards  h-card-3">
                             <span class="material-icons me-3">graphic_eq</span>
                             Lizen like a podcast!
                         </div>
+                        <div class="text-end">
+                            <button id="play-again" class="button-link-like"><span class="material-icons">refresh</span></button>
+                        </div>
+                        <div class="text-center">
+                            <span class="material-icons d-lg-none">expand_more</span>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -331,6 +338,7 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="tts.js"></script>
+    <script src="animate-js.js"></script>
     <script src="nosleep.js"></script>
     <script type="text/javascript">
         window._mfq = window._mfq || [];
