@@ -246,6 +246,7 @@ async function parseSentences(){
   pauseButton.style.display = 'none';
   resumeButton.style.display = 'none';
   animation.style.display='none';
+  lizen.disabled=false;
 }
 
 //Displays Reading text and calls speaker
