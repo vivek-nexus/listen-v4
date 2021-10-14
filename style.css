@@ -42,6 +42,18 @@ h2
     font-weight: 600;
 }
 
+.how-to-cards
+{
+    background-color: rgba(255, 255, 255, 0.12);
+    padding: 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #03DAC5CC;
+    display: flex;
+    align-items: center;
+}
+
 input
 {
     background-color: #2E2E2E99;
@@ -114,10 +126,12 @@ p
 
 .player-container
 {
-    background-color: #FFFFFF0A;
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0px 1px 3px 0px #00000033;
+    box-shadow: 0px 2px 1px 0px #0000001F;
+    box-shadow: 0px 1px 1px 0px #00000024;
     border-radius: 4px;
     padding: 1rem;
-    margin: 0rem 2rem;
     height: 100%;
     text-align: center;
     display: flex;
