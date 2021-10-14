@@ -21,6 +21,8 @@ const lizen=document.querySelector('#lizen');
 const playerContainer=document.querySelector('.player-container');
 const eyes=document.querySelector('#eyes');
 const playingDiv=document.querySelector('#playing-div');
+const scrollCTA=document.querySelector('#scroll-cta');
+const appSection=document.querySelector('#app');
 
 
 
@@ -62,6 +64,9 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 //   document.body.requestFullscreen();
 // });
 
+scrollCTA.addEventListener('click', function(){
+  appSection.scrollIntoView();
+})
 
 fetchButton.addEventListener('click', fetchArticle);
 
