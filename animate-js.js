@@ -46,11 +46,11 @@ const today = new Date()
 const curHr = today.getHours()
 
 if (curHr < 12) {
-  document.querySelector('h2').innerText="What will you listen to, this morning?";
-} else if (curHr < 18) {
-    document.querySelector('h2').innerText="What will you listen to, this afternoon?";
+  document.querySelector('h2').innerText="What will you lizen to, this morning?";
+} else if (curHr < 15) {
+    document.querySelector('h2').innerText="What will you lizen to, this afternoon?";
 } else {
-    document.querySelector('h2').innerText="What will you listen to, this evening?";
+    document.querySelector('h2').innerText="What will you lizen to, this evening?";
 }
 
 

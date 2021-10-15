@@ -31,14 +31,14 @@
                 </div>
                 <div>
                     <h5>WHY STARE AT THE SCREEN?</h5>
-                    <a href="/#app" class="text-decoration-none"><h1>Lizen!</h1></a>
+                    <a href="/lizen/#app" class="text-decoration-none"><h1>Lizen!</h1></a>
                 </div>
             </div>
             <div class="col-12 col-lg-8">
                 <div class="mx-lg-5">
                     <h5 class="mb-4 text-center text-lg-start">HOW?</h5>
                     <div class="mx-auto mx-lg-0" style="width: max-content;">
-                        <div class="how-to-cards h-card-1">
+                        <div class="how-to-cards p-2 p-lg-4 h-card-1">
                             <span class="material-icons me-3">notes</span>                            
                             Paste or fetch article text
                         </div>
@@ -47,7 +47,7 @@
                                 <path class="arrow-1" d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="black"/>
                             </svg>
                         </div>
-                        <div class="how-to-cards h-card-2">
+                        <div class="how-to-cards p-2 p-lg-4 h-card-2">
                             <span class="material-icons me-3">speaker_notes</span>
                             Pick a voice
                         </div>
@@ -56,7 +56,7 @@
                                 <path class="arrow-2" d="M7.29289 19.7071C7.68342 20.0976 8.31658 20.0976 8.70711 19.7071L15.0711 13.3431C15.4616 12.9526 15.4616 12.3195 15.0711 11.9289C14.6805 11.5384 14.0474 11.5384 13.6569 11.9289L8 17.5858L2.34315 11.9289C1.95262 11.5384 1.31946 11.5384 0.928932 11.9289C0.538408 12.3195 0.538408 12.9526 0.928932 13.3431L7.29289 19.7071ZM7 0L7 19H9L9 0L7 0Z" fill="black"/>
                             </svg>
                         </div>
-                        <div class="how-to-cards  h-card-3">
+                        <div class="how-to-cards p-2 p-lg-4 h-card-3">
                             <span class="material-icons me-3">graphic_eq</span>
                             Lizen like a podcast!
                         </div>
@@ -98,7 +98,7 @@
                         style="background-color: #2E2E2E99; border-color: #03DAC599; color: #FFFFFFDE; height: 200px; line-height: 1.5rem;"
                         class="form-control" placeholder="Article full text" id="input-text">This is a sample text!
             
-You can use Podcastify It to proof-read your articles, listen to news or web pages instead of reading them, explore pronunciation, accents and even just to have fun!
+You can use this tool to proof-read your articles, listen to news or web pages instead of reading them, explore pronunciation, accents and even just to have fun!
                                                     
 Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a more natural experience.</textarea>
                     <label style="color: #03DAC5;" for="floatingTextarea2">Artile full text</label>
@@ -123,7 +123,7 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                 <button class="button-link-like">HELP</button>
             </div>
             <div class="col-12 col-lg-8">
-                <div class="player-container align-items-center mx-lg-5">
+                <div class="player-container align-items-center mx-lg-5 p-lg-5">
                     <div class="mx-auto" style="font-size: 72px" id="eyes">
                         👀
                     </div>
@@ -139,7 +139,7 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                             <div class="floating-reset text-center"><button id="stop-button" class="button-link-like">RESET</button></div>
                             <div id="progress-bar" style="width:0%; padding: 0.1rem; background-color: #03DAC5;"></div>
                         </div>
-                        <div class="form-check form-switch d-flex align-items-center mb-5">
+                        <div class="form-check form-switch d-none d-lg-flex align-items-center mb-3">
                             <input style="background-color: #03DAC599;" class="form-check-input my-0 me-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                             <label class="form-check-label" for="flexSwitchCheckChecked">Continue lizening in background</label>
                             <!-- <input style="background-color: #03DAC5; border-radius: 2px;" class="form-check-input my-0 me-2" type="checkbox" value="" id="flexCheckDefault" checked>
@@ -147,11 +147,13 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                                 Continue lizening in background 
                             </label> -->
                         </div>
+                        <div class="animation-wrapper justify-content-center mb-2" style="height: 50px;">
+                            <img src="https://yakshag.github.io/lizen/images/speaking.gif" alt="speaking-animation">
+                        </div>
                         <div class="reading-now">
                             <div class="mb-3" style="font-weight: 600; color: rgba(255, 255, 255, 0.80);">READING NOW</div>
-                            <p id="reading-text" style="color: rgba(255, 255, 255, 0.50);">You can use Lizen to proof-read your articles, listen to news or web pages instead of reading them, explore pronunciation, accents and even just to have fun!</p>
+                            <p id="reading-text" style="color: rgba(255, 255, 255, 0.50);">Harry Potter and the Cursed Child, may be?</p>
                         </div>
-                    
                     </div>
                 </div>
             </div>
@@ -264,12 +266,6 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
 
             <p id="reading-text" class="mx-auto p-3 text-center"></p> -->
 
-            <div class="animation-wrapper justify-content-center mb-3 mb-sm-0" style="height: 30px;">
-                <div class="line1 speaking-animation"></div>
-                <div class="line2 speaking-animation"></div>
-                <div class="line3 speaking-animation"></div>
-                <div class="line4 speaking-animation"></div>
-            </div>
             
 
             <!-- <div class="progress" style="height: 10px; background-color: #CBEAFF;">

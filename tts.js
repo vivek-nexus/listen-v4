@@ -250,6 +250,7 @@ async function parseSentences(){
   speakButton.style.display = 'inline';
   pauseButton.style.display = 'none';
   resumeButton.style.display = 'none';
+  readingText.textContent='Harry Potter and the Cursed Child, may be?'; 
   animation.style.display='none';
   lizen.disabled=false;
 }
@@ -304,7 +305,7 @@ function stopAllFunction(){
   speakButton.style.display = 'inline';
   animation.style.display='none';
   speechSynthesis.cancel(); 
-  readingText.textContent=''; 
+  readingText.textContent='Harry Potter and the Cursed Child, may be?'; 
   progressBar.style.width = `${0}%`;
   lizen.disabled=false;
 
