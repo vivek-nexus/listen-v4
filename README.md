@@ -8,19 +8,19 @@ This project is deployed at https://yakshag.github.io/lizen/ with Github pages
 # Implementation plan
 ## High
 - [x] New name
-- [ ] Refresh hero area for new name
+- [x] Refresh hero area for new name
 - [ ] Bug on Safari
 - [ ] Keyboard shortcuts with music player like controls
 - [ ] Support for mobile listening with screen off
 - [ ] Support for listening on desktop by minimising/in background
-- [ ] Fresh sticky player controls
-- [ ] Better visualisation for listening indication
+- [x] Fresh sticky player controls
+- [x] Better visualisation for listening indication
 - [x] Implement better analytics
 
 ## Medium
-- [ ] Fresh dark design theme
-- [ ] Review latest analytics data
-- [ ] Show recommended voices across operating systems
+- [x] Fresh dark design theme
+- [x] Review latest analytics data
+- [x] Show recommended voices across operating systems
 - [ ] Register listening as media event in the browser
 - [ ] Better PWA manifest
 - [ ] Add UTM links to various source links for source tracking
