@@ -21,6 +21,7 @@ const lizen=document.querySelector('#lizen');
 const playerContainer=document.querySelector('.player-container');
 const eyes=document.querySelector('#eyes');
 const playingDiv=document.querySelector('#playing-div');
+const playingNav=document.querySelector('nav');
 const scrollCTA=document.querySelector('#scroll-cta');
 const appSection=document.querySelector('#app');
 
@@ -41,6 +42,7 @@ pauseButton.style.display = 'none';
 resumeButton.style.display = 'none';
 animation.style.display='none';
 playingDiv.style.display='none';
+playingNav.style.display='none';
 playerContainer.style.display='flex';
 
 // Site Analytics
@@ -60,10 +62,6 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
   speechSynthesis.onvoiceschanged = populateVoices;
 }
 
-// fullScreenButton.addEventListener('click', function(){
-//   document.body.requestFullscreen();
-// });
-
 scrollCTA.addEventListener('click', function(){
   appSection.scrollIntoView();
 })
@@ -78,6 +76,9 @@ resetButton.addEventListener('click', function(){
 speakButton.addEventListener('click', function(){
   parseSentences();
   lizen.disabled=true;
+  //https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
+  if(scrollCTA.offsetHeight>0)
+    readingText.scrollIntoView();
 });
 
 lizen.addEventListener('click', function(){
@@ -86,7 +87,9 @@ lizen.addEventListener('click', function(){
   playerContainer.style.display='block';
   eyes.style.display='none';
   playingDiv.style.display='block';
-  
+  playingNav.style.display='block';
+  if(scrollCTA.offsetHeight>0)
+    readingText.scrollIntoView();
 });
 
 stopButton.addEventListener('click', stopAllFunction);
@@ -180,7 +183,7 @@ async function fetchArticle(){
     // console.log(result);
 
     inputText.value=result;
-    inputText.scrollIntoView(); 
+    // inputText.scrollIntoView(); 
     fetchAnimation.style.display='none';
 }
 
@@ -198,10 +201,10 @@ async function parseSentences(){
     return;
   }
 
-  // if(inputText.value===''){
-  //   alert("Text Box is empty! Add some content or fetch from a URL.");
-  //   return;
-  // }
+  if(inputText.value===''){
+    alert("Text Box is empty! Add some content or fetch from a URL.");
+    return;
+  }
 
 
   // Function Analytics
@@ -250,7 +253,7 @@ async function parseSentences(){
   speakButton.style.display = 'inline';
   pauseButton.style.display = 'none';
   resumeButton.style.display = 'none';
-  readingText.textContent='Harry Potter and the Cursed Child, may be?'; 
+  readingText.textContent='👀'; 
   animation.style.display='none';
   lizen.disabled=false;
 }
@@ -305,7 +308,7 @@ function stopAllFunction(){
   speakButton.style.display = 'inline';
   animation.style.display='none';
   speechSynthesis.cancel(); 
-  readingText.textContent='Harry Potter and the Cursed Child, may be?'; 
+  readingText.textContent='👀'; 
   progressBar.style.width = `${0}%`;
   lizen.disabled=false;
 
