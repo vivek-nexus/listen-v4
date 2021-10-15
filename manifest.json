@@ -1,7 +1,7 @@
 {
     "theme_color": "#03DAC5",
     "background_color": "#03DAC599",
-    "display": "browser",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/lizen/#app",
     "name": "Lizen",
