@@ -200,7 +200,8 @@ select
 .floating-reset
 {
     position: absolute;
-    bottom: 0%;
+    /* left: 40%; */
+    bottom: 5%;
     z-index: 1;
     color: #03DAC5;
     width: 100%;

@@ -23,12 +23,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="https://yakshag.github.io/lizen/images/headphones.png" />
     <link rel="manifest" href="https://yakshag.github.io/lizen/manifest.json">
-
-    <script type="module">
-        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-        const el = document.createElement('pwa-update');
-        document.body.appendChild(el);
-     </script>
 </head>
 
 <body>
@@ -178,12 +172,12 @@ On dekstop devices, Google voices provided by Chrome browser are the best. On An
                             <div class="floating-reset text-center"><button id="stop-button" class="button-link-like">RESET</button></div>
                             <div id="progress-bar" style="width:0%; padding: 0.1rem; background-color: #03DAC5;"></div>
                         </div> -->
-                        <div class="form-check form-switch d-none d-lg-flex align-items-center mb-3">
+                        <!-- <div class="form-check form-switch d-none d-lg-flex align-items-center mb-3">
                             <input style="background-color: #03DAC599;" class="form-check-input my-0 me-2"
                                 type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                             <label class="form-check-label" for="flexSwitchCheckChecked">Continue lizening in
                                 background</label>
-                        </div>
+                        </div> -->
                         <div class="animation-wrapper justify-content-center mb-2" style="height: 30px;">
                             <div class="line1 speaking-animation"></div>
                             <div class="line2 speaking-animation"></div>
@@ -281,15 +275,34 @@ On dekstop devices, Google voices provided by Chrome browser are the best. On An
             </div>
         </div>
 
+        <!-- PWA Modal -->
+        <div class="modal fade" id="pwa" tabindex="-1" aria-labelledby="pwa" aria-hidden="true">
+            <div class="modal-dialog text-dark">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Install to home screen for easy access</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="fw-bold">Mobile devices (Android)</div>
+                        <div>Three dots menu (options) > Add to home screen</div>
+                        <div class="fw-bold">Desktop devices</div>
+                        <div>Three dots menu (options) > More tools > Create shortcut</div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section>
 
-
-        
+    <section class="container text-center">
+        Designed and developed by <a style="color: #FFFFFF99;" href="https://yaksha.webflow.io">Vivek G</a>. Copyright 2021.<br>
+        Attribution: Music vector created by rawpixel.com - <a style="color: #FFFFFF99;" href="https://www.freepik.com/vectors/music">www.freepik.com</a>
     </section>
 
     <nav class="navbar fixed-bottom mb-3">
         <div class="container">
             <div class="player-controls">
-                <div class="d-flex align-items-center justify-content-center px-4">
+                <div class="d-flex align-items-center justify-content-center px-4 pb-3">
                     <button id="prev-button" class="button-link-like"><span class="material-icons"
                             style="font-size: 3rem; color: #03DAC5;">skip_previous</span></button>
                     <button id="speak-button" class="button-link-like"><span class="material-icons"
@@ -301,9 +314,10 @@ On dekstop devices, Google voices provided by Chrome browser are the best. On An
                     <button id="next-button" class="button-link-like"><span class="material-icons"
                             style="font-size: 3rem; color: #03DAC5;">skip_next</span></button>
                 </div>
-                <!-- <div class="floating-reset text-center">
-                    <button id="stop-button" class="button-link-like">RESET</button>
-                </div> -->
+                <div class="floating-reset text-center">
+                    <button type="button" class="button-link-like" data-bs-toggle="modal"
+                    data-bs-target="#pwa">INSTALL APP</button>
+                </div>
                 <div id="progress-bar" style="width:0%; padding: 0.1rem; background-color: #03DAC5;"></div>
             </div>
         </div>

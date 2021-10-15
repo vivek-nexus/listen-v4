@@ -48,12 +48,15 @@ function animateCards() {
 const today = new Date();
 const curHr = today.getHours();
 
-if (curHr < 12) {
+if (curHr > 6 && curHr < 12) {
   document.querySelector('h2').innerText="What will you lizen to, this morning?";
-} else if (curHr < 17) {
+} else if (curHr >= 12 && curHr < 17) {
     document.querySelector('h2').innerText="What will you lizen to, this afternoon?";
-} else {
+} else if (curHr >= 17 && curHr < 21) {
     document.querySelector('h2').innerText="What will you lizen to, this evening?";
+}
+    else {
+    document.querySelector('h2').innerText="What will you lizen to, this night?";
 }
 
 
