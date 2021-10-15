@@ -47,7 +47,7 @@ const curHr = today.getHours()
 
 if (curHr < 12) {
   document.querySelector('h2').innerText="What will you lizen to, this morning?";
-} else if (curHr < 15) {
+} else if (curHr < 17) {
     document.querySelector('h2').innerText="What will you lizen to, this afternoon?";
 } else {
     document.querySelector('h2').innerText="What will you lizen to, this evening?";
