@@ -138,7 +138,7 @@ p
 select
 {
     padding: 0.75rem;
-    background-color: #2E2E2E99;
+    background-color: #0b4e47;
     color: #FFFFFFDE;
     border-color: #03DAC599;
     border-radius: 4px;
@@ -186,8 +186,9 @@ select
 
 .player-controls
 {
-    /* background-color: rgba(255, 255, 255, 0.24); */
-    background-color: #4B4B4B;
+    background-color: rgba(85, 85, 85, 0.84);
+    /* background-color: #4B4B4B; */
+    backdrop-filter: blur(4px);    
     border-radius: 4px;
     box-shadow: 0px 11px 15px 0px #00000033;
     box-shadow: 0px 9px 46px 0px #0000001F;

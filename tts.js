@@ -24,6 +24,8 @@ const playingDiv=document.querySelector('#playing-div');
 const playingNav=document.querySelector('nav');
 const scrollCTA=document.querySelector('#scroll-cta');
 const appSection=document.querySelector('#app');
+const refershVoices=document.querySelector('#refresh-voices');
+const cardCTA=document.querySelector('#card-cta');
 
 
 
@@ -66,12 +68,18 @@ scrollCTA.addEventListener('click', function(){
   appSection.scrollIntoView();
 })
 
+cardCTA.addEventListener('click', function(){
+  appSection.scrollIntoView();
+})
+
 fetchButton.addEventListener('click', fetchArticle);
 
 resetButton.addEventListener('click', function(){
   inputText.value="";
   inputText.focus();
 });
+
+refershVoices.addEventListener('click', function(){ location.reload();})
 
 speakButton.addEventListener('click', function(){
   parseSentences();
@@ -158,7 +166,7 @@ async function fetchArticle(){
   let result='';
   inputText.value='';
   fetchAnimation.style.display='block';
-  website='https://cors-anywhere.herokuapp.com/'+inputURL.value;
+  website='https://evening-falls-94871.herokuapp.com/'+inputURL.value;
   console.log(website);
 
   console.log(`Fetching from ${website}`);
@@ -170,7 +178,7 @@ async function fetchArticle(){
   const parser = new DOMParser();
   let doc = parser.parseFromString(html, 'text/html');
   // Get the article content tags
-    let array = doc.querySelectorAll('h1, h2, h3, p');
+    let array = doc.querySelectorAll('h1, h2, h3, h4, h5, p, li');
     for (element of array){
         console.log(element.textContent);
         result+= element.textContent+`.

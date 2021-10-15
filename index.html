@@ -69,16 +69,18 @@
                                     fill="black" />
                             </svg>
                         </div>
-                        <div class="how-to-cards p-2 p-lg-4 h-card-3">
-                            <span class="material-icons me-3">graphic_eq</span>
-                            <span class="fs-6 fs-lg-4">Lizen like a podcast!</span>
-                        </div>
+                            <div id="card-cta" class="how-to-cards p-2 p-lg-4 h-card-3">
+                                <button class="button-link-like p-0 d-flex align-items-center">
+                                    <span class="material-icons me-3">graphic_eq</span>
+                                    <span class="fs-6 fs-lg-4">Lizen like a podcast!</span>
+                                </button>
+                            </div>
                         <div class="text-end">
                             <button id="play-again" class="button-link-like"><span
                                     class="material-icons">refresh</span></button>
                         </div>
-                        <div class="d-lg-none text-center mt-3">
-                            <button id="scroll-cta" class="button-link-like"><span class="material-icons"
+                        <div class="d-lg-none text-center">
+                            <button id="scroll-cta" class="button-link-like p-0"><span class="material-icons"
                                     style="font-size: 3rem;">expand_more</span></button>
                         </div>
                     </div>
@@ -100,16 +102,15 @@
                     <label style="color: #03DAC5;" for="floatingInput">Article link</label>
                     <button class="btn btn-outline-secondary" type="button" id="fetch-button">FETCH</button>
                 </div>
-                <!-- Modal pending -->
+                <!-- Modal -->
                 <div class="d-flex justify-content-end">
-                    <!-- <button class="button-link-like" data-bs-toggle="modal" data-bs-target="#url-not-working">NOT WORKING?</button> -->
                     <button type="button" class="button-link-like" data-bs-toggle="modal"
                         data-bs-target="#url-not-working">NOT WORKING?</button>
                 </div>
 
                 <div class="text-center mb-2">OR</div>
 
-                <img class="mx-auto" id="fetch-animation" src="images/loading.svg" alt="loading" style="display: none;">
+                <img class="mx-auto" id="fetch-animation" src="/images/loading.svg" alt="loading" style="display: none;">
 
                 <!-- Article text -->
                 <div class="form-floating">
@@ -117,9 +118,9 @@
                         style="background-color: #2E2E2E99; border-color: #03DAC599; color: #FFFFFFDE; height: 200px; line-height: 1.5rem;"
                         class="form-control" placeholder="Article full text" id="input-text">This is a sample text!
             
-You can use this tool to proof-read your articles, listen to news or web pages instead of reading them, explore pronunciation or even just have fun!
+You can use this tool to listen to news or web pages instead of reading them, proof-read your articles, explore pronunciation or even just have fun!
                                                     
-Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a more natural experience.</textarea>
+On dekstop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.</textarea>
                     <label style="color: #03DAC5;" for="floatingTextarea2">Artile full text</label>
                 </div>
 
@@ -133,16 +134,26 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                     <option value="" data-voice-name="" data-voice-lang="">Pick a voice</option>
                 </select>
 
-                <!-- MORE SETTINGS pending -->
-                <div class="d-flex justify-content-end mb-3">
-                    <button class="button-link-like"><span class="material-icons">autorenew</span></button>
+                <!-- MORE SETTINGS -->
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="text-start my-auto">For best Google voices, use <img style="height: 20px;" src="/images/chrome-logo.svg" alt="chrome-logo"></div>
+                    <div class="text-end my-auto">
+                        <button id="refresh-voices" class="button-link-like"><span class="material-icons">autorenew</span></button>
                     <!-- <button class="button-link-like ms-3"><span class="material-icons">settings</span></button> -->
-                    <button type="button" class="button-link-like ms-3" data-bs-toggle="modal"
+                    <button type="button" class="button-link-like ms-2" data-bs-toggle="modal"
                         data-bs-target="#more-tts-settings"><span class="material-icons">settings</span></button>
+                    </div>
                 </div>
-                <button id="lizen" type="button" class="btn btn-primary me-2">LIZEN</button>
-                <button type="button" class="button-link-like" data-bs-toggle="modal"
-                        data-bs-target="#help-tts-settings">HELP</button>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <button id="lizen" type="button" class="btn btn-primary me-2">LIZEN</button>
+                        <button id="stop-button" type="button" class="button-link-like">RESET</button>
+                    </div>
+                    <div>
+                        <button type="button" class="button-link-like" data-bs-toggle="modal"
+                            data-bs-target="#help-tts-settings">HELP</button>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-lg-8">
                 <div class="player-container align-items-center mx-lg-5 p-lg-5">
@@ -196,12 +207,11 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                         <div class="font-weight-bold mb-3">If 'Fetch Article' is not working or returning unexpected
                             results, please copy paste the desired content from source page, into the text box directly.
                         </div>
-                        <div>Common reasons for this behaviour:</div>
+                        <div class="fw-bold">Common reasons for this behaviour:</div>
                         <ol>
                             <li>My URL fetch service is down -_-</li>
                             <li>Shortened URLs or re-directing URLs.</li>
-                            <li>Article content has bullet points or numbered lists.</li>
-                            <li>Non standard formatting of source website.</li>
+                            <li>Funny formatting of source website.</li>
                         </ol>
                     </div>
                 </div>
@@ -267,35 +277,13 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
 
 
 
-        <!-- <div class="player-container mt-5">
-            <div class="d-flex justify-content-center align-items-center text-center my">
-                <button id="prev-button"><img src="images/icon-previous.svg" alt="previous-button"></button>
-                <button id="speak-button"><img src="images/icon-play.svg" alt="play-button"></button>
-                <button id="pause-button"><img src="images/icon-pause.svg" alt="pause-button"></button>
-                <button id="resume-button"><img src="images/icon-play.svg" alt="resume-button"></button>
-                <button id="next-button"><img src="images/icon-next.svg" alt="next-button"></button>
-            </div>
-            <button class="d-block mx-auto my-2" id="stop-button" class="mb-4">Reset</button>
-
-            <p id="reading-text" class="mx-auto p-3 text-center"></p> -->
-
-
-
-        <!-- <div class="progress" style="height: 10px; background-color: #CBEAFF;">
-                <div class="progress-bar" id="progress-bar" style="width:0%; background-color: #2200FF;"></div>
-              </div> 
-        </div> -->
-
-        <!-- Button trigger modal -->
-        <!-- <div class="mt-2 d-flex justify-content-center">
-            <button class="button-link-like" data-toggle="modal" data-target="#help-tts-settings">Need help on Text to Speech?</button>
-        </div> -->
+        
     </section>
 
     <nav class="navbar fixed-bottom mb-3">
         <div class="container">
             <div class="player-controls">
-                <div class="d-flex align-items-center justify-content-center px-4 pb-3">
+                <div class="d-flex align-items-center justify-content-center px-4">
                     <button id="prev-button" class="button-link-like"><span class="material-icons"
                             style="font-size: 3rem;">skip_previous</span></button>
                     <button id="speak-button" class="button-link-like"><span class="material-icons"
@@ -307,8 +295,9 @@ Mobile devices(Android/iOS) contain better Text to Speech Engines, providing a m
                     <button id="next-button" class="button-link-like"><span class="material-icons"
                             style="font-size: 3rem;">skip_next</span></button>
                 </div>
-                <div class="floating-reset text-center"><button id="stop-button" class="button-link-like">RESET</button>
-                </div>
+                <!-- <div class="floating-reset text-center">
+                    <button id="stop-button" class="button-link-like">RESET</button>
+                </div> -->
                 <div id="progress-bar" style="width:0%; padding: 0.1rem; background-color: #03DAC5;"></div>
             </div>
         </div>

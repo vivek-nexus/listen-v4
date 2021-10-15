@@ -11,6 +11,9 @@ playAgain.addEventListener('click',animateCards);
 setTimeout(animateCards, 1500);
 // setTimeout(animateCards, 9800);
 
+
+// https://animate.style/
+
 function animateCards() {
     playAgain.style.display="none";
     helpCard2.style.backgroundColor = "rgba(255, 255, 255, 0.16)";
@@ -42,8 +45,8 @@ function animateCards() {
 }
 
 
-const today = new Date()
-const curHr = today.getHours()
+const today = new Date();
+const curHr = today.getHours();
 
 if (curHr < 12) {
   document.querySelector('h2').innerText="What will you lizen to, this morning?";
