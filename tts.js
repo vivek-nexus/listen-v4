@@ -118,13 +118,6 @@ nextButton.addEventListener('click',function(){
 
 window.addEventListener('blur', pauseFunction);
 
-window.addEventListener("beforeinstallprompt", ev => { 
-  // Stop Chrome from asking _now_
-  ev.preventDefault();
-  a2hsButton.onclick = () => ev.prompt();
-});
-
-
 
 
 

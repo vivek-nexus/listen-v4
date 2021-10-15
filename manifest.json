@@ -3,7 +3,7 @@
     "background_color": "#03DAC599",
     "display": "browser",
     "scope": "/",
-    "start_url": "/#app",
+    "start_url": "/lizen/#app",
     "name": "Lizen",
     "short_name": "Lizen",
     "description": "Why stare at the screen? Listen!",
