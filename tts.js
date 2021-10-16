@@ -33,7 +33,7 @@ const playingNav=document.querySelector('nav');
 const scrollCTA=document.querySelector('#scroll-cta');
 const appSection=document.querySelector('#app');
 const refershVoices=document.querySelector('#refresh-voices');
-const cardCTA=document.querySelector('#card-cta');
+const cardCTAs=document.querySelectorAll('.card-cta');
 
 
 
@@ -76,9 +76,11 @@ scrollCTA.addEventListener('click', function(){
   appSection.scrollIntoView();
 })
 
-cardCTA.addEventListener('click', function(){
-  appSection.scrollIntoView();
-})
+cardCTAs.forEach(function(elem) {
+  elem.addEventListener("click", function() {
+    appSection.scrollIntoView();
+  });
+});
 
 fetchButton.addEventListener('click', fetchArticle);
 
