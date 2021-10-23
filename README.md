@@ -16,6 +16,10 @@ This project is deployed at https://yakshag.github.io/lizen/ with Github pages
 - [x] Fresh sticky player controls
 - [x] Better visualisation for listening indication
 - [x] Implement better analytics
+- [ ] Rename RESET to STOP
+- [ ] Add empty link popup
+- [x] Remove links from first two cards
+- [ ] Update sample text to provide nudge to select a voice
 
 ## Medium
 - [x] Fresh dark design theme

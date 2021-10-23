@@ -1,11 +1,3 @@
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-      .register("sw.js")
-      .then(() => console.log("registered service worker!"));
-}
-
-
-
 // const fullScreenButton=document.querySelector('#full-screen-button');
 const inputText=document.querySelector('#input-text');
 const inputRate=document.querySelector('#input-rate');
@@ -76,6 +68,7 @@ scrollCTA.addEventListener('click', function(){
   appSection.scrollIntoView();
 })
 
+// https://stackoverflow.com/a/40956816
 cardCTAs.forEach(function(elem) {
   elem.addEventListener("click", function() {
     appSection.scrollIntoView();
