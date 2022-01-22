@@ -9,32 +9,11 @@ import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
-const EnglishOptions = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
-const NonEnglishOptions = [
-  { value: 'ABC', label: 'ABC' },
-  { value: 'KN', label: 'KN' },
-  { value: 'TN', label: 'TN' },
-];
-
-const groupedOptions = [
-  {
-    label : 'English voices',
-    options : EnglishOptions,
-  },
-  {
-    label : 'Non English voices',
-    options : NonEnglishOptions,
-  }
-];
 
 
 // For dropdown styling
@@ -45,13 +24,93 @@ const customStyles = {
   }),
 }
 
+function startSpeaking(){
+  const synth=window.speechSynthesis;
+  let voiceData=synth.getVoices();
+  const utterThis = new SpeechSynthesisUtterance("This is a sample text");
+  utterThis.voice = voiceData[3];
+  synth.speak(utterThis);
+}
+
+function stopSpeaking(){
+  const synth=window.speechSynthesis;
+  synth.cancel();
+}
+
+
+
+
 
 
 
 export default function Home() {
+
   const router = useRouter()
-  const [value, setValue] = useState("Potato potato tomato potato.");
+  const  [googleEnglishOptions, setGoogleEnglishOptions] = useState([]);
+  const [englishOptions, setEnglishOptions] = useState([
+    { value: 'English', label: 'English' },
+  ]);
+  const [nonEnglishOptions, setNonEnglishOptions] = useState([
+    { value: 'KN', label: 'KN' },
+  ]);
   
+  // Grouped options array for grouped dropdown
+  const groupedOptions = [
+    {
+      label : 'BEST ENGLISH VOICES',
+      options : googleEnglishOptions,
+    },
+    {
+      label : 'LOCAL ENGLISH VOICES',
+      options : englishOptions,
+    },
+    {
+      label : 'NON ENGLISH VOICES',
+      options : nonEnglishOptions,
+    }
+  ];
+
+  // Execute on click of voices dropdown or on first render
+  function populateDropDown(){
+    console.log("Populating dropdown")
+    const synth=window.speechSynthesis;
+    let voiceData=synth.getVoices();
+    let googleEnglishVoices=[], englishVoices=[], nonEnglishVoices = [];
+
+    for (const element of voiceData){
+      // Push Google english voices
+      if(element.name.substring(0,6) == 'Google' && element.lang.substring(0,2) == 'en'){
+        googleEnglishVoices.push({
+          label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        })
+      }
+      // Push non-Gogle english voices
+      else if(element.lang.substring(0,2) == 'en' && element.name.substring(0,6) != 'Google'){
+        englishVoices.push({
+          label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        })
+      }
+      // Push non-english voices
+      else{
+        nonEnglishVoices.push({
+          label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        })
+      }
+    }
+
+    // Set state variables to update voices dropdown
+    setGoogleEnglishOptions(googleEnglishVoices);
+    setEnglishOptions(englishVoices);
+    setNonEnglishOptions(nonEnglishVoices);
+  }
+
+  useEffect(() => {
+    populateDropDown();
+  },[]);
+  
+
+
+
   return (
     // <div className={styles.container}>
      
@@ -198,7 +257,11 @@ export default function Home() {
           <Select
             styles={customStyles}
             options={groupedOptions}
+            isSearchable={false}
+            isClearable={true}
             // placeholder='That matches the text'
+            onMenuOpen={()=> {populateDropDown(); startSpeaking();}}
+            onMenuClose={() => {stopSpeaking()}}
             theme={(theme) => ({
               ...theme,
               colors: {
