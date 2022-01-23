@@ -70,6 +70,28 @@ export const DarkTheme = {
         text: `${styles.primaryColor}`,
       }
     },
+    tertiary: {
+      default: {
+        bg: 'transparent',
+        border: 'transparent',
+        text: `${styles.primaryColor}`,
+      },
+      onHover: {
+        bg: 'transparent',
+        border: 'transparent',
+        text: `${styles.primaryColor}`,
+      },
+      onClick: {
+        bg: 'transparent',
+        border: 'transparent',
+        text: `${styles.primaryColor}`,
+      },
+      isActive: {
+        bg: 'transparent',
+        border: 'transparent',
+        text: `${styles.primaryColor}`,
+      }
+    },
   },
 
   // INPUT FIELD
