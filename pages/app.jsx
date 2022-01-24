@@ -22,6 +22,7 @@ import { split } from "sentence-splitter";
 
 
 
+
 // For dropdown styling
 const customStyles = {
   option: (provided, state) => ({
@@ -73,6 +74,38 @@ function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEngl
   setGoogleEnglishOptions(googleEnglishVoices);
   setEnglishOptions(englishVoices);
   setNonEnglishOptions(nonEnglishVoices);
+}
+
+function fetchArticle(url, setFetching, setHugeText){
+
+  let articleRaw, articleHTML, articleContent;
+
+  var requestOptions = {
+    method : 'GET',
+    redirect : 'follow'
+  };
+
+  setHugeText([]);
+
+  fetch(`http://localhost:5000/?url=${url}`, requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    // console.log(result)
+    articleRaw=JSON.parse(result)
+    const parser = new DOMParser();
+    articleHTML = parser.parseFromString(articleRaw.content, 'text/html');
+    let array1 = articleHTML.querySelectorAll('h1, h2, h3, h4, h5, p, li, a');
+    let article='';
+    
+    for(const element of array1)
+      article = article + (element.textContent)
+    setHugeText(article)
+    setFetching(false)
+  })
+  .catch(error => console.log('error',error))
+
+  
+  
 }
 
 function handleSelectChange(event, voiceChoice, setVoiceChoice) {
@@ -215,6 +248,8 @@ export default function Home() {
   const [voiceChoice, setVoiceChoice] = useState(null);
   
   const [hugeText, setHugeText] = useState('This is a sample text');
+  const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
+  const [fetching, setFetching] = useState(false)
   const [appUIState, setAappUIState] = useState('');
   const [sentenceCounter, setSentenceCounter] = useState(null);
   const [helpTab, setHelpTab] = useState(1);
@@ -300,11 +335,25 @@ export default function Home() {
             placeholder="https://yourfavblog.com/article-12"
             errorText="Looks invalid. Check?"
             type="url"
+            value={url}
+            onChange={(event) => {setUrl(event.target.value)}}
           />
 
           <Row marginBottom='none'>
             <Portion desktopSpan='10' mobileSpan='10' tabLSSpan='10' tabPTSpan='10'>
-              <Button kind="secondary" size="small" marginBottom='micro'>FETCH</Button>
+              {!fetching &&
+                <Button kind="secondary" size="small" marginBottom='micro'
+                onClick={()=>{
+                  setFetching(true);
+                  fetchArticle(url, setFetching, setHugeText)
+                }}
+              >FETCH</Button>
+              }
+              {fetching &&
+                <Button kind="secondary" size="small" marginBottom='micro'
+                  isLoading
+              >FETCH</Button>
+              }
             </Portion>
             <Portion desktopSpan='14' mobileSpan='14' tabLSSpan='14' tabPTSpan='14'>
               <Text margin='none'>— OR —</Text>
