@@ -68,6 +68,9 @@ export const DarkTheme = {
         bg: `${darken(0.16, styles.secondaryColor)}`,
         border: `${styles.primaryColor}`,
         text: `${styles.primaryColor}`,
+      },
+      isLoading: {
+        spinnerBorder: `${styles.primaryColor}`
       }
     },
     tertiary: {

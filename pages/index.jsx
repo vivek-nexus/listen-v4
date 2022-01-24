@@ -324,7 +324,7 @@ export default function Home() {
           {/* <Button kind="secondary" size="medium" marginBottom='none'
             onClick={() => {router.push('/app#help')}}
           >HELP </Button> */}
-        <Text marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
+        <Text marginBottom='none'>Chrome recommended</Text>
         </Portion>
 
         {/* NON DESKTOP MARK UP */}
@@ -339,7 +339,7 @@ export default function Home() {
               onClick={() => {router.push('/app#help')}}
             >INSTALL APP</Button>
           </div>
-        <Text align='center' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
+        <Text align='center' marginBottom='none'>Chrome recommended</Text>
         </Portion>
       </Row>
 
@@ -375,7 +375,9 @@ export default function Home() {
 
 
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/>
+      {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/> */}
+
+      <Text align='center' marginBottom='small'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
 
 
 

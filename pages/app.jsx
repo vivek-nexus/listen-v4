@@ -377,9 +377,9 @@ export default function Home() {
         <Portion desktopSpan='9' padding='micro' paddingTop='none'>
           <Element marginTop='micro' as='div'style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
           <Text className={styles.primaryFontColor} style={{margin: '0px 0px 2px 0px'}}>Pick a voice</Text>
-          {/* <Button kind="tertiary" size="small" marginBottom='nano' style={{}}
-            onClick={() => {router.push('/#help')}}
-          >HELP</Button> */}
+          <Button kind="tertiary" size="small" marginBottom='none' style={{}}
+            onClick={() => {router.push('/app/#help')}}
+          >HELP</Button>
           </Element>
 
           {/* https://react-select.com/styles */}
@@ -508,7 +508,7 @@ export default function Home() {
 
 
       {/* HELP */}
-      <Element as='div' marginBottom='large'>
+      <Element as='div' marginBottom='large' id='help'>
         
       
       <Heading as="h4" marginTop='micro' marginBottom='tiny'>Need help?</Heading>
@@ -526,13 +526,13 @@ export default function Home() {
         <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==3)? `3px solid ${styles.primaryColor}` : ''}`}}
           onClick={() => {setHelpTab(3)}}
         >
-          Fetch / Paste
+          Other
         </Heading>
-        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==4)? `3px solid ${styles.primaryColor}` : ''}`}}
+        {/* <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==4)? `3px solid ${styles.primaryColor}` : ''}`}}
           onClick={() => {setHelpTab(4)}}
         >
-          Browser support
-        </Heading>
+          Browsers
+        </Heading> */}
       </Element>
 
       {(helpTab == 1) &&
@@ -557,15 +557,12 @@ export default function Home() {
 
       {(helpTab == 3) &&
         <Element as='div'>
-          <Text weight='700' size="large" marginBottom='none'>My article is not being fetched</Text>
-          <Text marginTop='none'>Extracting an article from a web page is usually not fool proof due to various factors. Recommended fix is to copy paste the article text from the source page.</Text>
-        </Element>
-      }
-
-      {(helpTab == 4) &&
-        <Element as='div'>
-          <Text weight='700' size="large" marginBottom='none'>Which browsers are supported?</Text>
+          <Text weight='700' size="large" marginBottom='none'>What browsers are supported?</Text>
           <Text marginTop='none'>This app should work on most modern browsers, except Safari.</Text>
+          <Text weight='700' size="large" marginBottom='none'>Article is not being fetched or is messed up</Text>
+          <Text marginTop='none'>Extracting an article from a web page is usually not fool proof due to various factors. Recommended fix is to copy paste the article text from the source page.</Text>
+          <Text weight='700' size="large" marginBottom='none'>Speaking is stuck in the middle of a sentence</Text>
+          <Text marginTop='none'>Skip to the next sentence. This could be due to very long sentences not being supported by the voice.</Text>
         </Element>
       }
       </Element>
