@@ -319,11 +319,11 @@ export default function Home() {
           <Heading as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
           <Heading as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
           <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-            onClick={() => {router.push('/#app')}}
+            onClick={() => {router.push('/app')}}
           >START LISTENING</Button>
-          <Button kind="secondary" size="medium" marginBottom='none'
-            onClick={() => {router.push('/#help')}}
-          >HELP </Button>
+          {/* <Button kind="secondary" size="medium" marginBottom='none'
+            onClick={() => {router.push('/app#help')}}
+          >HELP </Button> */}
         <Text marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
         </Portion>
 
@@ -333,10 +333,10 @@ export default function Home() {
           <Heading align='center' as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
           <div className='horizontally-center-this'>
             <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-              onClick={() => {router.push('/#app')}}
+              onClick={() => {router.push('/app')}}
             >START LISTENING</Button>
             <Button kind="secondary" size="medium" marginBottom='none'
-              onClick={() => {router.push('/#help')}}
+              onClick={() => {router.push('/app#help')}}
             >INSTALL APP</Button>
           </div>
         <Text align='center' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
@@ -380,203 +380,14 @@ export default function Home() {
 
 
       {/* APP */}
-      <Heading as="h4" marginBottom='micro'>What will you listen to, today?</Heading>
-      <Row marginBottom='small' gutters='none' className={styles.surface}>
-        {/* LEFT PORTION */}
-        <Portion padding='micro' desktopSpan="15">
-          <InputField
-            label="Paste link to article"
-            placeholder="https://yourfavblog.com/article-12"
-            errorText="Looks invalid. Check?"
-            type="url"
-          />
-
-          <Row marginBottom='none'>
-            <Portion desktopSpan='6' mobileSpan='8' tabLSSpan='8' tabPTSpan='8'>
-              <Button kind="secondary" size="small" marginBottom='micro'>FETCH</Button>
-            </Portion>
-            <Portion desktopSpan='18' mobileSpan='16' tabLSSpan='16' tabPTSpan='16'>
-              <Text margin='none'>— OR —</Text>
-            </Portion>
-          </Row>
-          
-          <TextArea
-            label="Paste article text"
-            placeholder="A word, a pragraph or a long article"
-            rows={5}
-            // defaultValue={hugeText}
-            value={hugeText}
-            onChange={(event) => {setHugeText(event.target.value) }}
-            // textColor={`${styles.textColor}`}
-            style={{color : `${styles.textColor}`, lineHeight: '2rem'}}
-          />
-          
-        </Portion>
-
-        
-        {/* RIGHT PORTION */}
-        <Portion desktopSpan='9' padding='micro' paddingTop='none'>
-          <Element marginTop='micro' as='div'style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-          <Text className={styles.primaryFontColor} style={{margin: '0px 0px 2px 0px'}}>Pick a voice</Text>
-          {/* <Button kind="tertiary" size="small" marginBottom='nano' style={{}}
-            onClick={() => {router.push('/#help')}}
-          >HELP</Button> */}
-          </Element>
-
-          {/* https://react-select.com/styles */}
-          {/* https://yarnpkg.com/package/react-select */}
-          {voiceChoice!=null &&
-            <Select
-              styles={customStyles}
-              options={groupedOptions}
-              isSearchable={false}
-              isClearable={true}
-              // placeholder='That matches the text'
-              onMenuOpen={()=> {setAappUIState('paused') }}
-              // onMenuClose={() => { setAappUIState('playing') }}
-              defaultValue={{ label: voiceChoice, value: voiceChoice }}
-              onChange={(event) => { handleSelectChange(event, voiceChoice, setVoiceChoice) }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary: "#03DAC599",
-                  primary25: "#03DAC53D",
-                  primary50: "#2E2E2E",
-                  neutral0: "#2E2E2E",
-                  neutral80: "white",
-                }
-              })}
-            />
-          }
-          
-          {/* <Button kind="primary" size="small" marginTop='nano' marginRight='nano'
-            onClick={() => {splitToSentences(); startSpeaking(voiceChoice);}}
-          >LISTEN</Button> */}
-          
-
-          {/* RESET STATE */}
-          <Element as='div' hidden>
-            <Heading as='h6' weight='300' marginTop='small'>Tips for picking voices</Heading>
-            <Text>👉 Pick a voice that matches the language of your text.</Text>
-            <Text showOnlyOnDesktop>👉 On desktops, use Google Chrome for best voices.</Text>
-            <Text showOnlyOnMobile showOnlyOnTabLS showOnlyOnTabPT>👉 On mobile devices, voices are provided by the device text to speech engine.</Text>
-          </Element>
-
-          {/* SPEAKING STATE */}
-          <Element hidden as='div' shape='rounded' padding='micro' style={{ marginTop:'3.8rem', backgroundColor: `${styles.background2Color}`}}>
-            <Element as='div' style={{ display: 'flex', alignItems: 'center' }}>
-              <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-              <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
-            </Element>
-            <Element as='div' style={{ maxHeight: '6.4rem', overflow: 'auto' }}>
-              <Text id='readingText' margin='none'><i>You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text.You are listening to this text. You are listening to this text.</i></Text>
-            </Element>
-          </Element>
-
-          {(appUIState == 'playing') &&
-            <>
-              <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded' style={{ marginTop: '3rem' }}>
-                <Element as='div' style={{ display: 'flex', alignItems: 'center', marginTop: '5rem' }}>
-                  <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-                  <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
-                </Element>
-                <Element as='div' style={{ height: '10rem', overflow: 'auto' }}>
-                  <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text>
-                </Element>
-              </Element>
-              <Element showOnlyOnMobile showOnlyOnTabPT as='div' shape='rounded'>
-                <Element as='div' style={{ display: 'flex', alignItems: 'center', marginTop: '2rem' }}>
-                  <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-                  <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
-                </Element>
-                <Element as='div' style={{ height: '7rem', overflow: 'auto' }}>
-                  <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text>
-                </Element>
-              </Element>
-            </>
-          }
-        </Portion>
-
-        {/* PLAYER STRIP */}
-        <Portion desktopSpan='24' marginTop='nano'>
-          <div className={styles.playerStrip}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <div>
-                {(true) &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('previous')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
-                }
-              </div>
-              <div>
-                {(appUIState == '' || appUIState == 'paused') &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('playing')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
-                }
-              </div>
-              <div>
-                {(appUIState=='playing') &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={()=> {setAappUIState('paused');}}
-                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
-                }
-            </div>
-              <div>
-                <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('next')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
-              </div>
-            </div>
-            <div style={{position : 'absolute', width: '100%', top : '65%'}}>
-            <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
-                onClick={() => {setAappUIState('');}}
-            ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
-              </div>
-          </div>
-        </Portion>
-      </Row>
+      
 
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='help'/>
+      
 
 
 
-      {/* HELP */}
-      <Element as='div' marginBottom='huge'>
-        <Heading as="h4" marginBottom='micro'>Need help?</Heading>    
-      <Tabs>
-        <TabList style={{color: `${styles.primaryColor}`}}>
-          <Tab>Install app</Tab>
-          <Tab>Voices</Tab>
-          <Tab>Fetch / paste</Tab>
-        </TabList>
-
-        <TabPanel>
-          <Text weight='700' size="large" marginBottom='none'>Mobile devices</Text>
-          <Text marginTop='none' marginBottom='none'><strong>Android:</strong> Browser three dots menu > Add to Home screen</Text>
-          <Text marginTop='none'><strong>iOS:</strong> Share button > Add to Home screen</Text>
-
-          <Text weight='700' size="large" marginBottom='none'>Desktop</Text>
-          <Text marginTop='none'>You can simply bookmark this page for regular use.</Text>
-        </TabPanel>
-        <TabPanel>
-        <Text>👉 Pick a voice that matches the text language.</Text>
-          <Text>👉 On desktops, use Google Chrome for best voices.</Text>
-          <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-        </TabPanel>
-        <TabPanel>
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Please refresh the page a couple of times. If you still do not see any voices in the list, please try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-        </TabPanel>
-      </Tabs>
-      </Element>
+      
       
     </div>
   )

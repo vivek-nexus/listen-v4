@@ -38,7 +38,7 @@ const customStyles = {
 // let hugeText1='';
 let sentences=[];
 let appState='';
-let lastSentence=null;
+let lastSentence=0;
 // let voiceChoice;
 
 
@@ -104,38 +104,41 @@ async function sentenceManager(voiceChoice, hugeText, sentenceCounter, setSenten
 
   console.log(sentences);
   console.log("Last sentence is "+lastSentence);
-  for(let i=0; i<sentences.length; i++){
-    if(lastSentence){
-      i=lastSentence;
-      lastSentence=null;
-    }
+  for(let i=lastSentence; i<sentences.length; i++){
+    // if(lastSentence){
+    //   i=lastSentence;
+    //   lastSentence=null;
+    // }
+
+    setSentenceCounter(i);
+    console.log('Sent sentence '+i+' for speaking')
+    await startSpeaking(voiceChoice, sentences[i]);
     
     if(appState == 'paused' || appState == ''){
       // console.log('App state '+appState);
       console.log('Paused/stopped at sentence '+i);
       if(appState == 'paused')
-        lastSentence=i-1;
+        lastSentence=i;
+        console.log('Breaking loop and returning')
       return;
     }
 
     if(appState == 'previous'){
-      lastSentence = i-2;
+      lastSentence = i-1;
       appState='playing'
-      return
+      console.log('Breaking loop and returning')
+      return;
     }
 
     if(appState == 'next'){
-      lastSentence=i;
+      lastSentence=i+1;
       appState='playing'
-      return
+      console.log('Breaking loop and returning')
+      return;
     }
-    
-    setSentenceCounter(i);
-    console.log('i is '+i)
-    await startSpeaking(voiceChoice, sentences[i]);
   }
 
-  lastSentence=null;
+  lastSentence=0;
   setSentenceCounter(null);
   setAappUIState('');
   appState='';
@@ -154,9 +157,9 @@ function startSpeaking(voiceChoice, sentence){
       selectedVoice = element;
   }
 
-  // if(sentence=='' || sentence==undefined)
-  //   return new Promise(resolve => {resolve;}
-  // );
+  if(appState == 'paused')
+    return new Promise((resolve) => {resolve;}
+  );
 
   const utterThis = new SpeechSynthesisUtterance(sentence);
   utterThis.voice = selectedVoice;
@@ -225,7 +228,7 @@ export default function Home() {
       setVoiceChoice('Select');
     }
 
-    setHugeText('This is a sample text! You can use this tool to listen to news or web pages instead of reading them, proof-read your articles, explore pronunciation or even just have fun! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
+    setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
 
     setTimeout(() => {
       populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
@@ -255,18 +258,12 @@ export default function Home() {
     }
     if(appUIState == ''){
       appState='';
-      lastSentence=null;
+      lastSentence=0;
       stopSpeaking()
       setSentenceCounter(null)
     }
     // console.log('App state is '+appState)
   },[appUIState])
-
-  useEffect(() => {
-    // console.log('Sentence counter is '+sentenceCounter)
-  },[sentenceCounter])
-
-  // Execute on click of voices dropdown or on first render
   
 
   
@@ -288,100 +285,15 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet" />
       </Head>
-
-
-      {/* HERO SECTION */}
-      <Row marginBottom='none' marginTop='small'>
-        {/* DESKTOP MARK UP */}
-        <Portion desktopSpan="one-third" hideOnTabPT hideOnMobile>
-          <Element
-            as="img"
-            src="/headphones.png"
-            marginBottom="small"
-            // style={{ width: "164px" }}
-            style={{ width: "192px", marginRight: "auto" }}
-          />
-        </Portion>
-
-        {/* NON DESKTOP MARK UP */}
-        <Portion marginBottom='small' showOnlyOnTabPT showOnlyOnMobile>
-          <Element
-            as="img"
-            src="/headphones.png"
-            marginBottom="small"
-            // style={{ width: "164px" }}
-            style={{ width: "192px", margin: "auto" }}
-          />
-        </Portion>
-
-        {/* DESKTOP MARK UP */}
-        <Portion desktopSpan="two-third" hideOnTabPT hideOnMobile>
-          <Heading as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
-          <Heading as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
-          <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-            onClick={() => {router.push('/#app')}}
-          >START LISTENING</Button>
-          <Button kind="secondary" size="medium" marginBottom='none'
-            onClick={() => {router.push('/#help')}}
-          >HELP </Button>
-        <Text marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
-        </Portion>
-
-        {/* NON DESKTOP MARK UP */}
-        <Portion showOnlyOnTabPT showOnlyOnMobile>
-          <Heading align='center' as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
-          <Heading align='center' as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
-          <div className='horizontally-center-this'>
-            <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-              onClick={() => {router.push('/#app')}}
-            >START LISTENING</Button>
-            <Button kind="secondary" size="medium" marginBottom='none'
-              onClick={() => {router.push('/#help')}}
-            >INSTALL APP</Button>
-          </div>
-        <Text align='center' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
-        </Portion>
-      </Row>
-
-
-
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}}/>
-
-
-
-      {/* FEATURES */}
-      <Row marginBottom='small'>
-        <Portion padding='nano' desktopSpan='5' mobileSpan='12' tabLSSpan='12' tabPTSpan='12'>
-          {/* https://stackoverflow.com/questions/34521797/how-to-add-multiple-classes-to-a-reactjs-component */}
-          <Text align='center'><span className={`material-icons ${styles.icon48}`}>cloud_download</span></Text>
-          <Text align='center'>Fetch from links</Text>
-        </Portion>
-        <Portion desktopSpan='1' hideOnMobile hideOnTabLS hideOnTabPT></Portion>
-        <Portion padding='nano' desktopSpan='5' mobileSpan='12' tabLSSpan='12' tabPTSpan='12'>
-          <Text align='center'><span className={`material-icons ${styles.icon48}`}>description</span></Text>
-          <Text align='center'>Paste text</Text>
-        </Portion>
-        <Portion desktopSpan='1' hideOnMobile hideOnTabLS hideOnTabPT></Portion>
-        <Portion padding='nano' desktopSpan='5' mobileSpan='12' tabLSSpan='12' tabPTSpan='12'>
-          <Text align='center'><span className={`material-icons ${styles.icon48}`}>devices</span></Text>
-          <Text align='center'>All your devices</Text>
-        </Portion>
-        <Portion desktopSpan='1' hideOnMobile hideOnTabLS hideOnTabPT></Portion>
-        <Portion padding='nano' desktopSpan='5' mobileSpan='12' tabLSSpan='12' tabPTSpan='12'>
-          <Text align='center'><span className={`material-icons ${styles.icon48}`}>translate</span></Text>
-          <Text align='center'>Languages</Text>
-        </Portion>
-      </Row>
-
-
-
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/>
-
-
+    
+    
 
       {/* APP */}
-      <Heading as="h4" marginBottom='micro'>What will you listen to, today?</Heading>
-      <Row marginBottom='small' gutters='none' className={styles.surface}>
+      
+      <Row marginBottom='large' gutters='none' className={styles.surface}>
+        <Portion padding='micro'>
+            <Heading as="h4" marginBottom='none'>What will you listen to, today?</Heading>
+        </Portion>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
           <InputField
@@ -392,10 +304,10 @@ export default function Home() {
           />
 
           <Row marginBottom='none'>
-            <Portion desktopSpan='6' mobileSpan='8' tabLSSpan='8' tabPTSpan='8'>
+            <Portion desktopSpan='10' mobileSpan='10' tabLSSpan='10' tabPTSpan='10'>
               <Button kind="secondary" size="small" marginBottom='micro'>FETCH</Button>
             </Portion>
-            <Portion desktopSpan='18' mobileSpan='16' tabLSSpan='16' tabPTSpan='16'>
+            <Portion desktopSpan='14' mobileSpan='14' tabLSSpan='14' tabPTSpan='14'>
               <Text margin='none'>— OR —</Text>
             </Portion>
           </Row>
@@ -403,14 +315,13 @@ export default function Home() {
           <TextArea
             label="Paste article text"
             placeholder="A word, a pragraph or a long article"
-            rows={5}
+            rows={4}
             // defaultValue={hugeText}
             value={hugeText}
             onChange={(event) => {setHugeText(event.target.value) }}
             // textColor={`${styles.textColor}`}
             style={{color : `${styles.textColor}`, lineHeight: '2rem'}}
           />
-          
         </Portion>
 
         
@@ -499,8 +410,8 @@ export default function Home() {
         </Portion>
 
         {/* PLAYER STRIP */}
-        <Portion desktopSpan='24' marginTop='nano'>
-          <div className={styles.playerStrip}>
+        <Portion desktopSpan='24' marginTop='nano'style={{position : 'fixed', bottom: '5%'}}>
+          {/* <div className={styles.playerStrip}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div>
                 {(true) &&
@@ -534,17 +445,55 @@ export default function Home() {
                 onClick={() => {setAappUIState('');}}
             ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
               </div>
-          </div>
+          </div> */}
         </Portion>
       </Row>
 
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='help'/>
+      {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='help'/> */}
 
+        <div style={{position:'fixed', width:'100%', right: 0, bottom:'2.5%'}}>
+            <div className={styles.playerStrip} style={{ position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div>
+                        <Button kind='tertiary' bgColor='transparent' size='tiny'
+                            onClick={() => { setAappUIState('previous') }}
+                        ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
+                    </div>
+                    <div>
+                        {(appUIState == '' || appUIState == 'paused') &&
+                            <Button kind='tertiary' bgColor='transparent' size='tiny'
+                                onClick={() => { setAappUIState('playing') }}
+                            ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
+                        }
+                    </div>
+                    <div>
+                        {(appUIState == 'playing' || appUIState == 'next' || appUIState == 'previous') &&
+                            <Button kind='tertiary' bgColor='transparent' size='tiny'
+                                onClick={() => { setAappUIState('paused'); }}
+                            ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
+                        }
+                    </div>
+                    <div>
+                        <Button kind='tertiary' bgColor='transparent' size='tiny'
+                            onClick={() => { setAappUIState('next') }}
+                        ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
+                    </div>
+                </div>
+                <div style={{ position: 'absolute', width: '100%', top: '65%' }}>
+                    <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
+                        onClick={() => { setAappUIState(''); }}
+                    ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
+                </div>
+            </div>
+        </div>
+
+
+    
 
 
       {/* HELP */}
-      <Element as='div' marginBottom='huge'>
+      <Element as='div' marginBottom='large'>
         <Heading as="h4" marginBottom='micro'>Need help?</Heading>    
       <Tabs>
         <TabList style={{color: `${styles.primaryColor}`}}>
