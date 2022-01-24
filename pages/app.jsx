@@ -217,6 +217,7 @@ export default function Home() {
   const [hugeText, setHugeText] = useState('This is a sample text');
   const [appUIState, setAappUIState] = useState('');
   const [sentenceCounter, setSentenceCounter] = useState(null);
+  const [helpTab, setHelpTab] = useState(1);
 
   useEffect(() => {
     populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
@@ -289,14 +290,12 @@ export default function Home() {
     
 
       {/* APP */}
-      
-      <Row marginBottom='large' gutters='none' className={styles.surface}>
-        <Portion padding='micro'>
-            <Heading as="h4" marginBottom='none'>What will you listen to, today?</Heading>
-        </Portion>
+      <Heading as="h4" marginTop='micro' marginBottom='micro'>What will you listen to, today?</Heading>
+      <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
           <InputField
+            id='link-input'
             label="Paste link to article"
             placeholder="https://yourfavblog.com/article-12"
             errorText="Looks invalid. Check?"
@@ -408,45 +407,6 @@ export default function Home() {
             </>
           }
         </Portion>
-
-        {/* PLAYER STRIP */}
-        <Portion desktopSpan='24' marginTop='nano'style={{position : 'fixed', bottom: '5%'}}>
-          {/* <div className={styles.playerStrip}>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <div>
-                {(true) &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('previous')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
-                }
-              </div>
-              <div>
-                {(appUIState == '' || appUIState == 'paused') &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('playing')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
-                }
-              </div>
-              <div>
-                {(appUIState=='playing') &&
-                  <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={()=> {setAappUIState('paused');}}
-                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
-                }
-            </div>
-              <div>
-                <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => {setAappUIState('next')}}
-                ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
-              </div>
-            </div>
-            <div style={{position : 'absolute', width: '100%', top : '65%'}}>
-            <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
-                onClick={() => {setAappUIState('');}}
-            ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
-              </div>
-          </div> */}
-        </Portion>
       </Row>
 
 
@@ -454,6 +414,9 @@ export default function Home() {
 
         <div style={{position:'fixed', width:'100%', right: 0, bottom:'2.5%'}}>
             <div className={styles.playerStrip} style={{ position: 'relative' }}>
+              <div>
+                <div style={{width: `${(sentenceCounter/sentences.length)*100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px'}}></div>
+              </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <div>
                         <Button kind='tertiary' bgColor='transparent' size='tiny'
@@ -463,7 +426,10 @@ export default function Home() {
                     <div>
                         {(appUIState == '' || appUIState == 'paused') &&
                             <Button kind='tertiary' bgColor='transparent' size='tiny'
-                                onClick={() => { setAappUIState('playing') }}
+                                onClick={() => {
+                                  // router.push('/app#link-input') 
+                                  setAappUIState('playing') 
+                                }}
                             ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
                         }
                     </div>
@@ -494,37 +460,65 @@ export default function Home() {
 
       {/* HELP */}
       <Element as='div' marginBottom='large'>
-        <Heading as="h4" marginBottom='micro'>Need help?</Heading>    
-      <Tabs>
-        <TabList style={{color: `${styles.primaryColor}`}}>
-          <Tab>Install app</Tab>
-          <Tab>Voices</Tab>
-          <Tab>Fetch / paste</Tab>
-        </TabList>
+        
+      
+      <Heading as="h4" marginTop='micro' marginBottom='tiny'>Need help?</Heading>
+      <Element as='div' style={{display:'flex', cursor: 'pointer'}}>
+        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==1)? `3px solid ${styles.primaryColor}` : ''}`}} paddingBottom='nano' 
+          onClick={() => {setHelpTab(1)}}
+        >
+          Install app
+        </Heading>
+        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==2)? `3px solid ${styles.primaryColor}` : ''}`}}
+          onClick={() => {setHelpTab(2)}}
+        >
+          Voices
+        </Heading>
+        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==3)? `3px solid ${styles.primaryColor}` : ''}`}}
+          onClick={() => {setHelpTab(3)}}
+        >
+          Fetch / Paste
+        </Heading>
+        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==4)? `3px solid ${styles.primaryColor}` : ''}`}}
+          onClick={() => {setHelpTab(4)}}
+        >
+          Browser support
+        </Heading>
+      </Element>
 
-        <TabPanel>
+      {(helpTab == 1) &&
+        <Element as='div'>
           <Text weight='700' size="large" marginBottom='none'>Mobile devices</Text>
-          <Text marginTop='none' marginBottom='none'><strong>Android:</strong> Browser three dots menu > Add to Home screen</Text>
-          <Text marginTop='none'><strong>iOS:</strong> Share button > Add to Home screen</Text>
+          <Text marginTop='none' marginBottom='none'><strong>Android:</strong> Browser menu > Add to Home screen</Text>
 
           <Text weight='700' size="large" marginBottom='none'>Desktop</Text>
           <Text marginTop='none'>You can simply bookmark this page for regular use.</Text>
-        </TabPanel>
-        <TabPanel>
-        <Text>👉 Pick a voice that matches the text language.</Text>
+        </Element>
+      }
+
+      {(helpTab == 2) &&
+        <Element as='div'>
+          <Text>👉 Pick a voice that matches the text language.</Text>
           <Text>👉 On desktops, use Google Chrome for best voices.</Text>
           <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
           <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
           <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
+        </Element>
+      }
 
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-        </TabPanel>
-        <TabPanel>
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Please refresh the page a couple of times. If you still do not see any voices in the list, please try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-        </TabPanel>
-      </Tabs>
+      {(helpTab == 3) &&
+        <Element as='div'>
+          <Text weight='700' size="large" marginBottom='none'>My article is not being fetched</Text>
+          <Text marginTop='none'>Extracting an article from a web page is usually not fool proof due to various factors. Recommended fix is to copy paste the article text from the source page.</Text>
+        </Element>
+      }
+
+      {(helpTab == 4) &&
+        <Element as='div'>
+          <Text weight='700' size="large" marginBottom='none'>Which browsers are supported?</Text>
+          <Text marginTop='none'>This app should work on most modern browsers, except Safari.</Text>
+        </Element>
+      }
       </Element>
       
     </div>
