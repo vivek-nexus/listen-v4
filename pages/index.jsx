@@ -299,7 +299,7 @@ export default function Home() {
         <Portion desktopSpan="one-third" hideOnTabPT hideOnMobile>
           <Element
             as="img"
-            src="/lizen/headphones.png"
+            src="/headphones.png"
             marginBottom="small"
             // style={{ width: "164px" }}
             style={{ width: "192px", marginRight: "auto" }}
@@ -310,7 +310,7 @@ export default function Home() {
         <Portion marginBottom='small' showOnlyOnTabPT showOnlyOnMobile>
           <Element
             as="img"
-            src="/lizen/headphones.png"
+            src="/headphones.png"
             marginBottom="small"
             // style={{ width: "164px" }}
             style={{ width: "192px", margin: "auto" }}

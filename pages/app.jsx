@@ -281,7 +281,7 @@ export default function Home() {
     if(urlParam){
       setUrl(urlParam)
       setFetching(true)
-      fetchArticle(url, setFetching, setHugeText)
+      fetchArticle(urlParam, setFetching, setHugeText)
     }
   },[]);
 
