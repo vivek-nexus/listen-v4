@@ -16,7 +16,6 @@ import 'react-tabs/style/react-tabs.css';
 import { split } from "sentence-splitter";
 
 // https://www.npmjs.com/package/react-device-detect
-// import { isSafari } from 'react-device-detect';
 import { browserName, CustomView, isMobile } from 'react-device-detect';
 
 
