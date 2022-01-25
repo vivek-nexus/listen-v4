@@ -15,6 +15,10 @@ import 'react-tabs/style/react-tabs.css';
 // https://www.npmjs.com/package/sentence-splitter
 import { split } from "sentence-splitter";
 
+// https://www.npmjs.com/package/react-device-detect
+// import { isSafari } from 'react-device-detect';
+import { browserName, CustomView } from 'react-device-detect';
+
 
 
 
@@ -317,14 +321,17 @@ export default function Home() {
         {/* DESKTOP MARK UP */}
         <Portion desktopSpan="two-third" hideOnTabPT hideOnMobile>
           <Heading as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
-          <Heading as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
+          <Heading as="h2" weight='300' marginBottom='micro'><strike>Read</strike> Listen!</Heading>
           <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
             onClick={() => {router.push('/app')}}
           >START LISTENING</Button>
           {/* <Button kind="secondary" size="medium" marginBottom='none'
             onClick={() => {router.push('/app#help')}}
           >HELP </Button> */}
-        <Text marginBottom='none'>Chrome recommended</Text>
+          <CustomView condition={browserName !== "Chrome"}>
+            <Text marginBottom='none'>Google Chrome recommended</Text>
+          </CustomView>
+        
         </Portion>
 
         {/* NON DESKTOP MARK UP */}
@@ -339,7 +346,9 @@ export default function Home() {
               onClick={() => {router.push('/app#help')}}
             >INSTALL APP</Button>
           </div>
-        <Text align='center' marginBottom='none'>Chrome recommended</Text>
+          <CustomView condition={browserName !== "Chrome"}>
+            <Text marginBottom='none'>Google Chrome recommended</Text>
+          </CustomView>
         </Portion>
       </Row>
 

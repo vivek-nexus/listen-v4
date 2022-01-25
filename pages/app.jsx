@@ -15,7 +15,9 @@ import 'react-tabs/style/react-tabs.css';
 // https://www.npmjs.com/package/sentence-splitter
 import { split } from "sentence-splitter";
 
-
+// https://www.npmjs.com/package/react-device-detect
+// import { isSafari } from 'react-device-detect';
+import { browserName, CustomView, isMobile } from 'react-device-detect';
 
 
 
@@ -87,7 +89,7 @@ function fetchArticle(url, setFetching, setHugeText){
 
   setHugeText([]);
 
-  fetch(`http://localhost:5000/?url=${url}`, requestOptions)
+  fetch(`https://hidden-citadel-76712.herokuapp.com?url=${url}`, requestOptions)
   .then(response => response.text())
   .then(result => {
     // console.log(result)
@@ -257,6 +259,10 @@ export default function Home() {
   useEffect(() => {
     populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
 
+    setTimeout(() => {
+      populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
+    }, 100);
+
     if(localStorage.getItem('voice')){
       setVoiceChoice(localStorage.getItem('voice'));
     }
@@ -265,10 +271,19 @@ export default function Home() {
     }
 
     setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
+    
+    if(isMobile){
+      window.addEventListener('blur', function(){
+        setAappUIState('paused')
+      });
+    }
 
-    setTimeout(() => {
-      populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
-    }, 100);
+    let urlParam = (new URLSearchParams(window.location.search)).get('url');
+    if(urlParam){
+      setUrl(urlParam)
+      setFetching(true)
+      fetchArticle(url, setFetching, setHugeText)
+    }
   },[]);
 
   useEffect(()=>{
@@ -325,7 +340,13 @@ export default function Home() {
     
 
       {/* APP */}
-      <Heading as="h4" marginTop='micro' marginBottom='micro'>What will you listen to, today?</Heading>
+      <CustomView condition={browserName === "Chrome"}>
+        <Heading as="h4" marginTop='micro' marginBottom='tiny'>What will you listen to, today?</Heading>
+      </CustomView>
+      <CustomView condition={browserName !== "Chrome"}>
+        <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
+        <Text marginTop='none' marginBottom='micro'>Google Chrome recommended</Text>
+      </CustomView>
       <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
@@ -337,6 +358,7 @@ export default function Home() {
             type="url"
             value={url}
             onChange={(event) => {setUrl(event.target.value)}}
+            style={{color : `${styles.textColor}`}}
           />
 
           <Row marginBottom='none'>
