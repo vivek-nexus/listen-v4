@@ -4,182 +4,7 @@ import styles from '../styles/Home.module.scss'
 import { Button, Text, Element, Heading, Row, Portion, InputField, TextArea, HRule } from "fictoan-react"
 
 import React from 'react';
-import Select from 'react-select';
 import { useState, useEffect } from 'react';
-
-// https://www.npmjs.com/package/react-select
-// https://react-select.com/home
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
-
-// https://www.npmjs.com/package/sentence-splitter
-import { split } from "sentence-splitter";
-
-// https://www.npmjs.com/package/react-device-detect
-import { browserName, CustomView } from 'react-device-detect';
-
-
-
-
-
-
-
-
-// For dropdown styling
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    color: 'white',
-  }),
-  singleValue: (provided, state) => ({
-    ...provided,
-    color: 'white',
-    padding: '8px'
-  }),
-}
-
-// let hugeText1='';
-let sentences=[];
-let appState='';
-let lastSentence=null;
-// let voiceChoice;
-
-
-function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions){
-  // console.log("Populating dropdown")
-  const synth=window.speechSynthesis;
-  let voiceData=synth.getVoices();
-  let googleEnglishVoices=[], englishVoices=[], nonEnglishVoices = [];
-
-  for (const element of voiceData){
-    // Push Google english voices
-    if(element.name.substring(0,6) == 'Google' && element.lang.substring(0,2) == 'en'){
-      googleEnglishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
-      })
-    }
-    // Push non-Gogle english voices
-    else if(element.lang.substring(0,2) == 'en' && element.name.substring(0,6) != 'Google'){
-      englishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
-      })
-    }
-    // Push non-english voices
-    else{
-      nonEnglishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
-      })
-    }
-  }
-
-  // Set state variables to update voices dropdown
-  setGoogleEnglishOptions(googleEnglishVoices);
-  setEnglishOptions(englishVoices);
-  setNonEnglishOptions(nonEnglishVoices);
-}
-
-function handleSelectChange(event, voiceChoice, setVoiceChoice) {
-  // console.log(event)
-  if (event) {
-    setVoiceChoice(event.label);
-    localStorage.setItem('voice', event.label);
-  }
-  else {
-    setVoiceChoice('Select');
-    localStorage.setItem('voice', 'Select');
-  }
-}
-
-function splitToSentences(hugeText){
-  const sentencesData = split(hugeText);
-  sentences=[];
-  for (const element of sentencesData){
-    if(element.type == 'Sentence'){
-      // console.log(element.raw);
-      sentences.push(element.raw);
-    }
-  }
-  // console.log(sentences);
-}
-
-async function sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState){
-  splitToSentences(hugeText);
-
-  console.log(sentences);
-  console.log("Last sentence is "+lastSentence);
-  for(let i=0; i<sentences.length; i++){
-    if(lastSentence){
-      i=lastSentence;
-      lastSentence=null;
-    }
-    
-    if(appState == 'paused' || appState == ''){
-      // console.log('App state '+appState);
-      console.log('Paused/stopped at sentence '+i);
-      if(appState == 'paused')
-        lastSentence=i-1;
-      return;
-    }
-
-    if(appState == 'previous'){
-      lastSentence = i-2;
-      appState='playing'
-      return
-    }
-
-    if(appState == 'next'){
-      lastSentence=i;
-      appState='playing'
-      return
-    }
-    
-    setSentenceCounter(i);
-    console.log('i is '+i)
-    await startSpeaking(voiceChoice, sentences[i]);
-  }
-
-  lastSentence=null;
-  setSentenceCounter(null);
-  setAappUIState('');
-  appState='';
-}
-
-
-function startSpeaking(voiceChoice, sentence){
-  const synth=window.speechSynthesis;
-  let voiceData=synth.getVoices();
-  let selectedVoice;
-
-  for (const element of voiceData){
-    // console.log(`${element.name} (${element.lang})`)
-    // console.log(voiceChoice)
-    if(`${element.name} (${element.lang})` == voiceChoice)
-      selectedVoice = element;
-  }
-
-  // if(sentence=='' || sentence==undefined)
-  //   return new Promise(resolve => {resolve;}
-  // );
-
-  const utterThis = new SpeechSynthesisUtterance(sentence);
-  utterThis.voice = selectedVoice;
-  synth.speak(utterThis);
-  
-  // https://stackoverflow.com/a/58049676
-  // https://tombyrer.github.io/web-speech-synth-segmented/
-  return new Promise((resolve) => {
-    utterThis.onend = resolve;
-  })
-}
-
-function stopSpeaking(){
-  const synth=window.speechSynthesis;
-  synth.cancel();
-}
-
-
-
-
 
 
 
@@ -190,95 +15,9 @@ function stopSpeaking(){
 export default function Home() {
 
   const router = useRouter()
-  const  [googleEnglishOptions, setGoogleEnglishOptions] = useState([]);
-  const [englishOptions, setEnglishOptions] = useState([
-    { value: 'English', label: 'English' },
-  ]);
-  const [nonEnglishOptions, setNonEnglishOptions] = useState([
-    { value: 'KN', label: 'KN' },
-  ]);
-  // Grouped options array for grouped dropdown
-  const groupedOptions = [
-    {
-      label : 'BEST ENGLISH VOICES',
-      options : googleEnglishOptions,
-    },
-    {
-      label : 'LOCAL ENGLISH VOICES',
-      options : englishOptions,
-    },
-    {
-      label : 'NON ENGLISH VOICES',
-      options : nonEnglishOptions,
-    }
-  ];
-  const [voiceChoice, setVoiceChoice] = useState(null);
-  
-  const [hugeText, setHugeText] = useState('This is a sample text');
-  const [appUIState, setAappUIState] = useState('');
-  const [sentenceCounter, setSentenceCounter] = useState(null);
-
-  useEffect(() => {
-    populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
-
-    if(localStorage.getItem('voice')){
-      setVoiceChoice(localStorage.getItem('voice'));
-    }
-    else{
-      setVoiceChoice('Select');
-    }
-
-    setHugeText('This is a sample text! You can use this tool to listen to news or web pages instead of reading them, proof-read your articles, explore pronunciation or even just have fun! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
-
-    setTimeout(() => {
-      populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
-    }, 100);
-  },[]);
-
-  useEffect(()=>{
-    // console.log('App UI state is '+appUIState)
-
-    if(appUIState == 'playing'){
-      appState='playing'
-      sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState)
-    }
-    if(appUIState == 'paused'){
-      appState='paused'
-      stopSpeaking()
-    }
-    if(appUIState=='next'){
-      stopSpeaking()
-      appState='next'
-      setAappUIState('playing')
-    }
-    if(appUIState=='previous'){
-      stopSpeaking()
-      appState='previous'
-      setAappUIState('playing')
-    }
-    if(appUIState == ''){
-      appState='';
-      lastSentence=null;
-      stopSpeaking()
-      setSentenceCounter(null)
-    }
-    // console.log('App state is '+appState)
-  },[appUIState])
-
-  useEffect(() => {
-    // console.log('Sentence counter is '+sentenceCounter)
-  },[sentenceCounter])
-
-  // Execute on click of voices dropdown or on first render
-  
-
-  
 
 
-
-  return (
-    // <div className={styles.container}>
-     
+  return (     
     
     <div className={styles.container}>
       <Head>
@@ -327,10 +66,7 @@ export default function Home() {
           {/* <Button kind="secondary" size="medium" marginBottom='none'
             onClick={() => {router.push('/app#help')}}
           >HELP </Button> */}
-          <CustomView condition={browserName !== "Chrome"}>
-            <Text marginBottom='none'>Google Chrome recommended</Text>
-          </CustomView>
-        
+          <Text marginBottom='none'>Google Chrome recommended</Text>        
         </Portion>
 
         {/* NON DESKTOP MARK UP */}
@@ -345,9 +81,7 @@ export default function Home() {
               onClick={() => {router.push('/app#help')}}
             >INSTALL APP</Button>
           </div>
-          <CustomView condition={browserName !== "Chrome"}>
-            <Text marginBottom='none'>Google Chrome recommended</Text>
-          </CustomView>
+          <Text marginBottom='none'>Google Chrome recommended</Text>
         </Portion>
       </Row>
 
@@ -385,20 +119,8 @@ export default function Home() {
 
       {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/> */}
 
-      <Text align='center' marginBottom='small'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
-
-
-
-      {/* APP */}
-      
-
-
-      
-
-
-
-      
-      
+      <Text align='center' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
+      <Text align='center' marginBottom='small'>Icon attribution: Music vector created by rawpixel.com - www.freepik.com</Text>
     </div>
   )
 

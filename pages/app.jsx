@@ -4,19 +4,17 @@ import styles from '../styles/Home.module.scss'
 import { Button, Text, Element, Heading, Row, Portion, InputField, TextArea, HRule } from "fictoan-react"
 
 import React from 'react';
-import Select from 'react-select';
 import { useState, useEffect } from 'react';
 
 // https://www.npmjs.com/package/react-select
 // https://react-select.com/home
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import Select from 'react-select';
 
 // https://www.npmjs.com/package/sentence-splitter
 import { split } from "sentence-splitter";
 
 // https://www.npmjs.com/package/react-device-detect
-import { browserName, CustomView, isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -37,11 +35,9 @@ const customStyles = {
   }),
 }
 
-// let hugeText1='';
 let sentences=[];
 let appState='';
 let lastSentence=0;
-// let voiceChoice;
 
 
 function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions){
@@ -191,10 +187,6 @@ function startSpeaking(voiceChoice, sentence){
       selectedVoice = element;
   }
 
-  if(appState == 'paused')
-    return new Promise((resolve) => {resolve;}
-  );
-
   const utterThis = new SpeechSynthesisUtterance(sentence);
   utterThis.voice = selectedVoice;
   synth.speak(utterThis);
@@ -223,7 +215,15 @@ function stopSpeaking(){
 
 export default function Home() {
 
+  // State variables
   const router = useRouter()
+  const [voiceChoice, setVoiceChoice] = useState(null);
+  const [hugeText, setHugeText] = useState('This is a sample text');
+  const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
+  const [fetching, setFetching] = useState(false)
+  const [appUIState, setAappUIState] = useState('');
+  const [sentenceCounter, setSentenceCounter] = useState(null);
+  const [helpTab, setHelpTab] = useState(1);
   const  [googleEnglishOptions, setGoogleEnglishOptions] = useState([]);
   const [englishOptions, setEnglishOptions] = useState([
     { value: 'English', label: 'English' },
@@ -246,14 +246,7 @@ export default function Home() {
       options : nonEnglishOptions,
     }
   ];
-  const [voiceChoice, setVoiceChoice] = useState(null);
   
-  const [hugeText, setHugeText] = useState('This is a sample text');
-  const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
-  const [fetching, setFetching] = useState(false)
-  const [appUIState, setAappUIState] = useState('');
-  const [sentenceCounter, setSentenceCounter] = useState(null);
-  const [helpTab, setHelpTab] = useState(1);
 
   useEffect(() => {
     populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
@@ -320,10 +313,7 @@ export default function Home() {
 
 
 
-  return (
-    // <div className={styles.container}>
-     
-    
+  return (     
     <div className={styles.container}>
       <Head>
         <title>Listen</title>
@@ -339,13 +329,8 @@ export default function Home() {
     
 
       {/* APP */}
-      <CustomView condition={browserName === "Chrome"}>
-        <Heading as="h4" marginTop='micro' marginBottom='tiny'>What will you listen to, today?</Heading>
-      </CustomView>
-      <CustomView condition={browserName !== "Chrome"}>
-        <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
+      <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
         <Text marginTop='none' marginBottom='micro'>Google Chrome recommended</Text>
-      </CustomView>
       <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
@@ -385,10 +370,8 @@ export default function Home() {
             label="Paste article text"
             placeholder="A word, a pragraph or a long article"
             rows={4}
-            // defaultValue={hugeText}
             value={hugeText}
             onChange={(event) => {setHugeText(event.target.value) }}
-            // textColor={`${styles.textColor}`}
             style={{color : `${styles.textColor}`, lineHeight: '2rem'}}
           />
         </Portion>
@@ -435,25 +418,6 @@ export default function Home() {
           >LISTEN</Button> */}
           
 
-          {/* RESET STATE */}
-          <Element as='div' hidden>
-            <Heading as='h6' weight='300' marginTop='small'>Tips for picking voices</Heading>
-            <Text>👉 Pick a voice that matches the language of your text.</Text>
-            <Text showOnlyOnDesktop>👉 On desktops, use Google Chrome for best voices.</Text>
-            <Text showOnlyOnMobile showOnlyOnTabLS showOnlyOnTabPT>👉 On mobile devices, voices are provided by the device text to speech engine.</Text>
-          </Element>
-
-          {/* SPEAKING STATE */}
-          <Element hidden as='div' shape='rounded' padding='micro' style={{ marginTop:'3.8rem', backgroundColor: `${styles.background2Color}`}}>
-            <Element as='div' style={{ display: 'flex', alignItems: 'center' }}>
-              <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-              <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
-            </Element>
-            <Element as='div' style={{ maxHeight: '6.4rem', overflow: 'auto' }}>
-              <Text id='readingText' margin='none'><i>You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text. You are listening to this text.You are listening to this text. You are listening to this text.</i></Text>
-            </Element>
-          </Element>
-
           {(appUIState == 'playing') &&
             <>
               <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded' style={{ marginTop: '3rem' }}>
@@ -482,47 +446,47 @@ export default function Home() {
 
       {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='help'/> */}
 
-        <div style={{position:'fixed', width:'100%', right: 0, bottom:'2.5%'}}>
-            <div className={styles.playerStrip} style={{ position: 'relative' }}>
-              <div>
-                <div style={{width: `${(sentenceCounter/sentences.length)*100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px'}}></div>
-              </div>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div>
-                        <Button kind='tertiary' bgColor='transparent' size='tiny'
-                            onClick={() => { setAappUIState('previous') }}
-                        ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
-                    </div>
-                    <div>
-                        {(appUIState == '' || appUIState == 'paused') &&
-                            <Button kind='tertiary' bgColor='transparent' size='tiny'
-                                onClick={() => {
-                                  // router.push('/app#link-input') 
-                                  setAappUIState('playing') 
-                                }}
-                            ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
-                        }
-                    </div>
-                    <div>
-                        {(appUIState == 'playing' || appUIState == 'next' || appUIState == 'previous') &&
-                            <Button kind='tertiary' bgColor='transparent' size='tiny'
-                                onClick={() => { setAappUIState('paused'); }}
-                            ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
-                        }
-                    </div>
-                    <div>
-                        <Button kind='tertiary' bgColor='transparent' size='tiny'
-                            onClick={() => { setAappUIState('next') }}
-                        ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
-                    </div>
-                </div>
-                <div style={{ position: 'absolute', width: '100%', top: '65%' }}>
-                    <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
-                        onClick={() => { setAappUIState(''); }}
-                    ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
-                </div>
+      <div style={{ position: 'fixed', width: '100%', right: 0, bottom: '2.5%' }}>
+        <div className={styles.playerStrip} style={{ position: 'relative' }}>
+          <div>
+            <div style={{ width: `${(sentenceCounter / sentences.length) * 100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div>
+              <Button kind='tertiary' bgColor='transparent' size='tiny'
+                onClick={() => { setAappUIState('previous') }}
+              ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
             </div>
+            <div>
+              {(appUIState == '' || appUIState == 'paused') &&
+                <Button kind='tertiary' bgColor='transparent' size='tiny'
+                  onClick={() => {
+                    // router.push('/app#link-input') 
+                    setAappUIState('playing')
+                  }}
+                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
+              }
+            </div>
+            <div>
+              {(appUIState == 'playing' || appUIState == 'next' || appUIState == 'previous') &&
+                <Button kind='tertiary' bgColor='transparent' size='tiny'
+                  onClick={() => { setAappUIState('paused'); }}
+                ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
+              }
+            </div>
+            <div>
+              <Button kind='tertiary' bgColor='transparent' size='tiny'
+                onClick={() => { setAappUIState('next') }}
+              ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
+            </div>
+          </div>
+          <div>
+            <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
+              onClick={() => { setAappUIState(''); }}
+            ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
+          </div>
         </div>
+      </div>
 
 
     
@@ -549,11 +513,6 @@ export default function Home() {
         >
           Other
         </Heading>
-        {/* <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==4)? `3px solid ${styles.primaryColor}` : ''}`}}
-          onClick={() => {setHelpTab(4)}}
-        >
-          Browsers
-        </Heading> */}
       </Element>
 
       {(helpTab == 1) &&
@@ -590,84 +549,4 @@ export default function Home() {
       
     </div>
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div> */}
 }

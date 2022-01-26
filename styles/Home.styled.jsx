@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// This file is not used
 export const HomeStyled = styled.div`
 
     .container{
