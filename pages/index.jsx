@@ -63,9 +63,9 @@ export default function Home() {
           <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
             onClick={() => {router.push('/app')}}
           >START LISTENING</Button>
-          {/* <Button kind="secondary" size="medium" marginBottom='none'
-            onClick={() => {router.push('/app#help')}}
-          >HELP </Button> */}
+          <Button kind="secondary" size="medium" marginBottom='none'
+            onClick={() => {router.push('/#add-to-site')}}
+          >ADD TO YOUR SITE </Button>
           <Text marginBottom='none'>Google Chrome recommended</Text>        
         </Portion>
 
@@ -81,7 +81,7 @@ export default function Home() {
               onClick={() => {router.push('/app#help')}}
             >INSTALL APP</Button>
           </div>
-          <Text marginBottom='none'>Google Chrome recommended</Text>
+          <Text marginBottom='none' align='center'>Google Chrome recommended</Text>
         </Portion>
       </Row>
 
@@ -116,6 +116,31 @@ export default function Home() {
       </Row>
 
 
+      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='add-to-site'/>
+
+      <Heading as="h4" marginBottom='tiny' marginRight='nano'>Add Listen to your site</Heading>
+      <Row marginBottom='small'>
+        <Portion desktopSpan='6' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' marginBottom='small'>
+          <Heading as='h6'>How?</Heading>
+          <Text>Add a button to your site and provide an option to listen.</Text>
+          <a href='https://start-listening.herokuapp.com/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
+          <Button size='small' kind='secondary'
+            // onClick={() => {
+            //   window.location = `https://start-listening.herokuapp.com/app?url=${window.location.href}`
+            // }}
+            >
+            Sample button
+          </Button>
+          </a>
+        </Portion>
+        <Portion desktopSpan='18' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{overflow:'auto'}}>
+          <Heading as='h6'>One line scalable integration</Heading>
+          <Text>Point a button or a link on your page to —</Text>
+          <Text size='large' weight='700' isMono>https://start-listening.herokuapp.com/app?url=https://yoursite.com/posts/12</Text>
+        </Portion>
+      </Row>
+
+      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}}/>
 
       {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/> */}
 
@@ -149,58 +174,5 @@ export default function Home() {
 
 
 
-      {/* <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div> */}
+      
 }

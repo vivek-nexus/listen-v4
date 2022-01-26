@@ -92,7 +92,9 @@ function fetchArticle(url, setFetching, setHugeText){
     const parser = new DOMParser();
     articleHTML = parser.parseFromString(articleRaw.content, 'text/html');
     let array1 = articleHTML.querySelectorAll('h1, h2, h3, h4, h5, p, li, a');
-    let article='';
+    let article=`Title: ${articleRaw.title}.
+
+`;
     
     for(const element of array1)
       article = article + (element.textContent)
@@ -329,8 +331,22 @@ export default function Home() {
     
 
       {/* APP */}
-      <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
-        <Text marginTop='none' marginBottom='micro'>Google Chrome recommended</Text>
+      <Element as='div' marginTop='micro' style={{ display: 'flex' }}>
+      <Heading as="h5" marginBottom='none' marginTop='nano' marginRight='nano'>
+        <span 
+          className={`material-icons`}
+          onClick={() => {router.push('/')}}
+          style={{cursor: 'pointer', fontWeight: '700'}}
+        >arrow_back</span></Heading>
+        <div>
+        <Heading as="h4"  marginBottom='none'> What will you listen to, today?</Heading>
+        <Text marginTop='none'>Google Chrome recommended </Text>
+        </div>
+      </Element>
+      
+      {/* <Text marginTop='none' marginLeft='small' showOnlyOnMobile showOnlyOnTabPT>Google Chrome recommended </Text> */}
+
+
       <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
@@ -530,6 +546,8 @@ export default function Home() {
           <Text>👉 Pick a voice that matches the text language.</Text>
           <Text>👉 On desktops, use Google Chrome for best voices.</Text>
           <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
+          <Text weight='700' size="large" marginBottom='none'>How do I change default voice on a mobile device?</Text>
+          <Text marginTop='none'>Default voices can be changed through Text to speech settings of the mobile device.</Text>
           <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
           <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
         </Element>
