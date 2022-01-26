@@ -1,10 +1,10 @@
-// module.exports = {
-//   reactStrictMode: true,
-// }
+module.exports = {
+  reactStrictMode: true,
+}
 
-const withOffline = require("next-offline");
+// const withOffline = require("next-offline");
 
-// your next.js configs
-const nextConfig = {};
+// // your next.js configs
+// const nextConfig = {};
 
-module.exports = withOffline(nextConfig);
+// module.exports = withOffline(nextConfig);
