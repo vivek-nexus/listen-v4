@@ -344,17 +344,15 @@ export default function Home() {
     
 
       {/* APP */}
-      <Element as='div' marginTop='micro' style={{ display: 'flex', alignItems: 'center' }}>
-      <Heading as="h5" marginBottom='none' marginRight='nano'>
-        <span 
-          className={`material-icons`}
-          onClick={() => {router.push('/')}}
-          style={{cursor: 'pointer', fontWeight: '700', verticalAlign: 'middle'}}
-        >arrow_back</span></Heading>
-        <Heading as="h4"  marginBottom='none'> What will you listen to, today?</Heading>
+      <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
+      <Element as='div' marginBottom='micro' style={{ display: 'flex', alignItems: 'center' }}>
+        <Element as='img'
+          src='/chrome-logo.svg'
+          className='icon-small'
+          marginRight='nano'
+        ></Element>
+        <Text margin='none'>Recommended</Text>
       </Element>
-      <Text marginTop='none' marginLeft='tiny'>Google Chrome recommended </Text>
-
       <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">
@@ -557,8 +555,6 @@ export default function Home() {
           <Text>👉 Pick a voice that matches the text language.</Text>
           <Text>👉 On desktops, use Google Chrome for best voices.</Text>
           <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
-          <Text weight='700' size="large" marginBottom='none'>How do I change default voice on a mobile device?</Text>
-          <Text marginTop='none'>Default voices can be changed through Text to speech settings of the mobile device.</Text>
           <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
           <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
         </Element>
