@@ -40,19 +40,13 @@ let appState='';
 let lastSentence=0;
 
 
-function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions, setVoiceChoice){
+function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions){
   // console.log("Populating dropdown")
   const synth=window.speechSynthesis;
   let voiceData=synth.getVoices();
   let googleEnglishVoices=[], englishVoices=[], nonEnglishVoices = [];
 
   for (const element of voiceData){
-    // Pre-selecting if the device has Google UK English Male
-    if(`${element.name} (${element.lang})` == 'Google UK English Male (en-GB)'){
-      console.log('Found Google male voice')
-      setVoiceChoice(`${element.name} (${element.lang})`);
-    }
-    
     // Push Google english voices
     if(element.name.substring(0,6) == 'Google' && element.lang.substring(0,2) == 'en'){
       googleEnglishVoices.push({
@@ -98,9 +92,7 @@ function fetchArticle(url, setFetching, setHugeText){
     const parser = new DOMParser();
     articleHTML = parser.parseFromString(articleRaw.content, 'text/html');
     let array1 = articleHTML.querySelectorAll('h1, h2, h3, h4, h5, p, li, a');
-    let article=`Title: ${articleRaw.title}
-
-`;
+    let article='';
     
     for(const element of array1)
       article = article + (element.textContent)
@@ -225,7 +217,7 @@ export default function Home() {
 
   // State variables
   const router = useRouter()
-  const [voiceChoice, setVoiceChoice] = useState('Default');
+  const [voiceChoice, setVoiceChoice] = useState(null);
   const [hugeText, setHugeText] = useState('This is a sample text');
   const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
   const [fetching, setFetching] = useState(false)
@@ -257,19 +249,18 @@ export default function Home() {
   
 
   useEffect(() => {
-    populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions, setVoiceChoice);
+    populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
 
     setTimeout(() => {
-      populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions, setVoiceChoice);
+      populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
     }, 100);
 
     if(localStorage.getItem('voice')){
       setVoiceChoice(localStorage.getItem('voice'));
     }
-
-    console.log(voiceChoice)
-    // if(voiceChoice == null)
-    //   setVoiceChoice('Default');
+    else{
+      setVoiceChoice('Select');
+    }
 
     setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
     
@@ -316,12 +307,6 @@ export default function Home() {
     }
     // console.log('App state is '+appState)
   },[appUIState])
-
-  // useEffect(() => {
-  //   console.log(voiceChoice)
-  //   if(voiceChoice === null)
-  //     setVoiceChoice('Default');
-  // },[voiceChoice])
   
 
   
@@ -345,14 +330,7 @@ export default function Home() {
 
       {/* APP */}
       <Heading as="h4" marginTop='micro' marginBottom='none'>What will you listen to, today?</Heading>
-      <Element as='div' marginBottom='micro' style={{ display: 'flex', alignItems: 'center' }}>
-        <Element as='img'
-          src='/chrome-logo.svg'
-          className='icon-small'
-          marginRight='nano'
-        ></Element>
-        <Text margin='none'>Recommended</Text>
-      </Element>
+        <Text marginTop='none' marginBottom='micro'>Google Chrome recommended</Text>
       <Row marginBottom='huge' gutters='none' className={styles.surface}>
         {/* LEFT PORTION */}
         <Portion padding='micro' desktopSpan="15">

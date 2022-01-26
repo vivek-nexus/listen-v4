@@ -60,20 +60,13 @@ export default function Home() {
         <Portion desktopSpan="two-third" hideOnTabPT hideOnMobile>
           <Heading as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
           <Heading as="h2" weight='300' marginBottom='micro'><strike>Read</strike> Listen!</Heading>
-          <Button kind="primary" size="medium" marginBottom='nano' marginRight='nano'
+          <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
             onClick={() => {router.push('/app')}}
           >START LISTENING</Button>
           {/* <Button kind="secondary" size="medium" marginBottom='none'
             onClick={() => {router.push('/app#help')}}
           >HELP </Button> */}
-          <Element as='div' marginTop='nano' style={{display: 'flex', alignItems: 'center'}}>
-            <Element as='img'
-              src='/chrome-logo.svg'
-              className='icon-small'
-              marginRight='nano'
-            ></Element>
-            <Text margin='none'>Recommended</Text>
-          </Element>     
+          <Text marginBottom='none'>Google Chrome recommended</Text>        
         </Portion>
 
         {/* NON DESKTOP MARK UP */}
