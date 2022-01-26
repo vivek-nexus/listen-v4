@@ -7,12 +7,14 @@
     "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "yarn build && NODE_ENV=production node server.js"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
     "fictoan-react": "^0.35.3",
     "next": "12.0.8",
+    "next-pwa": "^5.4.4",
     "react": "^17.0.2",
     "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
@@ -24,6 +26,8 @@
   },
   "devDependencies": {
     "eslint": "8.6.0",
-    "eslint-config-next": "12.0.8"
+    "eslint-config-next": "12.0.8",
+    "express": "^4.17.2",
+    "next-offline": "^5.0.5"
   }
 }

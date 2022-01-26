@@ -117,8 +117,8 @@ function handleSelectChange(event, voiceChoice, setVoiceChoice) {
     localStorage.setItem('voice', event.label);
   }
   else {
-    setVoiceChoice('Select');
-    localStorage.setItem('voice', 'Select');
+    setVoiceChoice('Default');
+    localStorage.setItem('voice', 'Default');
   }
 }
 
@@ -264,7 +264,7 @@ export default function Home() {
       setVoiceChoice(localStorage.getItem('voice'));
     }
     else{
-      setVoiceChoice('Select');
+      setVoiceChoice('Default');
     }
 
     setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
@@ -339,6 +339,8 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#00a885" />
       </Head>
     
     
@@ -513,6 +515,7 @@ export default function Home() {
           <div>
             <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
               onClick={() => { setAappUIState(''); }}
+              style={{padding : '0px'}}
             ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
           </div>
         </div>
@@ -523,7 +526,7 @@ export default function Home() {
 
 
       {/* HELP */}
-      <Element as='div' marginBottom='large' id='help'>
+      <Element as='div' marginBottom='huge' id='help'>
         
       
       <Heading as="h4" marginTop='micro' marginBottom='tiny'>Need help?</Heading>
@@ -577,7 +580,11 @@ export default function Home() {
           <Text marginTop='none'>Skip to the next sentence. This could be due to very long sentences not being supported by the voice.</Text>
         </Element>
       }
+
+      <Text align='center' marginTop='small' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
       </Element>
+
+      
       
     </div>
   )

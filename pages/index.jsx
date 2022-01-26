@@ -41,6 +41,9 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet" />
+          {/* https://melvingeorge.me/blog/nextjs-pwa */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#00a885" />
       </Head>
 
 
