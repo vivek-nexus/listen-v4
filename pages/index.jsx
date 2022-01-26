@@ -133,25 +133,23 @@ export default function Home() {
 
       <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='add-to-site'/>
 
-      <Heading as="h4" marginBottom='tiny' marginRight='nano'>Add Listen to your site</Heading>
+      <Heading as="h4" marginBottom='tiny' marginRight='nano'>Add Listen to your site or blog</Heading>
       <Row marginBottom='small'>
-        <Portion desktopSpan='6' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' marginBottom='small'>
+        <Portion desktopSpan='8' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' marginBottom='small'>
           <Heading as='h6'>How?</Heading>
-          <Text>Add a button to your site and provide an option to listen.</Text>
+          <Text>Add a button to your page. A sample button could look like this —</Text>
           <a href='https://start-listening.herokuapp.com/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
           <Button size='small' kind='secondary'
-            // onClick={() => {
-            //   window.location = `https://start-listening.herokuapp.com/app?url=${window.location.href}`
-            // }}
             >
-            Sample button
+            Listen to this article
           </Button>
           </a>
         </Portion>
-        <Portion desktopSpan='18' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{overflow:'auto'}}>
+        <Portion desktopSpan='16' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{overflow:'auto'}}>
           <Heading as='h6'>One line scalable integration</Heading>
-          <Text>Point a button or a link on your page to —</Text>
-          <Text size='large' weight='700' isMono>https://start-listening.herokuapp.com/app?url=https://yoursite.com/posts/12</Text>
+          <Text size='large' textColor='white-70' bgColor='grey' padding='nano' shape='rounded' isMono>https://start-listening.herokuapp.com/app?url=<strong>https://yoursite.com/sample-article</strong></Text>
+          <Text>Provide your page URL as a parameter.</Text>
+          <Text>Your button click should open up a new tab to a URL like above. We will fetch the text from your page and be ready for the user to hit play.</Text>
         </Portion>
       </Row>
 
