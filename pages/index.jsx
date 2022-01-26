@@ -6,9 +6,6 @@ import { Button, Text, Element, Heading, Row, Portion, InputField, TextArea, HRu
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-// https://www.npmjs.com/package/react-code-blocks
-import { Code, CopyBlock, paraisoDark } from "react-code-blocks";
-
 
 
 
