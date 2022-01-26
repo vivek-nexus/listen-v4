@@ -16,6 +16,9 @@ import { split } from "sentence-splitter";
 // https://www.npmjs.com/package/react-device-detect
 import { isMobile } from 'react-device-detect';
 
+// https://animate.style/
+import 'animate.css';
+
 
 
 
@@ -278,6 +281,16 @@ export default function Home() {
       setFetching(true)
       fetchArticle(urlParam, setFetching, setHugeText)
     }
+
+    // Hotjar analytics
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:2800643,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   },[]);
 
   useEffect(()=>{
@@ -406,6 +419,7 @@ export default function Home() {
           {/* https://yarnpkg.com/package/react-select */}
           {voiceChoice!=null &&
             <Select
+              className='animate__animated animate__pulse animate__delay-2s'
               styles={customStyles}
               options={groupedOptions}
               isSearchable={false}
