@@ -225,7 +225,7 @@ export default function Home() {
 
   // State variables
   const router = useRouter()
-  const [voiceChoice, setVoiceChoice] = useState('Default');
+  const [voiceChoice, setVoiceChoice] = useState(null);
   const [hugeText, setHugeText] = useState('This is a sample text');
   const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
   const [fetching, setFetching] = useState(false)
@@ -410,7 +410,8 @@ export default function Home() {
 
           {/* https://react-select.com/styles */}
           {/* https://yarnpkg.com/package/react-select */}
-          {voiceChoice!=null &&
+          {voiceChoice!=null
+          ?
             <Select
               styles={customStyles}
               options={groupedOptions}
@@ -433,6 +434,8 @@ export default function Home() {
                 }
               })}
             />
+          :
+          <Text marginTop='none' weight='700'>Sorry! Text to speech is not supported by this browser.</Text>
           }
           
           {/* <Button kind="primary" size="small" marginTop='nano' marginRight='nano'
