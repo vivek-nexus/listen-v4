@@ -137,7 +137,7 @@ export default function Home() {
       <Row marginBottom='small'>
         <Portion desktopSpan='8' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' marginBottom='small'>
           <Heading as='h6'>How?</Heading>
-          <Text>Add a button to your page. A sample button could look like this —</Text>
+          <Text>Add a button or a link on your page. A sample button could look like this —</Text>
           <a href='https://start-listening.herokuapp.com/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
           <Button size='small' kind='secondary'
             >
@@ -149,7 +149,7 @@ export default function Home() {
           <Heading as='h6'>One line scalable integration</Heading>
           <Text size='large' textColor='white-70' bgColor='grey' padding='nano' shape='rounded' isMono>https://start-listening.herokuapp.com/app?url=<strong>https://yoursite.com/sample-article</strong></Text>
           <Text>Provide your page URL as a parameter.</Text>
-          <Text>Your button click should open up a new tab to a URL like above. We will fetch the text from your page and be ready for the user to hit play.</Text>
+          <Text>Your button or link click should open up a new tab to a URL like above. We will fetch the text from your page and be ready for the user to hit play.</Text>
         </Portion>
       </Row>
 
