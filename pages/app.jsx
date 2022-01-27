@@ -99,8 +99,10 @@ function fetchArticle(url, setFetching, setHugeText){
 
 `;
     
-    for(const element of array1)
-      article = article + (element.textContent)
+    for(const element of array1){
+      console.log(element.textContent)
+      article = article + (element.textContent) + '. ';
+    }
     setHugeText(article)
     setFetching(false)
   })
