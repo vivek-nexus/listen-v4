@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.scss'
 import { Button, Text, Element, Heading, Row, Portion, InputField, TextArea, HRule } from "fictoan-react"
 
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer, useRef } from 'react';
 
 // https://www.npmjs.com/package/react-select
 // https://react-select.com/home
@@ -38,34 +38,39 @@ const customStyles = {
   }),
 }
 
-let sentences=[];
-let appState='';
-let lastSentence=0;
+let sentences = [];
+let appState = '';
+let lastSentence = 0;
+
+const initialState = {
+  isPlaying: false,
+  counter: -1
+};
 
 
-function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions){
+function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions) {
   // console.log("Populating dropdown")
-  const synth=window.speechSynthesis;
-  let voiceData=synth.getVoices();
-  let googleEnglishVoices=[], englishVoices=[], nonEnglishVoices = [];
+  const synth = window.speechSynthesis;
+  let voiceData = synth.getVoices();
+  let googleEnglishVoices = [], englishVoices = [], nonEnglishVoices = [];
 
-  for (const element of voiceData){
+  for (const element of voiceData) {
     // Push Google english voices
-    if(element.name.substring(0,6) == 'Google' && element.lang.substring(0,2) == 'en'){
+    if (element.name.substring(0, 6) == 'Google' && element.lang.substring(0, 2) == 'en') {
       googleEnglishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        label: `${element.name} (${element.lang})`, value: `${element.name} (${element.lang})`
       })
     }
     // Push non-Gogle english voices
-    else if(element.lang.substring(0,2) == 'en' && element.name.substring(0,6) != 'Google'){
+    else if (element.lang.substring(0, 2) == 'en' && element.name.substring(0, 6) != 'Google') {
       englishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        label: `${element.name} (${element.lang})`, value: `${element.name} (${element.lang})`
       })
     }
     // Push non-english voices
-    else{
+    else {
       nonEnglishVoices.push({
-        label : `${element.name} (${element.lang})`, value : `${element.name} (${element.lang})`
+        label: `${element.name} (${element.lang})`, value: `${element.name} (${element.lang})`
       })
     }
   }
@@ -76,40 +81,40 @@ function populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEngl
   setNonEnglishOptions(nonEnglishVoices);
 }
 
-function fetchArticle(url, setFetching, setHugeText){
+function fetchArticle(url, setFetching, setHugeText) {
 
   let articleRaw, articleHTML, articleContent;
 
   var requestOptions = {
-    method : 'GET',
-    redirect : 'follow'
+    method: 'GET',
+    redirect: 'follow'
   };
 
   setHugeText([]);
 
   fetch(`https://hidden-citadel-76712.herokuapp.com?url=${url}`, requestOptions)
-  .then(response => response.text())
-  .then(result => {
-    // console.log(result)
-    articleRaw=JSON.parse(result)
-    const parser = new DOMParser();
-    articleHTML = parser.parseFromString(articleRaw.content, 'text/html');
-    let array1 = articleHTML.querySelectorAll('h1, h2, h3, h4, h5, p, li, a');
-    let article=`Title: ${articleRaw.title}.
+    .then(response => response.text())
+    .then(result => {
+      // console.log(result)
+      articleRaw = JSON.parse(result)
+      const parser = new DOMParser();
+      articleHTML = parser.parseFromString(articleRaw.content, 'text/html');
+      let array1 = articleHTML.querySelectorAll('h1, h2, h3, h4, h5, p, li, a');
+      let article = `Title: ${articleRaw.title}.
 
 `;
-    
-    for(const element of array1){
-      console.log(element.textContent)
-      article = article + (element.textContent) + '. ';
-    }
-    setHugeText(article)
-    setFetching(false)
-  })
-  .catch(error => console.log('error',error))
 
-  
-  
+      for (const element of array1) {
+        console.log(element.textContent)
+        article = article + (element.textContent) + '. ';
+      }
+      setHugeText(article)
+      setFetching(false)
+    })
+    .catch(error => console.log('error', error))
+
+
+
 }
 
 function handleSelectChange(event, voiceChoice, setVoiceChoice) {
@@ -124,11 +129,13 @@ function handleSelectChange(event, voiceChoice, setVoiceChoice) {
   }
 }
 
-function splitToSentences(hugeText){
+function splitToSentences(hugeText) {
+  if (hugeText == "")
+    return;
   const sentencesData = split(hugeText);
-  sentences=[];
-  for (const element of sentencesData){
-    if(element.type == 'Sentence'){
+  sentences = [];
+  for (const element of sentencesData) {
+    if (element.type == 'Sentence') {
       // console.log(element.raw);
       sentences.push(element.raw);
     }
@@ -136,68 +143,34 @@ function splitToSentences(hugeText){
   // console.log(sentences);
 }
 
-async function sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState){
-  splitToSentences(hugeText);
+// async function sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState) {
+//   splitToSentences(hugeText);
 
-  console.log(sentences);
-  console.log("Last sentence is "+lastSentence);
-  for(let i=lastSentence; i<sentences.length; i++){
-    // if(lastSentence){
-    //   i=lastSentence;
-    //   lastSentence=null;
-    // }
+//   console.log(sentences);
+//   console.log("Last sentence is " + lastSentence);
 
-    setSentenceCounter(i);
-    console.log('Sent sentence '+i+' for speaking')
-    await startSpeaking(voiceChoice, sentences[i]);
-    
-    if(appState == 'paused' || appState == ''){
-      // console.log('App state '+appState);
-      console.log('Paused/stopped at sentence '+i);
-      if(appState == 'paused')
-        lastSentence=i;
-        console.log('Breaking loop and returning')
-      return;
-    }
-
-    if(appState == 'previous'){
-      lastSentence = i-1;
-      appState='playing'
-      console.log('Breaking loop and returning')
-      return;
-    }
-
-    if(appState == 'next'){
-      lastSentence=i+1;
-      appState='playing'
-      console.log('Breaking loop and returning')
-      return;
-    }
-  }
-
-  lastSentence=0;
-  setSentenceCounter(null);
-  setAappUIState('');
-  appState='';
-}
+//   setSentenceCounter(i);
+//   console.log('Sent sentence ' + i + ' for speaking')
+//   await startSpeaking(voiceChoice, sentences[i]);
+// }
 
 
-function startSpeaking(voiceChoice, sentence){
-  const synth=window.speechSynthesis;
-  let voiceData=synth.getVoices();
+function startSpeaking(voiceChoice, sentence, state) {
+  const synth = window.speechSynthesis;
+  let voiceData = synth.getVoices();
   let selectedVoice;
 
-  for (const element of voiceData){
+  for (const element of voiceData) {
     // console.log(`${element.name} (${element.lang})`)
     // console.log(voiceChoice)
-    if(`${element.name} (${element.lang})` == voiceChoice)
+    if (`${element.name} (${element.lang})` == voiceChoice)
       selectedVoice = element;
   }
 
   const utterThis = new SpeechSynthesisUtterance(sentence);
   utterThis.voice = selectedVoice;
   synth.speak(utterThis);
-  
+
   // https://stackoverflow.com/a/58049676
   // https://tombyrer.github.io/web-speech-synth-segmented/
   return new Promise((resolve) => {
@@ -205,9 +178,30 @@ function startSpeaking(voiceChoice, sentence){
   })
 }
 
-function stopSpeaking(){
-  const synth=window.speechSynthesis;
+function stopSpeaking() {
+  const synth = window.speechSynthesis;
   synth.cancel();
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "start":
+      return { counter: state.counter + 1, isPlaying: true };
+    case "tick":
+      return { ...state, counter: state.counter + 1 };
+    case "pause":
+      return { counter: state.counter - 1, isPlaying: false };
+    case "stop":
+      return { isPlaying: false, counter: - 1 };
+    case "next":
+      return { counter: state.counter + 2, isPlaying: true };
+    case "prevA":
+      return { counter: state.counter - 1, isPlaying: false };
+    case "prevB":
+      return { counter: state.counter + 1, isPlaying: true };
+    default:
+      throw new Error();
+  }
 }
 
 
@@ -228,32 +222,35 @@ export default function Home() {
   const [hugeText, setHugeText] = useState('This is a sample text');
   const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
   const [fetching, setFetching] = useState(false)
-  const [appUIState, setAappUIState] = useState('');
-  const [sentenceCounter, setSentenceCounter] = useState(null);
+
   const [helpTab, setHelpTab] = useState(1);
-  const  [googleEnglishOptions, setGoogleEnglishOptions] = useState([]);
+  const [googleEnglishOptions, setGoogleEnglishOptions] = useState([]);
   const [englishOptions, setEnglishOptions] = useState([
     { value: 'English', label: 'English' },
   ]);
   const [nonEnglishOptions, setNonEnglishOptions] = useState([
     { value: 'KN', label: 'KN' },
   ]);
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const isPlayingRef = useRef(false);
+
   // Grouped options array for grouped dropdown
   const groupedOptions = [
     {
-      label : 'BEST ENGLISH VOICES',
-      options : googleEnglishOptions,
+      label: 'BEST ENGLISH VOICES',
+      options: googleEnglishOptions,
     },
     {
-      label : 'LOCAL ENGLISH VOICES',
-      options : englishOptions,
+      label: 'LOCAL ENGLISH VOICES',
+      options: englishOptions,
     },
     {
-      label : 'NON ENGLISH VOICES',
-      options : nonEnglishOptions,
+      label: 'NON ENGLISH VOICES',
+      options: nonEnglishOptions,
     }
   ];
-  
+
 
   useEffect(() => {
     populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
@@ -262,75 +259,92 @@ export default function Home() {
       populateDropDown(setGoogleEnglishOptions, setEnglishOptions, setNonEnglishOptions);
     }, 100);
 
-    if(localStorage.getItem('voice')){
+    if (localStorage.getItem('voice')) {
       setVoiceChoice(localStorage.getItem('voice'));
     }
-    else{
+    else {
       setVoiceChoice('Default');
     }
 
     setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
-    
-    if(isMobile){
-      window.addEventListener('blur', function(){
-        setAappUIState('paused')
+
+    if (isMobile) {
+      window.addEventListener('blur', function () {
+        // setAappUIState('paused')
       });
     }
 
     let urlParam = (new URLSearchParams(window.location.search)).get('url');
-    if(urlParam){
+    if (urlParam) {
       setUrl(urlParam)
       setFetching(true)
       fetchArticle(urlParam, setFetching, setHugeText)
     }
 
     // Hotjar analytics
-    (function(h,o,t,j,a,r){
-      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-      h._hjSettings={hjid:2800643,hjsv:6};
-      a=o.getElementsByTagName('head')[0];
-      r=o.createElement('script');r.async=1;
-      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+    (function (h, o, t, j, a, r) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 2800643, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
       a.appendChild(r);
-  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  },[]);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  }, []);
 
-  useEffect(()=>{
-    // console.log('App UI state is '+appUIState)
+  useEffect(() => {
+    splitToSentences(hugeText);
+  }, [hugeText]);
 
-    if(appUIState == 'playing'){
-      appState='playing'
-      sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState)
-    }
-    if(appUIState == 'paused'){
-      appState='paused'
+
+
+  useEffect(() => {
+    console.log("isPlaying EFFECT; isPlaying " + state.isPlaying + "; counter " + state.counter);
+
+    isPlayingRef.current = state.isPlaying;
+
+    if (!state.isPlaying) {
       stopSpeaking()
+      return;
     }
-    if(appUIState=='next'){
-      stopSpeaking()
-      appState='next'
-      setAappUIState('playing')
-    }
-    if(appUIState=='previous'){
-      stopSpeaking()
-      appState='previous'
-      setAappUIState('playing')
-    }
-    if(appUIState == ''){
-      appState='';
-      lastSentence=0;
-      stopSpeaking()
-      setSentenceCounter(null)
-    }
-    // console.log('App state is '+appState)
-  },[appUIState])
-  
-
-  
+  }, [state.isPlaying]);
 
 
 
-  return (     
+  useEffect(() => {
+    console.log("counter EFFECT; isPlaying " + state.isPlaying + "; counter " + state.counter);
+
+    if (!state.isPlaying)
+      return;
+
+    if (state.counter < 0)
+      dispatch({ type: "stop" })
+
+    if (state.counter < sentences.length) {
+      startSpeaking(voiceChoice, sentences[state.counter]).then(() => {
+        console.log("isPlayingRef " + isPlayingRef.current)
+        if (state.isPlaying && isPlayingRef.current) {
+          dispatch({ type: "tick" })
+          console.log("Dispatched tick event")
+        }
+      })
+    }
+    else {
+      dispatch({ type: "stop" })
+      console.log("Dispatched stop event")
+    }
+  }, [state.counter])
+
+
+
+
+
+
+
+
+
+
+  return (
     <div className={styles.container}>
       <Head>
         <title>Listen</title>
@@ -344,23 +358,23 @@ export default function Home() {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#00a885" />
       </Head>
-    
-    
+
+
 
       {/* APP */}
       <Element as='div' marginTop='micro' style={{ display: 'flex' }}>
-      <Heading as="h5" marginBottom='none' marginTop='nano' marginRight='nano'>
-        <span 
-          className={`material-icons`}
-          onClick={() => {router.push('/')}}
-          style={{cursor: 'pointer', fontWeight: '700'}}
-        >arrow_back</span></Heading>
+        <Heading as="h5" marginBottom='none' marginTop='nano' marginRight='nano'>
+          <span
+            className={`material-icons`}
+            onClick={() => { router.push('/') }}
+            style={{ cursor: 'pointer', fontWeight: '700' }}
+          >arrow_back</span></Heading>
         <div>
-        <Heading as="h4"  marginBottom='none'> What will you listen to, today?</Heading>
-        <Text marginTop='none'>Google Chrome recommended </Text>
+          <Heading as="h4" marginBottom='none'> What will you listen to, today?</Heading>
+          <Text marginTop='none'>Google Chrome recommended </Text>
         </div>
       </Element>
-      
+
       {/* <Text marginTop='none' marginLeft='small' showOnlyOnMobile showOnlyOnTabPT>Google Chrome recommended </Text> */}
 
 
@@ -374,54 +388,54 @@ export default function Home() {
             errorText="Looks invalid. Check?"
             type="url"
             value={url}
-            onChange={(event) => {setUrl(event.target.value)}}
-            style={{color : `${styles.textColor}`}}
+            onChange={(event) => { setUrl(event.target.value) }}
+            style={{ color: `${styles.textColor}` }}
           />
 
           <Row marginBottom='none'>
             <Portion desktopSpan='10' mobileSpan='10' tabLSSpan='10' tabPTSpan='10'>
               {!fetching &&
                 <Button kind="secondary" size="small" marginBottom='micro'
-                onClick={()=>{
-                  setFetching(true);
-                  fetchArticle(url, setFetching, setHugeText)
-                }}
-              >FETCH</Button>
+                  onClick={() => {
+                    setFetching(true);
+                    fetchArticle(url, setFetching, setHugeText)
+                  }}
+                >FETCH</Button>
               }
               {fetching &&
                 <Button kind="secondary" size="small" marginBottom='micro'
                   isLoading
-              >FETCH</Button>
+                >FETCH</Button>
               }
             </Portion>
             <Portion desktopSpan='14' mobileSpan='14' tabLSSpan='14' tabPTSpan='14'>
               <Text margin='none'>— OR —</Text>
             </Portion>
           </Row>
-          
+
           <TextArea
             label="Paste article text"
             placeholder="A word, a pragraph or a long article"
             rows={4}
             value={hugeText}
-            onChange={(event) => {setHugeText(event.target.value) }}
-            style={{color : `${styles.textColor}`, lineHeight: '2rem'}}
+            onChange={(event) => { setHugeText(event.target.value) }}
+            style={{ color: `${styles.textColor}`, lineHeight: '2rem' }}
           />
         </Portion>
 
-        
+
         {/* RIGHT PORTION */}
         <Portion desktopSpan='9' padding='micro' paddingTop='none'>
-          <Element marginTop='micro' as='div'style={{display: 'flex', justifyContent:'space-between', alignItems: 'center'}}>
-          <Text className={styles.primaryFontColor} style={{margin: '0px 0px 2px 0px'}}>Pick a voice</Text>
-          <Button kind="tertiary" size="small" marginBottom='none' style={{}}
-            onClick={() => {router.push('/app/#help')}}
-          >HELP</Button>
+          <Element marginTop='micro' as='div' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text className={styles.primaryFontColor} style={{ margin: '0px 0px 2px 0px' }}>Pick a voice</Text>
+            <Button kind="tertiary" size="small" marginBottom='none' style={{}}
+              onClick={() => { router.push('/app/#help') }}
+            >HELP</Button>
           </Element>
 
           {/* https://react-select.com/styles */}
           {/* https://yarnpkg.com/package/react-select */}
-          {voiceChoice!=null &&
+          {voiceChoice != null &&
             <Select
               className='animate__animated animate__pulse animate__delay-2s'
               styles={customStyles}
@@ -429,7 +443,7 @@ export default function Home() {
               isSearchable={false}
               isClearable={true}
               // placeholder='That matches the text'
-              onMenuOpen={()=> {setAappUIState('paused') }}
+              onMenuOpen={() => { dispatch({ type: "pause" }) }}
               // onMenuClose={() => { setAappUIState('playing') }}
               defaultValue={{ label: voiceChoice, value: voiceChoice }}
               onChange={(event) => { handleSelectChange(event, voiceChoice, setVoiceChoice) }}
@@ -446,13 +460,13 @@ export default function Home() {
               })}
             />
           }
-          
+
           {/* <Button kind="primary" size="small" marginTop='nano' marginRight='nano'
             onClick={() => {splitToSentences(); startSpeaking(voiceChoice);}}
           >LISTEN</Button> */}
-          
 
-          {(appUIState == 'playing') &&
+
+          {(state.isPlaying) &&
             <>
               <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded' style={{ marginTop: '3rem' }}>
                 <Element as='div' style={{ display: 'flex', alignItems: 'center', marginTop: '5rem' }}>
@@ -460,7 +474,7 @@ export default function Home() {
                   <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
                 <Element as='div' style={{ height: '10rem', overflow: 'auto' }}>
-                  <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text>
+                  <Text id='readingText' margin='none'><i>{sentences[state.counter]}</i></Text>
                 </Element>
               </Element>
               <Element showOnlyOnMobile showOnlyOnTabPT as='div' shape='rounded'>
@@ -469,7 +483,7 @@ export default function Home() {
                   <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
                 <Element as='div' style={{ height: '7rem', overflow: 'auto' }}>
-                  <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text>
+                  {/* <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text> */}
                 </Element>
               </Element>
             </>
@@ -483,111 +497,124 @@ export default function Home() {
       <div style={{ position: 'fixed', width: '100%', right: 0, bottom: '2.5%' }}>
         <div className={styles.playerStrip} style={{ position: 'relative' }}>
           <div>
-            <div style={{ width: `${(sentenceCounter / sentences.length) * 100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>
+            <div style={{ width: `${(state.counter / sentences.length) * 100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div>
               <Button kind='tertiary' bgColor='transparent' size='tiny'
-                onClick={() => { setAappUIState('previous') }}
+                onClick={() => {
+                  dispatch({ type: "pause" })
+                  setTimeout(() => {
+                    dispatch({ type: "prevA" })
+                  }, 200);
+                  setTimeout(() => {
+                    dispatch({ type: "prevB" })
+                  }, 200);
+                }}
               ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_previous</span></Text></Button>
             </div>
             <div>
-              {(appUIState == '' || appUIState == 'paused') &&
+              {!(state.isPlaying) &&
                 <Button kind='tertiary' bgColor='transparent' size='tiny'
                   onClick={() => {
                     // router.push('/app#link-input') 
-                    setAappUIState('playing')
+                    dispatch({ type: "start" })
                   }}
                 ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
               }
             </div>
             <div>
-              {(appUIState == 'playing' || appUIState == 'next' || appUIState == 'previous') &&
+              {(state.isPlaying) &&
                 <Button kind='tertiary' bgColor='transparent' size='tiny'
-                  onClick={() => { setAappUIState('paused'); }}
+                  onClick={() => { dispatch({ type: "pause" }) }}
                 ><Text align='center'><span className={`material-icons ${styles.icon96}`}>pause</span></Text></Button>
               }
             </div>
             <div>
               <Button kind='tertiary' bgColor='transparent' size='tiny'
-                onClick={() => { setAappUIState('next') }}
+                onClick={() => {
+                  dispatch({ type: "pause" })
+                  setTimeout(() => {
+                    dispatch({ type: "next" })
+                  }, 200);
+                }}
               ><Text align='center'><span className={`material-icons ${styles.icon48}`}>skip_next</span></Text></Button>
             </div>
           </div>
           <div>
             <Button kind='tertiary' bgColor='transparent' size='medium' isFullWidth
-              onClick={() => { setAappUIState(''); }}
-              style={{padding : '0px'}}
+              onClick={() => { dispatch({ type: "stop" }) }}
+              style={{ padding: '0px' }}
             ><Text align='center' weight='700' className={styles.primaryFontColor}>STOP</Text></Button>
           </div>
         </div>
       </div>
 
 
-    
+
 
 
       {/* HELP */}
       <Element as='div' marginBottom='huge' id='help'>
-        
-      
-      <Heading as="h4" marginTop='micro' marginBottom='tiny'>Need help?</Heading>
-      <Element as='div' style={{display:'flex', cursor: 'pointer'}}>
-        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==1)? `3px solid ${styles.primaryColor}` : ''}`}} paddingBottom='nano' 
-          onClick={() => {setHelpTab(1)}}
-        >
-          Install app
-        </Heading>
-        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==2)? `3px solid ${styles.primaryColor}` : ''}`}}
-          onClick={() => {setHelpTab(2)}}
-        >
-          Voices
-        </Heading>
-        <Heading as='h6' marginRight='micro' style={{borderBottom: `${(helpTab==3)? `3px solid ${styles.primaryColor}` : ''}`}}
-          onClick={() => {setHelpTab(3)}}
-        >
-          Other
-        </Heading>
+
+
+        <Heading as="h4" marginTop='micro' marginBottom='tiny'>Need help?</Heading>
+        <Element as='div' style={{ display: 'flex', cursor: 'pointer' }}>
+          <Heading as='h6' marginRight='micro' style={{ borderBottom: `${(helpTab == 1) ? `3px solid ${styles.primaryColor}` : ''}` }} paddingBottom='nano'
+            onClick={() => { setHelpTab(1) }}
+          >
+            Install app
+          </Heading>
+          <Heading as='h6' marginRight='micro' style={{ borderBottom: `${(helpTab == 2) ? `3px solid ${styles.primaryColor}` : ''}` }}
+            onClick={() => { setHelpTab(2) }}
+          >
+            Voices
+          </Heading>
+          <Heading as='h6' marginRight='micro' style={{ borderBottom: `${(helpTab == 3) ? `3px solid ${styles.primaryColor}` : ''}` }}
+            onClick={() => { setHelpTab(3) }}
+          >
+            Other
+          </Heading>
+        </Element>
+
+        {(helpTab == 1) &&
+          <Element as='div'>
+            <Text weight='700' size="large" marginBottom='none'>Mobile devices</Text>
+            <Text marginTop='none' marginBottom='none'><strong>Android:</strong> Browser menu > Add to Home screen</Text>
+
+            <Text weight='700' size="large" marginBottom='none'>Desktop</Text>
+            <Text marginTop='none'>You can simply bookmark this page for regular use.</Text>
+          </Element>
+        }
+
+        {(helpTab == 2) &&
+          <Element as='div'>
+            <Text>👉 Pick a voice that matches the text language.</Text>
+            <Text>👉 On desktops, use Google Chrome for best voices.</Text>
+            <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
+            <Text weight='700' size="large" marginBottom='none'>How do I change default voice on a mobile device?</Text>
+            <Text marginTop='none'>Default voices can be changed through Text to speech settings of the mobile device.</Text>
+            <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
+            <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
+          </Element>
+        }
+
+        {(helpTab == 3) &&
+          <Element as='div'>
+            <Text weight='700' size="large" marginBottom='none'>What browsers are supported?</Text>
+            <Text marginTop='none'>This app should work on most modern browsers, except Safari.</Text>
+            <Text weight='700' size="large" marginBottom='none'>Article is not being fetched or is messed up</Text>
+            <Text marginTop='none'>Extracting an article from a web page is usually not fool proof due to various factors. Recommended fix is to copy paste the article text from the source page.</Text>
+            <Text weight='700' size="large" marginBottom='none'>Speaking is stuck in the middle of a sentence</Text>
+            <Text marginTop='none'>Skip to the next sentence. This could be due to very long sentences not being supported by the voice.</Text>
+          </Element>
+        }
+
+        <Text align='center' marginTop='small' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
       </Element>
 
-      {(helpTab == 1) &&
-        <Element as='div'>
-          <Text weight='700' size="large" marginBottom='none'>Mobile devices</Text>
-          <Text marginTop='none' marginBottom='none'><strong>Android:</strong> Browser menu > Add to Home screen</Text>
 
-          <Text weight='700' size="large" marginBottom='none'>Desktop</Text>
-          <Text marginTop='none'>You can simply bookmark this page for regular use.</Text>
-        </Element>
-      }
 
-      {(helpTab == 2) &&
-        <Element as='div'>
-          <Text>👉 Pick a voice that matches the text language.</Text>
-          <Text>👉 On desktops, use Google Chrome for best voices.</Text>
-          <Text>👉 On mobile devices, voices provided by the default text to speech engine are used.</Text>
-          <Text weight='700' size="large" marginBottom='none'>How do I change default voice on a mobile device?</Text>
-          <Text marginTop='none'>Default voices can be changed through Text to speech settings of the mobile device.</Text>
-          <Text weight='700' size="large" marginBottom='none'>I do not see any voices in the list</Text>
-          <Text marginTop='none'>Refresh the page a couple of times or try a different browser such as Google Chrome. If none of the browsers help, then your device does not support text to speech.</Text>
-        </Element>
-      }
-
-      {(helpTab == 3) &&
-        <Element as='div'>
-          <Text weight='700' size="large" marginBottom='none'>What browsers are supported?</Text>
-          <Text marginTop='none'>This app should work on most modern browsers, except Safari.</Text>
-          <Text weight='700' size="large" marginBottom='none'>Article is not being fetched or is messed up</Text>
-          <Text marginTop='none'>Extracting an article from a web page is usually not fool proof due to various factors. Recommended fix is to copy paste the article text from the source page.</Text>
-          <Text weight='700' size="large" marginBottom='none'>Speaking is stuck in the middle of a sentence</Text>
-          <Text marginTop='none'>Skip to the next sentence. This could be due to very long sentences not being supported by the voice.</Text>
-        </Element>
-      }
-
-      <Text align='center' marginTop='small' marginBottom='none'>Another project by <a href='https://yakshag.github.io' target="blank">Vivek</a></Text>
-      </Element>
-
-      
-      
     </div>
   )
 }
