@@ -1,4 +1,3 @@
-
 $primary-color : #00a885;
 $secondary-color : #03DAC53D;
 $border-color : #03DAC599;
@@ -11,42 +10,42 @@ $sticky-strip: #4d4d4d98;
 // https://til.hashrocket.com/posts/sxbrscjuqu-share-scss-variables-with-javascript
 
 :export {
-  primaryColor : $primary-color;
-  secondaryColor : $secondary-color;
-  textColor : $text-color;
-  borderColor : $border-color;
+  primaryColor: $primary-color;
+  secondaryColor: $secondary-color;
+  textColor: $text-color;
+  borderColor: $border-color;
   background1Color: $background1-color;
   background2Color: $background2-color;
   surfaceColor: $surface-color;
 }
 
-.primaryFontColor{
-  color: $primary-color!important;
+.primaryFontColor {
+  color: $primary-color !important;
 }
 
-.container{
+.container {
   max-width: 1080px;
   margin: 0px auto;
   padding: 1rem;
-  scroll-behavior:'smooth';
+  scroll-behavior: 'smooth';
 }
 
-.icon48{
+.icon48 {
   font-size: 2.5rem;
   color: $primary-color;
 }
 
-.icon96{
+.icon96 {
   font-size: 5rem;
   color: $primary-color;
 }
 
-.surface{
+.surface {
   background-color: $surface-color;
   border-radius: 4px;
 }
 
-.playerStrip{
+.playerStrip {
   position: relative;
   background-color: $sticky-strip;
   border-radius: 4px;
@@ -54,7 +53,8 @@ $sticky-strip: #4d4d4d98;
   box-shadow: rgba(138, 138, 138, 0.16) 0px 10px 36px 0px, rgba(168, 168, 168, 0.06) 0px 0px 0px 1px;
   backdrop-filter: blur(3px);
 }
-.dropdownStyle{
+
+.dropdownStyle {
   color: $primary-color;
   background-color: $primary-color
 }

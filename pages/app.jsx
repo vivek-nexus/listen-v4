@@ -39,8 +39,6 @@ const customStyles = {
 }
 
 let sentences = [];
-let appState = '';
-let lastSentence = 0;
 
 const initialState = {
   isPlaying: false,
@@ -142,17 +140,6 @@ function splitToSentences(hugeText) {
   }
   // console.log(sentences);
 }
-
-// async function sentenceManager(voiceChoice, hugeText, sentenceCounter, setSentenceCounter, setAappUIState) {
-//   splitToSentences(hugeText);
-
-//   console.log(sentences);
-//   console.log("Last sentence is " + lastSentence);
-
-//   setSentenceCounter(i);
-//   console.log('Sent sentence ' + i + ' for speaking')
-//   await startSpeaking(voiceChoice, sentences[i]);
-// }
 
 
 function startSpeaking(voiceChoice, sentence, state) {
@@ -270,7 +257,7 @@ export default function Home() {
 
     if (isMobile) {
       window.addEventListener('blur', function () {
-        // setAappUIState('paused')
+        dispatch({ type: "pause" })
       });
     }
 
@@ -378,9 +365,9 @@ export default function Home() {
       {/* <Text marginTop='none' marginLeft='small' showOnlyOnMobile showOnlyOnTabPT>Google Chrome recommended </Text> */}
 
 
-      <Row marginBottom='huge' gutters='none' className={styles.surface}>
+      <Row marginBottom='huge' className='push-to-ends'>
         {/* LEFT PORTION */}
-        <Portion padding='micro' desktopSpan="15">
+        <Portion desktopSpan="15">
           <InputField
             id='link-input'
             label="Paste link to article"
@@ -392,7 +379,7 @@ export default function Home() {
             style={{ color: `${styles.textColor}` }}
           />
 
-          <Row marginBottom='none'>
+          <Row marginBottom='none' >
             <Portion desktopSpan='10' mobileSpan='10' tabLSSpan='10' tabPTSpan='10'>
               {!fetching &&
                 <Button kind="secondary" size="small" marginBottom='micro'
@@ -420,12 +407,9 @@ export default function Home() {
             value={hugeText}
             onChange={(event) => { setHugeText(event.target.value) }}
             style={{ color: `${styles.textColor}`, lineHeight: '2rem' }}
+            marginBottom="micro"
           />
-        </Portion>
 
-
-        {/* RIGHT PORTION */}
-        <Portion desktopSpan='9' padding='micro' paddingTop='none'>
           <Element marginTop='micro' as='div' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Text className={styles.primaryFontColor} style={{ margin: '0px 0px 2px 0px' }}>Pick a voice</Text>
             <Button kind="tertiary" size="small" marginBottom='none' style={{}}
@@ -460,6 +444,14 @@ export default function Home() {
               })}
             />
           }
+        </Portion>
+
+
+        {/* RIGHT PORTION */}
+        <Portion desktopSpan='8'>
+
+
+
 
           {/* <Button kind="primary" size="small" marginTop='nano' marginRight='nano'
             onClick={() => {splitToSentences(); startSpeaking(voiceChoice);}}
@@ -468,8 +460,8 @@ export default function Home() {
 
           {(state.isPlaying) &&
             <>
-              <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded' style={{ marginTop: '3rem' }}>
-                <Element as='div' style={{ display: 'flex', alignItems: 'center', marginTop: '5rem' }}>
+              <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded'>
+                <Element as='div' style={{ display: 'flex', alignItems: 'center' }}>
                   <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
                   <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
@@ -483,7 +475,7 @@ export default function Home() {
                   <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
                 <Element as='div' style={{ height: '7rem', overflow: 'auto' }}>
-                  {/* <Text id='readingText' margin='none'><i>{sentences[sentenceCounter]}</i></Text> */}
+                  <Text id='readingText' margin='none'><i>{sentences[state.counter]}</i></Text>
                 </Element>
               </Element>
             </>
@@ -497,7 +489,11 @@ export default function Home() {
       <div style={{ position: 'fixed', width: '100%', right: 0, bottom: '2.5%' }}>
         <div className={styles.playerStrip} style={{ position: 'relative' }}>
           <div>
-            <div style={{ width: `${(state.counter / sentences.length) * 100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>
+            {
+              (state.counter < 0)
+                ? (<div style={{ width: "100%", backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>)
+                : (<div style={{ width: `${(state.counter / sentences.length) * 100}%`, backgroundColor: `${styles.primaryColor}`, height: '4px' }}></div>)
+            }
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div>
