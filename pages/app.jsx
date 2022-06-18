@@ -14,7 +14,7 @@ import Select from 'react-select';
 import { split } from "sentence-splitter";
 
 // https://www.npmjs.com/package/react-device-detect
-import { isMobile } from 'react-device-detect';
+import { isMobile, isSafari } from 'react-device-detect';
 
 // https://animate.style/
 import 'animate.css';
@@ -358,7 +358,10 @@ export default function Home() {
           >arrow_back</span></Heading>
         <div>
           <Heading as="h4" marginBottom='none'> What will you listen to, today?</Heading>
-          <Text marginTop='none'>Google Chrome recommended </Text>
+          {(isSafari)
+            ? (<Text marginTop='none'>App may not work on Safari</Text>)
+            : (<Text marginTop='none'>Google Chrome recommended </Text>)
+          }
         </div>
       </Element>
 
