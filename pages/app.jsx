@@ -206,7 +206,7 @@ export default function Home() {
   // State variables
   const router = useRouter()
   const [voiceChoice, setVoiceChoice] = useState(null);
-  const [hugeText, setHugeText] = useState('This is a sample text');
+  const [hugeText, setHugeText] = useState('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
   const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
   const [fetching, setFetching] = useState(false)
 
@@ -253,7 +253,7 @@ export default function Home() {
       setVoiceChoice('Default');
     }
 
-    setHugeText('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
+    setHugeText('');
 
     if (isMobile) {
       window.addEventListener('blur', function () {
@@ -369,10 +369,8 @@ export default function Home() {
           >arrow_back</span></Heading>
         <div>
           <Heading as="h4" marginBottom='none'> What will you listen to, today?</Heading>
-          {(isSafari)
-            ? (<Text marginTop='none' textColour='red'>App may not work on Safari</Text>)
-            : (<Text marginTop='none'>Google Chrome recommended </Text>)
-          }
+          <Text marginTop='none' textColor="orange-70">Google Chrome recommended </Text>
+
         </div>
       </Element>
 
@@ -383,7 +381,6 @@ export default function Home() {
         {/* LEFT PORTION */}
         <Portion desktopSpan="15">
           <InputField
-            id='link-input'
             label="Paste link to article"
             placeholder="https://yourfavblog.com/article-12"
             errorText="Looks invalid. Check?"
@@ -415,9 +412,10 @@ export default function Home() {
           </Row>
 
           <TextArea
+            id='text-area'
             label="Paste article text"
             placeholder="A word, a pragraph or a long article"
-            rows={4}
+            rows={3}
             value={hugeText}
             onChange={(event) => { setHugeText(event.target.value) }}
             style={{ color: `${styles.textColor}`, lineHeight: '2rem' }}
@@ -479,6 +477,12 @@ export default function Home() {
                   <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
                   <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
+                <div textColor="red">
+                  {(isSafari)
+                    ? (<Text marginTop='none' textColor='red-70'>App may not work on Safari</Text>)
+                    : (<></>)
+                  }
+                </div>
                 <Element as='div' style={{ height: '10rem', overflow: 'auto' }}>
                   <Text id='readingText' margin='none'><i>{sentences[state.counter]}</i></Text>
                 </Element>
@@ -527,7 +531,8 @@ export default function Home() {
               {!(state.isPlaying) &&
                 <Button kind='tertiary' bgColor='transparent' size='tiny'
                   onClick={() => {
-                    // router.push('/app#link-input') 
+                    if (isMobile)
+                      router.push('/app#text-area')
                     dispatch({ type: "start" })
                   }}
                 ><Text align='center'><span className={`material-icons ${styles.icon96}`}>play_arrow</span></Text></Button>
