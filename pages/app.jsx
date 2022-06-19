@@ -370,7 +370,7 @@ export default function Home() {
         <div>
           <Heading as="h4" marginBottom='none'> What will you listen to, today?</Heading>
           {(isSafari)
-            ? (<Text marginTop='none'>App may not work on Safari</Text>)
+            ? (<Text marginTop='none' textColour='red'>App may not work on Safari</Text>)
             : (<Text marginTop='none'>Google Chrome recommended </Text>)
           }
         </div>
