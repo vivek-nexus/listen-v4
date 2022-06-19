@@ -18,19 +18,30 @@ export default function Home() {
 
   useEffect(() => {
     // Hotjar analytics
-    (function(h,o,t,j,a,r){
-      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-      h._hjSettings={hjid:2800643,hjsv:6};
-      a=o.getElementsByTagName('head')[0];
-      r=o.createElement('script');r.async=1;
-      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+    (function (h, o, t, j, a, r) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 2800643, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
       a.appendChild(r);
-  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-  })
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+
+    // Mouseflow analytics
+    window._mfq = window._mfq || [];
+    (function () {
+      var mf = document.createElement("script");
+      mf.type = "text/javascript"; mf.defer = true;
+      mf.src = "//cdn.mouseflow.com/projects/d9319a07-5eae-4d34-b65b-6f52cd591faa.js";
+      document.getElementsByTagName("head")[0].appendChild(mf);
+    })();
+  }, [])
 
 
-  return (     
-    
+
+
+  return (
+
     <div className={styles.container}>
       <Head>
         <title>Listen</title>
@@ -41,7 +52,7 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet" />
-          {/* https://melvingeorge.me/blog/nextjs-pwa */}
+        {/* https://melvingeorge.me/blog/nextjs-pwa */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#00a885" />
       </Head>
@@ -76,12 +87,12 @@ export default function Home() {
           <Heading as="h4" weight='500' marginBottom='nano'>Spending too much time on screen?</Heading>
           <Heading as="h2" weight='300' marginBottom='micro'><strike>Read</strike> Listen!</Heading>
           <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-            onClick={() => {router.push('/app')}}
+            onClick={() => { router.push('/app') }}
           >START LISTENING</Button>
           <Button kind="secondary" size="medium" marginBottom='none'
-            onClick={() => {router.push('/#add-to-site')}}
+            onClick={() => { router.push('/#add-to-site') }}
           >ADD TO YOUR SITE </Button>
-          <Text marginBottom='none'>Google Chrome recommended</Text>        
+          <Text marginBottom='none'>Google Chrome recommended</Text>
         </Portion>
 
         {/* NON DESKTOP MARK UP */}
@@ -90,10 +101,10 @@ export default function Home() {
           <Heading align='center' as="h2" weight='300' marginBottom='small'><strike>Read</strike> Listen!</Heading>
           <div className='horizontally-center-this'>
             <Button kind="primary" size="medium" marginBottom='none' marginRight='nano'
-              onClick={() => {router.push('/app')}}
+              onClick={() => { router.push('/app') }}
             >START LISTENING</Button>
             <Button kind="secondary" size="medium" marginBottom='none'
-              onClick={() => {router.push('/app#help')}}
+              onClick={() => { router.push('/app#help') }}
             >INSTALL APP</Button>
           </div>
           <Text marginBottom='none' align='center'>Google Chrome recommended</Text>
@@ -102,7 +113,7 @@ export default function Home() {
 
 
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}}/>
+      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{ color: `${styles.primaryColor}` }} />
 
 
 
@@ -131,7 +142,7 @@ export default function Home() {
       </Row>
 
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='add-to-site'/>
+      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{ color: `${styles.primaryColor}` }} id='add-to-site' />
 
       <Heading as="h4" marginBottom='tiny' marginRight='nano'>Add Listen to your site or blog</Heading>
       <Row marginBottom='small'>
@@ -139,13 +150,13 @@ export default function Home() {
           <Heading as='h6'>How?</Heading>
           <Text>Add a button or a link on your page. A sample button could look like this —</Text>
           <a href='https://start-listening.herokuapp.com/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
-          <Button size='small' kind='secondary'
+            <Button size='small' kind='secondary'
             >
-            Listen to this article
-          </Button>
+              Listen to this article
+            </Button>
           </a>
         </Portion>
-        <Portion desktopSpan='16' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{overflow:'auto'}}>
+        <Portion desktopSpan='16' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{ overflow: 'auto' }}>
           <Heading as='h6'>One line scalable integration</Heading>
           <Text size='large' textColor='white-70' bgColor='grey' padding='nano' shape='rounded' isMono>https://start-listening.herokuapp.com/app?url=<strong>https://yoursite.com/sample-article</strong></Text>
           <Text>Provide your page URL as a parameter.</Text>
@@ -153,7 +164,7 @@ export default function Home() {
         </Portion>
       </Row>
 
-      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}}/>
+      <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{ color: `${styles.primaryColor}` }} />
 
       {/* <HRule kind='primary' marginTop='medium' marginBottom='medium' sideMargin='medium' style={{color : `${styles.primaryColor}`}} id='app'/> */}
 
@@ -187,5 +198,5 @@ export default function Home() {
 
 
 
-      
+
 }

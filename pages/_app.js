@@ -4,10 +4,10 @@ import { DarkTheme } from "../styles/LizenTheme"
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div style={{scrollBehavior:'smooth'}}>
+    <div style={{ scrollBehavior: 'smooth' }}>
       <ThemeProvider theme={DarkTheme}>
         <Component {...pageProps} />
-    </ThemeProvider>
+      </ThemeProvider>
     </div>
   )
 }

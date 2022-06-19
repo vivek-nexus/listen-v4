@@ -277,7 +277,18 @@ export default function Home() {
       r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
       a.appendChild(r);
     })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+
+    // Mouseflow analytics
+    window._mfq = window._mfq || [];
+    (function () {
+      var mf = document.createElement("script");
+      mf.type = "text/javascript"; mf.defer = true;
+      mf.src = "//cdn.mouseflow.com/projects/d9319a07-5eae-4d34-b65b-6f52cd591faa.js";
+      document.getElementsByTagName("head")[0].appendChild(mf);
+    })();
   }, []);
+
+
 
   useEffect(() => {
     splitToSentences(hugeText);
