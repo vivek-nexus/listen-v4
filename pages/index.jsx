@@ -149,7 +149,7 @@ export default function Home() {
         <Portion desktopSpan='8' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' marginBottom='small'>
           <Heading as='h6'>How?</Heading>
           <Text>Add a button or a link on your page. A sample button could look like this —</Text>
-          <a href='https://yakshaG.github.io/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
+          <a href='https://yakshaG.github.io/listen/app?url=https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10' target='blank'>
             <Button size='small' kind='secondary'
             >
               Listen to this article
@@ -158,7 +158,7 @@ export default function Home() {
         </Portion>
         <Portion desktopSpan='16' mobileSpan='24' tabLSSpan='24' tabPTSpan='24' style={{ overflow: 'auto' }}>
           <Heading as='h6'>One line scalable integration</Heading>
-          <Text size='large' textColor='white-70' bgColor='grey' padding='nano' shape='rounded' isMono>https://yakshaG.github.io/app?url=<strong>https://yoursite.com/sample-article</strong></Text>
+          <Text size='large' textColor='white-70' bgColor='grey' padding='nano' shape='rounded' isMono>https://yakshaG.github.io/listen/app?url=<strong>https://yoursite.com/sample-article</strong></Text>
           <Text>Provide your page URL as a parameter.</Text>
           <Text>Your button or link click should open up a new tab to a URL like above. We will fetch the text from your page and be ready for the user to hit play.</Text>
         </Portion>
