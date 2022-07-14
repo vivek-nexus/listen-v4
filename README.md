@@ -1,4 +1,4 @@
-<img src="https://start-listening.herokuapp.com/headphones.png" height="128px" />
+<img src="https://yakshag.github.io/listen/headphones.png" height="128px" />
 
 ### Spending too much time on screen?
 # Listen!
