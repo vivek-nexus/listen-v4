@@ -475,7 +475,7 @@ export default function Home() {
               <Element showOnlyOnDesktop showOnlyOnTabLS as='div' shape='rounded'>
                 <Element as='div' style={{ display: 'flex', alignItems: 'center' }}>
                   <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-                  <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
+                  <Element as='img' src='/listen/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
                 <div textColor="red">
                   {(isSafari)
@@ -490,7 +490,7 @@ export default function Home() {
               <Element showOnlyOnMobile showOnlyOnTabPT as='div' shape='rounded'>
                 <Element as='div' style={{ display: 'flex', alignItems: 'center', marginTop: '2rem' }}>
                   <Heading as='h6' weight='300' marginRight='micro' >Reading now</Heading>
-                  <Element as='img' src='/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
+                  <Element as='img' src='/listen/speaking.gif' className={styles.icon48} style={{ width: '36px', alignSelf: 'center' }} />
                 </Element>
                 <Element as='div' style={{ height: '7rem', overflow: 'auto' }}>
                   <Text id='readingText' margin='none'><i>{sentences[state.counter]}</i></Text>
