@@ -12,6 +12,11 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
+  experimental: {
+    images: {
+      unoptimized: true,
+    },
+  },
   basePath: '/listen',
   assetPrefix: '/listen/',
 }
