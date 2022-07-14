@@ -207,7 +207,7 @@ export default function Home() {
   const router = useRouter()
   const [voiceChoice, setVoiceChoice] = useState(null);
   const [hugeText, setHugeText] = useState('This is a sample text! You can use this tool to proof-read your articles, explore pronunciation! On desktop devices, Google voices provided by Chrome browser are the best. On Android/iOS, good voices are installed by default, but may need tweaking in device settings.');
-  const [url, setUrl] = useState('https://yakshag.medium.com/modern-ui-ux-backward-compatibility-24450e3c0d10');
+  const [url, setUrl] = useState('');
   const [fetching, setFetching] = useState(false)
 
   const [helpTab, setHelpTab] = useState(1);
