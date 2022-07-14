@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.scss'
 import { Button, Text, Element, Heading, Row, Portion, InputField, TextArea, HRule } from "fictoan-react"
@@ -62,9 +63,10 @@ export default function Home() {
       <Row marginBottom='none' marginTop='small'>
         {/* DESKTOP MARK UP */}
         <Portion desktopSpan="one-third" hideOnTabPT hideOnMobile>
-          <Element
-            as="img"
-            src="/listen/headphones.png"
+          <Image
+            src="/headphones.png"
+            width={192}
+            height={192}
             marginBottom="small"
             // style={{ width: "164px" }}
             style={{ width: "192px", marginRight: "auto" }}
@@ -73,12 +75,13 @@ export default function Home() {
 
         {/* NON DESKTOP MARK UP */}
         <Portion marginBottom='small' showOnlyOnTabPT showOnlyOnMobile>
-          <Element
-            as="img"
-            src="/listen/headphones.png"
+          <Image
+            src="/headphones.png"
+            width={192}
+            height={192}
             marginBottom="small"
             // style={{ width: "164px" }}
-            style={{ width: "192px", margin: "auto" }}
+            style={{ width: "192px", marginRight: "auto" }}
           />
         </Portion>
 
