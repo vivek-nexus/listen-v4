@@ -1,6 +1,6 @@
-module.exports = {
-  reactStrictMode: true,
-}
+// module.exports = {
+//   reactStrictMode: true,
+// }
 
 // const withOffline = require("next-offline");
 
@@ -8,3 +8,9 @@ module.exports = {
 // const nextConfig = {};
 
 // module.exports = withOffline(nextConfig);
+
+const isProd = process.env.NODE_ENV === 'production'
+
+module.exports = {
+  assetPrefix: isProd ? '/listen/' : ''
+}
