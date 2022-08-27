@@ -90,7 +90,7 @@ function fetchArticle(url, setFetching, setHugeText) {
 
   setHugeText([]);
 
-  fetch(`https://hidden-citadel-76712.herokuapp.com?url=${url}`, requestOptions)
+  fetch(`https://article-parser.fly.dev?url=${url}`, requestOptions)
     .then(response => response.text())
     .then(result => {
       // console.log(result)
