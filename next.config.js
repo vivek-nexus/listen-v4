@@ -12,6 +12,7 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  basePath: '/listen',
-  assetPrefix: '/listen/',
+  basePath: isProd ? '/listen' : '',
+  assetPrefix: isProd ? '/listen/' : '',
+  
 }
