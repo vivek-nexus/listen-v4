@@ -1,5 +1,6 @@
 import './globals.css'
 import { Cabin } from 'next/font/google'
+import 'animate.css';
 
 const cabin = Cabin({ subsets: ['latin'] })
 
@@ -11,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={cabin.className}>
+      <body className={`${cabin.className} animate__animated animate__fadeIn text-white/80 selection:bg-primary-800 selection:text-white/80`}>
         {children}</body>
     </html>
   )
