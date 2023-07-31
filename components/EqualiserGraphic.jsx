@@ -1,4 +1,4 @@
-export default function EqualiserGraphic({ height, className }) {
+export default function EqualiserGraphic({ height, playState }) {
     const heightInPixel = `${height}px`
     const widthOfEachBarInPixel = `${(0.075 * height)}px`;
     const gapInPixel = `${(0.15 * height)}px`
@@ -10,6 +10,7 @@ export default function EqualiserGraphic({ height, className }) {
                     animation-duration: 2s;
                     animation-iteration-count: infinite;
                     animation-timing-function: linear;
+                    animation-play-state: ${playState == "paused" ? `paused` : `running`}
                 }
                 @keyframes bar-1-animation{
                     0% {height: ${height * 0.2}px}
@@ -72,39 +73,39 @@ export default function EqualiserGraphic({ height, className }) {
                 }
             `}</style>
             <div
-                className={`${className} flex items-center`}
+                className={`flex items-center`}
                 style={{ width: heightInPixel, height: heightInPixel, gap: gapInPixel }}
             >
                 <div
-                    className={`bg-primary-800 bar-1 equaliser-animation-properties`}
+                    className={`bg-primary-800 rounded-full bar-1 equaliser-animation-properties`}
                     style={{
                         width: widthOfEachBarInPixel,
                         height: heightInPixel,
                     }}
                 ></div>
                 <div
-                    className={`bg-primary-800 bar-2 equaliser-animation-properties`}
+                    className={`bg-primary-800 rounded-full bar-2 equaliser-animation-properties`}
                     style={{
                         width: widthOfEachBarInPixel,
                         height: heightInPixel
                     }}
                 ></div>
                 <div
-                    className={`bg-primary-800 bar-3 equaliser-animation-properties`}
+                    className={`bg-primary-800 rounded-full bar-3 equaliser-animation-properties`}
                     style={{
                         width: widthOfEachBarInPixel,
                         height: heightInPixel
                     }}
                 ></div>
                 <div
-                    className={`bg-primary-800 bar-4 equaliser-animation-properties`}
+                    className={`bg-primary-800 rounded-full bar-4 equaliser-animation-properties`}
                     style={{
                         width: widthOfEachBarInPixel,
                         height: heightInPixel
                     }}
                 ></div>
                 <div
-                    className={`bg-primary-800 bar-5 equaliser-animation-properties`}
+                    className={`bg-primary-800 rounded-full bar-5 equaliser-animation-properties`}
                     style={{
                         width: widthOfEachBarInPixel,
                         height: heightInPixel

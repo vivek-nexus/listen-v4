@@ -1,6 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react'
-import { isMobile } from 'react-device-detect';
+import { useEffect } from 'react'
 import Phone from './Phone';
 
 export default function ReadingPhone({ viewport }) {
@@ -62,9 +61,11 @@ export default function ReadingPhone({ viewport }) {
                     <ContentRow />
                 </div>
             </Phone>
-            <div className={`mt-8 text-center animate__animated ${isMobile ? `animate__bounceIn` : `animate__bounceInLeft`}`}>
-                <p className="text-3xl font-bold">READ</p>
-                <p className="text-2xl text-red-500">High screen time 😵‍💫</p>
+            <div className="xl:hidden">
+                <AboutPhone viewport="mobile" />
+            </div>
+            <div className="hidden xl:block">
+                <AboutPhone viewport="desktop" />
             </div>
         </div>
     )
@@ -73,6 +74,15 @@ export default function ReadingPhone({ viewport }) {
 function ContentRow({ className }) {
     return (
         <div className={`h-3 bg-gray-600 rounded-lg my-3 ${className}`}></div>
+    )
+}
+
+function AboutPhone({ viewport }) {
+    return (
+        <div className={`mt-8 text-center animate__animated ${viewport == "mobile" ? `animate__bounceIn` : `animate__bounceInLeft`}`}>
+            <p className="text-3xl font-bold">READ</p>
+            <p className="text-2xl text-red-500">High screen time 😫</p>
+        </div>
     )
 }
 
