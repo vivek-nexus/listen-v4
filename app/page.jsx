@@ -4,9 +4,11 @@ import Button from "@/components/Button";
 import ListeningPhone from "@/components/ListeningPhone";
 import ReadingPhone from "@/components/ReadingPhone";
 import { isMobile } from 'react-device-detect';
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [isReadingPhoneInView, setIsReadingPhoneInView] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     if (isMobile) {
@@ -32,7 +34,12 @@ export default function Home() {
         <div className="flex flex-col items-center">
           <h2 className="text-primary-800 text-4xl mb-4">Skip long form reading</h2>
           <h2 className="font-bold text-primary-800 text-6xl mb-12">START LISTENING!</h2>
-          <Button type="primary">Let's go!</Button>
+          <Button
+            type="primary"
+            onClick={() => { router.push("/app") }}
+          >
+            Let's go!
+          </Button>
         </div>
         <div>
           <ListeningPhone />
@@ -42,7 +49,12 @@ export default function Home() {
         <div className="flex flex-col items-center mb-12">
           <h2 className="text-primary-800 text-2xl md:text-3xl mb-4">Skip long form reading</h2>
           <h2 className="font-bold text-primary-800 text-3xl md:text-5xl mb-12">START LISTENING!</h2>
-          <Button type="primary">Let's go!</Button>
+          <Button
+            type="primary"
+            onClick={() => { router.push("/app") }}
+          >
+            Let's go!
+          </Button>
         </div>
         <div>
           {isReadingPhoneInView ?
