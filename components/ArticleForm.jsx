@@ -3,6 +3,7 @@ import { isMobile } from "react-device-detect"
 import Button from "./Button"
 import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
+import Image from "./Image"
 
 export default function ArticleForm({ }) {
     const currentTab = useStore((state) => state.currentTab)
@@ -13,35 +14,21 @@ export default function ArticleForm({ }) {
 
     return (
         <>
-            <style jsx>
-                {`
-                    .custom-scrollbar::-webkit-scrollbar{
-                        width: 4px;
-                    }
-
-                    .custom-scrollbar::-webkit-scrollbar-track{
-                        background-color: transparent;
-                    }
-
-                    .custom-scrollbar::-webkit-scrollbar-thumb{
-                        background-color: #008080;
-                        border-radius: 8px;
-                        height: 32px;
-                    }
-
-                `}
-            </style>
             <div
                 className={`bg-black p-6 flex flex-col
                 ${isPlayerOpen ? `w-full lg:w-1/2` : `w-full`}
                 `}
                 style={{ transition: "all 0.5s" }}
             >
-                <div className="w-full flex mb-8 bg-primary-800/30 rounded-full">
+                <div className="flex gap-2 items-center justify-center mb-8">
+                    <Image src="logo.png" />
+                    <h3 className="text-primary-800 font-bold">LISTEN</h3>
+                </div>
+                <div className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
                     <Button
                         type={currentTab == 1 ? `primary` : `tertiary`}
                         showHoverAnimation={false}
-                        className="px-6 py-2 w-full"
+                        className="px-6 py-2"
                         onClick={() => setCurrentTab(1)}
                     >
                         Fetch article
@@ -49,7 +36,7 @@ export default function ArticleForm({ }) {
                     <Button
                         type={currentTab == 2 ? `primary` : `tertiary`}
                         showHoverAnimation={false}
-                        className="px-6 py-2 w-full"
+                        className="px-6 py-2"
                         onClick={() => setCurrentTab(2)}
                     >
                         Paste article
@@ -57,7 +44,7 @@ export default function ArticleForm({ }) {
                 </div>
                 {currentTab == 1 &&
                     <div className="relative flex-grow animate__animated animate__fadeIn">
-                        <div className="relative mb-8">
+                        <div className="relative mb-12">
                             <InputField placeholder="Link to article" type="input-field" onChange={() => { }} />
                             <Button
                                 type="primary"
@@ -69,8 +56,8 @@ export default function ArticleForm({ }) {
                             </Button>
                         </div>
                         <div className="overflow-clip rounded-lg">
-                            <div className="px-4 py-2 bg-primary-800/40">
-                                <p>Article title</p>
+                            <div className="px-4 py-2 bg-primary-800/40 font-bold">
+                                <p>Why Hybrid Work Can Become Toxic</p>
                             </div>
                             <div className="p-4 bg-primary-800/30 overflow-y-auto max-h-60 custom-scrollbar text-white/60">
                                 <p>Toxicity can be an unfortunate reality of some work environments. Toxic cultures share five attributes: they’re disrespectful, noninclusive, unethical, cutthroat, and abusive. Undeniably negative as these attributes are, there is no absolute, uniformly accepted scale against which we can measure any of them. Making matters more complicated, a hybrid environment by definition means that employees are experiencing their work in very different contexts — some face-to-face, others remote — and those may vary by the day. As a result, hybrid workspaces aren’t uniform; some people may experience a hybrid environment as toxic while others do not. The author presents four mechanisms through which hybridity can lead to toxic behaviors, as well as four strategies for preventing and addressing toxic behavior in a hybrid environment.
@@ -169,7 +156,7 @@ export default function ArticleForm({ }) {
                             >
                                 <Button
                                     type="primary"
-                                    className="rounded-full w-min flex"
+                                    className="rounded-full w-min flex p-3"
                                     onClick={() => { setIsPlayerOpen(true) }}
                                 >
                                     <span
@@ -201,7 +188,7 @@ export default function ArticleForm({ }) {
                             >
                                 <Button
                                     type="primary"
-                                    className="rounded-full w-min flex"
+                                    className="rounded-full w-min flex p-3"
                                     onClick={() => { setIsPlayerOpen(true) }}
                                 >
                                     <span

@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head />
       <body
-        className={`${cabin.className} overflow-y-hidden animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
+        className={`${cabin.className} animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
       >
         {children}
       </body>
