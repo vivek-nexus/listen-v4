@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion"
 import { isMobile } from "react-device-detect";
+import Button from "@/components/Button";
+import InputField from "@/components/InputField";
 
 
 
@@ -26,12 +28,26 @@ export default function ListenApp() {
                     <LayoutGroup>
                         <motion.div
                             layout={isMobile ? false : true}
-                            className={`bg-primary-200 p-6 h-full
+                            className={`bg-black p-6 h-full
                         ${isPlayerOpen ? `lg:col-span-1` : `lg:col-span-2`}
                         `}
                             onClick={() => setIsPlayerOpen(true)}
                         >
-                            <motion.p layout={isMobile ? false : "position"}>Left</motion.p>
+                            <motion.div
+                                layout={isMobile ? false : "position"}>
+                                <div className="w-full flex mb-8">
+                                    <Button type="primary" className="px-6 py-2 w-full">
+                                        Fetch article
+                                    </Button>
+                                    <Button className="px-6 py-2 w-full bg-transparent">
+                                        Paste article
+                                    </Button>
+                                </div>
+                                <div className="relative">
+                                    <InputField placeholder="Link to article" onChange={() => { }} />
+                                    <Button type="primary" className="absolute right-0 rounded-l-none py-2 px-4">Fetch</Button>
+                                </div>
+                            </motion.div>
                         </motion.div>
                         <AnimatePresence>
                             {isPlayerOpen &&
