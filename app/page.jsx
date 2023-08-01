@@ -36,6 +36,8 @@ export default function Home() {
           <h2 className="font-bold text-primary-800 text-6xl mb-12">START LISTENING!</h2>
           <Button
             type="primary"
+            showHoverAnimation={true}
+            className="text-lg font-bold px-6 py-2"
             onClick={() => { router.push("/app") }}
           >
             Let's go!
@@ -51,7 +53,8 @@ export default function Home() {
           <h2 className="font-bold text-primary-800 text-3xl md:text-5xl mb-12">START LISTENING!</h2>
           <Button
             type="primary"
-            className="text-lg font-bold"
+            showHoverAnimation={true}
+            className="text-lg font-bold p-6"
             onClick={() => { router.push("/app") }}
           >
             Let's go!
