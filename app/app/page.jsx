@@ -15,27 +15,19 @@ export default function ListenApp() {
 
     return (
         <>
-            <style jsx global>{`
-            @media only screen and (max-width: 1440px) {
-                    .responsive-viewport-height{
-                            height: ${viewAreaHeight > 0 ? viewAreaHeight : `100vh`}
-                         }
-                    }
-                `}
-            </style>
             <div
                 className="min-h-screen bg-black bg-[length:172px_172px] lg:flex lg:flex-col lg:items-center lg:justify-center"
                 style={{ backgroundImage: "url(/bg-pattern.svg)" }}
             >
                 <div
-                    className={`lg:w-[50vw] h-screen responsive-viewport-height lg:h-[75vh] lg:grid grid-cols-1 lg:grid-cols-2 bg-black rounded-2xl lg:overflow-clip`}
+                    className={`h-screen bg-black lg:rounded-2xl lg:w-[50vw] lg:h-[75vh] lg:grid lg:grid-cols-2 lg:overflow-clip`}
                     style={{ boxShadow: "0px 10px 33px 4px rgba(0, 128, 128, 0.75)" }}
                 >
                     <LayoutGroup>
                         <motion.div
                             layout={isMobile ? false : true}
                             className={`bg-primary-200 p-6 h-full
-                        ${isPlayerOpen ? `hidden lg:block lg:col-span-1` : `block lg:block lg:col-span-2`}
+                        ${isPlayerOpen ? `lg:col-span-1` : `lg:col-span-2`}
                         `}
                             onClick={() => setIsPlayerOpen(true)}
                         >
@@ -48,13 +40,13 @@ export default function ListenApp() {
                                     // layout
                                     layout={isMobile ? false : true}
                                     className={`bg-primary-700 h-full
-                                        ${isPlayerOpen ? `block lg:col-span-1` : `hidden lg:col-span-0`}
+                                        ${isPlayerOpen ? `absolute top-0 w-full lg:static lg:col-span-1 lg:w-auto` : `hidden lg:col-span-0`}
                                     `}
                                     onClick={() => setIsPlayerOpen(false)}
                                     animate={isMobile && { y: [1000, 0] }}
-                                    exit={isMobile && { y: [-1000, 0] }}
+                                    exit={isMobile && { y: [0, 1000] }}
                                     transition={isMobile && {
-                                        duration: 0.5,
+                                        duration: 0.75,
                                         type: "tween"
                                     }}
                                 >

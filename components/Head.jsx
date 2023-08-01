@@ -3,6 +3,7 @@ export default function Head() {
         <head>
             <title>Listen</title>
             <meta name="description" content="Listen to articles — just like a podcast!" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <link rel="icon" href="/logo.png" />
             {/* https://melvingeorge.me/blog/nextjs-pwa */}
             <link rel="manifest" href="/manifest.json" />
