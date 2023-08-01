@@ -27,22 +27,13 @@ export default function ListenApp() {
                 style={{ backgroundImage: "url(/bg-pattern.svg)" }}
             >
                 <div
-                    className={`h-screen bg-black lg:rounded-2xl lg:w-[50vw] lg:h-[75vh] lg:grid lg:grid-cols-2 lg:overflow-clip`}
+                    className={`h-screen flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[75vh] lg:flex-row lg:overflow-clip`}
                     style={{ boxShadow: "0px 10px 33px 4px rgba(0, 128, 128, 0.75)" }}
                 >
-                    <LayoutGroup>
-                        <motion.div
-                            layout={isMobile ? false : true}
-                            className={`bg-black p-6 h-full
-                        ${isPlayerOpen ? `lg:col-span-1` : `lg:col-span-2`}
-                        `}
-                        >
-                            <ArticleForm />
-                        </motion.div>
-                        <Player />
-                    </LayoutGroup>
+                    <ArticleForm />
+                    <Player />
                 </div>
-            </div>
+            </div >
         </>
     )
 }

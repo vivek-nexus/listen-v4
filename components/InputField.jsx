@@ -12,7 +12,7 @@ export default function InputField({ placeholder, onChange, type }) {
             }
             {type == "text-area" &&
                 <textarea
-                    className="border py-1.5 pl-4 pr-20 w-full rounded-lg border-primary-800/50 outline-none duration-200 bg-primary-800/20 focus:border-primary-800 placeholder:text-white/40"
+                    className="border p-4 pr-20 w-full rounded-lg border-primary-800/50 outline-none duration-200 bg-primary-800/20 focus:border-primary-800 placeholder:text-white/40"
                     onChange={(event) => {
                         onChange(event.target.value);
                     }}

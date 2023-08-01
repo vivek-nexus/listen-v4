@@ -54,11 +54,11 @@ export default function Home() {
           <Button
             type="primary"
             showHoverAnimation={true}
-            className="text-lg font-bold p-6"
+            className="text-lg font-bold px-6 py-2"
             onClick={() => { router.push("/app") }}
           >
             Let's go!
-          </Button>
+          </Button>!
         </div>
         <div>
           {isReadingPhoneInView ?

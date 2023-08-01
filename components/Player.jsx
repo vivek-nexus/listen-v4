@@ -8,24 +8,17 @@ export default function Player() {
 
     return (
         <AnimatePresence>
-            {isPlayerOpen &&
-                <motion.div
-                    key={isPlayerOpen}
-                    // layout={isMobile ? false : true}
-                    className={`bg-primary-700 h-full
-                                   ${isPlayerOpen ? `absolute top-0 w-full lg:static lg:col-span-1 lg:w-auto` : `hidden lg:col-span-0`}
+            <div
+                className={`bg-primary-700
+                            ${isPlayerOpen
+                        ? `absolute bottom-0 h-screen w-full z-10 lg:static lg:w-1/2 lg:h-auto`
+                        : `absolute bottom-0 h-0 w-full lg:static lg:w-0 lg:h-auto`}
                                `}
-                    onClick={() => setIsPlayerOpen(false)}
-                    animate={isMobile && { y: [1000, 0] }}
-                    exit={isMobile && { y: [0, 1000] }}
-                    transition={isMobile && {
-                        duration: 0.5,
-                        type: "tween"
-                    }}
-                >
-                    <motion.p layout={isMobile ? false : "position"}>Right</motion.p>
-                </motion.div>
-            }
+                style={{ transition: "all 0.5s" }}
+                onClick={() => setIsPlayerOpen(false)}
+            >
+                <motion.p layout={isMobile ? false : "position"}>Right</motion.p>
+            </div>
         </AnimatePresence>
 
     )

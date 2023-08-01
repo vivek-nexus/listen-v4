@@ -26,13 +26,17 @@ export default function ArticleForm({ }) {
                     .custom-scrollbar::-webkit-scrollbar-thumb{
                         background-color: #008080;
                         border-radius: 8px;
+                        height: 32px;
                     }
 
                 `}
             </style>
-            <motion.div
-                className="h-full"
-                layout={isMobile ? false : "position"}>
+            <div
+                className={`bg-black p-6 flex flex-col
+                ${isPlayerOpen ? `w-full lg:w-1/2` : `w-full`}
+                `}
+                style={{ transition: "all 0.5s" }}
+            >
                 <div className="w-full flex mb-8 bg-primary-800/30 rounded-full">
                     <Button
                         type={currentTab == 1 ? `primary` : `tertiary`}
@@ -52,12 +56,12 @@ export default function ArticleForm({ }) {
                     </Button>
                 </div>
                 {currentTab == 1 &&
-                    <div className="relative h-full animate__animated animate__fadeIn">
+                    <div className="relative flex-grow animate__animated animate__fadeIn">
                         <div className="relative mb-8">
                             <InputField placeholder="Link to article" type="input-field" onChange={() => { }} />
                             <Button
                                 type="primary"
-                                showHoverAnimation={true}
+                                showHoverAnimation={false}
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
                                 onClick={() => { }}
                             >
@@ -159,24 +163,27 @@ export default function ArticleForm({ }) {
                                 </p>
                             </div>
                         </div>
-                        {!isPlayerOpen && <div className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-24">
-                            <Button
-                                type="primary"
-                                className="rounded-full w-min flex"
-                                onClick={() => { setIsPlayerOpen(true) }}
+                        {!isPlayerOpen &&
+                            <div
+                                className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                             >
-                                <span
-                                    style={{ fontSize: "64px" }}
-                                    class="material-symbols-rounded text-white/70"
+                                <Button
+                                    type="primary"
+                                    className="rounded-full w-min flex"
+                                    onClick={() => { setIsPlayerOpen(true) }}
                                 >
-                                    play_arrow
-                                </span>
-                            </Button>
-                        </div>}
+                                    <span
+                                        className="material-icons-round text-6xl"
+                                    >
+                                        play_arrow
+                                    </span>
+                                </Button>
+                            </div>
+                        }
                     </div>
                 }
                 {currentTab == 2 &&
-                    <div className="animate__animated animate__fadeIn">
+                    <div className="relative flex-grow animate__animated animate__fadeIn">
                         <InputField placeholder="Paste an article, short or long" type="text-area" onChange={() => { }} />
                         <div className="text-right">
                             <Button
@@ -188,9 +195,26 @@ export default function ArticleForm({ }) {
                                 Clear
                             </Button>
                         </div>
+                        {!isPlayerOpen &&
+                            <div
+                                className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
+                            >
+                                <Button
+                                    type="primary"
+                                    className="rounded-full w-min flex"
+                                    onClick={() => { setIsPlayerOpen(true) }}
+                                >
+                                    <span
+                                        className="material-icons-round text-6xl"
+                                    >
+                                        play_arrow
+                                    </span>
+                                </Button>
+                            </div>
+                        }
                     </div>
                 }
-            </motion.div>
+            </div>
         </>
     )
 }

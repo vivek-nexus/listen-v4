@@ -1,4 +1,5 @@
 import "./globals.css"
+import 'material-icons/iconfont/material-icons.css';
 import { Cabin } from "next/font/google"
 import "animate.css";
 import Head from "@/components/Head";
