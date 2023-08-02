@@ -18,7 +18,7 @@ export default function Button({ type, children, className, onClick, showHoverAn
 function ButtonTypeHelper(type) {
     switch (type) {
         case "primary":
-            return `bg-primary-800 text-white/80`
+            return `bg-primary-800 text-white/70`
         case "secondary":
             return `bg-primary-800/30 text-primary-800`
         default:
