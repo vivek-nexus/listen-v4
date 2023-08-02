@@ -1,11 +1,14 @@
 import { motion } from "framer-motion"
+import { useRouter } from 'next/navigation'
 import { isMobile } from "react-device-detect"
 import Button from "./Button"
 import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
 import Image from "./Image"
+import Link from "next/link"
 
 export default function ArticleForm({ }) {
+    const router = useRouter()
     const currentTab = useStore((state) => state.currentTab)
     const setCurrentTab = useStore((state) => state.setCurrentTab)
     const isPlayerOpen = useStore((state) => state.isPlayerOpen)
@@ -20,10 +23,17 @@ export default function ArticleForm({ }) {
                 `}
                 style={{ transition: "all 0.5s" }}
             >
-                <div className="flex gap-2 items-center justify-center mb-8">
-                    <Image src="logo.png" />
-                    <h3 className="text-primary-800 font-bold">LISTEN</h3>
-                </div>
+                <Link
+                    href="/"
+                    className="flex gap-2 items-center justify-center mt-2 mb-8"
+                >
+                    <span
+                        className="material-icons-round text-4xl text-primary-800"
+                    >
+                        graphic_eq
+                    </span>
+                    <h3 className="text-primary-800 font-bold text-2xl">LISTEN</h3>
+                </Link>
                 <div className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
                     <Button
                         type={currentTab == 1 ? `primary` : `tertiary`}

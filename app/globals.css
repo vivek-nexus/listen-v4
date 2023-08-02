@@ -24,3 +24,7 @@
     border-radius: 8px;
     height: 32px;
 }
+
+html {
+    -webkit-tap-highlight-color: #055d577c;
+}
