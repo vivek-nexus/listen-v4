@@ -18,7 +18,7 @@ export default function ArticleForm({ }) {
     return (
         <>
             <div
-                className={`bg-black p-6 flex flex-col
+                className={`relative bg-black p-6 flex flex-col
                 ${isPlayerOpen ? `w-full lg:w-1/2` : `w-full`}
                 `}
                 style={{ transition: "all 0.5s" }}
@@ -53,7 +53,7 @@ export default function ArticleForm({ }) {
                     </Button>
                 </div>
                 {currentTab == 1 &&
-                    <div className="relative flex-grow animate__animated animate__fadeIn">
+                    <div className="flex-grow animate__animated animate__fadeIn">
                         <div className="relative mb-12">
                             <InputField placeholder="Link to article" type="input-field" onChange={() => { }} />
                             <Button
@@ -160,23 +160,6 @@ export default function ArticleForm({ }) {
                                 </p>
                             </div>
                         </div>
-                        {!isPlayerOpen &&
-                            <div
-                                className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
-                            >
-                                <Button
-                                    type="primary"
-                                    className="rounded-full w-min flex p-3"
-                                    onClick={() => { setIsPlayerOpen(true) }}
-                                >
-                                    <span
-                                        className="material-icons-round text-6xl"
-                                    >
-                                        play_arrow
-                                    </span>
-                                </Button>
-                            </div>
-                        }
                     </div>
                 }
                 {currentTab == 2 &&
@@ -192,26 +175,29 @@ export default function ArticleForm({ }) {
                                 Clear
                             </Button>
                         </div>
-                        {!isPlayerOpen &&
-                            <div
-                                className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
-                            >
-                                <Button
-                                    type="primary"
-                                    className="rounded-full w-min flex p-3"
-                                    onClick={() => { setIsPlayerOpen(true) }}
-                                >
-                                    <span
-                                        className="material-icons-round text-6xl"
-                                    >
-                                        play_arrow
-                                    </span>
-                                </Button>
-                            </div>
-                        }
                     </div>
                 }
-            </div>
+                {!isPlayerOpen &&
+                    <div
+                        className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
+                        style={{
+                            animationDelay: `0.25s`
+                        }}
+                    >
+                        <Button
+                            type="primary"
+                            className="rounded-full w-min flex p-3"
+                            onClick={() => { setIsPlayerOpen(true) }}
+                        >
+                            <span
+                                className="material-icons-round text-6xl"
+                            >
+                                play_arrow
+                            </span>
+                        </Button>
+                    </div>
+                }
+            </div >
         </>
     )
 }
