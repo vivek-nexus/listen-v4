@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { isMobile } from "react-device-detect"
 import Button from "./Button"
 import EqualiserGraphic from "./EqualiserGraphic"
-import VoicesDropdown from "./VoicesDropdown"
+import VoiceSettings from "./VoiceSettings"
 
 
 
@@ -43,25 +43,7 @@ export default function Player() {
                         </Button>
                     </div>
                     <div className="px-6 mb-24 ">
-                        <div className="flex gap-4 items-center mb-3 lg:mb-0">
-                            <div
-                                className="flex-grow"
-                            >
-                                <VoicesDropdown />
-                            </div>
-                            <Button
-                                type="tertiary"
-                                className="rounded-full w-min flex"
-                                onClick={() => { setIsPlayerOpen(true) }}
-                            >
-                                <span
-                                    className="material-icons-round text-4xl"
-                                >
-                                    tune
-                                </span>
-                            </Button>
-                        </div>
-                        <p className="lg:hidden text-primary-800 text-center text-sm">On mobile devices, change voice in your device text to speech settings</p>
+                        <VoiceSettings />
                     </div>
                     <div className="px-6 flex justify-center mb-24">
                         <EqualiserGraphic height="96" playState="playing" />

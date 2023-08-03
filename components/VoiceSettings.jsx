@@ -1,0 +1,183 @@
+import Select from 'react-select'
+import { colours } from "@/constants/colours"
+import Button from "./Button";
+import { useEffect, useState } from "react";
+import { useDetectClickOutside } from 'react-detect-click-outside';
+
+
+export default function VoiceSettings({ }) {
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+    const ref = useDetectClickOutside({ onTriggered: () => { setIsSettingsOpen(false) } });
+
+    const ColourOptions = [
+        { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
+        { value: 'blue', label: 'Blue', color: '#0052CC' },
+        { value: 'purple', label: 'Purple', color: '#5243AA' },
+        { value: 'red', label: 'Red', color: '#FF5630' },
+        { value: 'orange', label: 'Orange', color: '#FF8B00' },
+        { value: 'yellow', label: 'Yellow', color: '#FFC400' },
+        { value: 'green', label: 'Green', color: '#36B37E' },
+        { value: 'forest', label: 'Forest', color: '#00875A' },
+        { value: 'slate', label: 'Slate', color: '#253858' },
+        { value: 'silver', label: 'Silver', color: '#666666' },
+    ];
+
+    const flavourOptions = [
+        { value: 'vanilla', label: 'Vanilla', rating: 'safe' },
+        { value: 'chocolate', label: 'Chocolate', rating: 'good' },
+        { value: 'strawberry', label: 'Strawberry', rating: 'wild' },
+        { value: 'salted-caramel', label: 'Salted Caramel', rating: 'crazy' },
+    ];
+
+
+    const options = [
+        { label: "Colours", options: ColourOptions },
+        { label: "Flavour", options: flavourOptions },
+    ]
+
+    const groupStyles = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    };
+
+
+
+    return (
+        <>
+            <style jsx global>{`
+                @keyframes fadeIn {
+                    0% {height: 0px;}
+                    100% {height: 300px;}
+                }
+
+                .tailwind-pain__control {
+                    border-color: ${colours["primary-800/50"]}; 
+                }
+                .tailwind-pain__menu{
+                    animation: fadeIn 0.5s; 
+                }
+            `}</style>
+            <div className="flex gap-4 items-center mb-3 lg:mb-0">
+                <div
+                    className="flex-grow"
+                >
+                    <Select
+                        options={options}
+                        isSearchable={false}
+                        classNamePrefix="tailwind-pain"
+                        placeholder="Default voice"
+                        noOptionsMessage="Looks like text to speech is not supported on this browser!"
+                        styles={{
+                            control: (baseStyles, state) => ({
+                                ...baseStyles,
+                                backgroundColor: colours["primary-800/20"],
+                                borderColor: colours["primary-800/50"],
+                                borderColor: state.isFocused && colours["primary-800"],
+                                boxShadow: "none",
+                                borderRadius: "32px",
+                                padding: "2px 4px",
+                                ":hover": {
+                                    borderColor: colours["primary-800"],
+                                },
+                                ":active": {
+                                    borderColor: colours["primary-800"],
+                                },
+                                cursor: "pointer"
+                            }),
+                            singleValue: (base) => ({
+                                ...base,
+                                color: colours["white/70"],
+                            }),
+                            dropdownIndicator: (base) => ({
+                                ...base,
+                                color: colours["primary-800"]
+                            }),
+                            indicatorSeparator: (base) => ({
+                                ...base,
+                                backgroundColor: colours["primary-800"]
+                            }),
+                            container: (base) => ({
+                                ...base,
+                                backgroundColor: "transparent",
+                            }),
+                            menuList: (base) => ({
+                                ...base,
+                                padding: "0px"
+                            }),
+                            menu: (base) => ({
+                                ...base,
+                                color: colours["primary-800"],
+                                overflow: "clip",
+                                backgroundColor: "rgba(0,0,0,0.4)",
+                                borderRadius: "8px",
+                                backdropFilter: "blur(8px)",
+                                boxShadow: "0px 8px 32px 0px rgba(0, 128, 128, 0.75)",
+                                padding: "0px",
+                            }),
+                            group: (base) => ({
+                                ...base,
+                                color: colours["primary-800"],
+                                padding: "0px",
+                            }),
+                            groupHeading: (base, state) => ({
+                                ...base,
+                                color: colours["white/70"],
+                                fontSize: "16px",
+                                padding: "8px 16px",
+                                backgroundColor: colours["primary-800/20"],
+                                cursor: "not-allowed",
+                                border: `solid ${colours["primary-800"]}`,
+                                borderWidth: "2px 0px",
+                            }),
+                            option: (base, state) => ({
+                                ...base,
+                                transition: "color 0.2s",
+                                color: state.isSelected ? colours["white/70"] : colours["primary-800"],
+                                backgroundColor: state.isSelected && colours["primary-800/80"],
+                                ":hover": {
+                                    color: colours["white/70"],
+                                },
+                                ":active": {
+                                    backgroundColor: colours["primary-800/60"],
+                                },
+                                ":focus": {
+                                    backgroundColor: colours["primary-800/40"],
+                                },
+                                cursor: "pointer"
+                            }),
+
+                        }}
+                    />
+                </div>
+                <div className="relative" ref={ref}>
+                    <Button
+                        type="tertiary"
+                        className="rounded-full w-min flex"
+                        onClick={() => { setIsSettingsOpen(!isSettingsOpen) }}
+                    >
+                        <span
+                            className="material-icons-round text-4xl"
+                        >
+                            tune
+                        </span>
+                    </Button>
+                    {/* {isSettingsOpen && */}
+                    <div
+
+                        className={`${isSettingsOpen ? `h-32 p-4` : `h-0 p-0`} overflow-clip absolute top-12 right-0 bg-black/40  rounded-md`}
+                        style={{
+                            backdropFilter: "blur(8px)",
+                            boxShadow: "0px 8px 32px 0px rgba(0, 128, 128, 0.75)",
+                            transition: "all 0.5s"
+                        }}
+                    >
+                        Hellohello
+                    </div>
+                    {/* } */}
+                </div>
+            </div>
+            <p className="lg:hidden text-primary-800 text-center text-sm">On mobile devices, change voice in your device text to speech settings</p>
+        </>
+    )
+}
