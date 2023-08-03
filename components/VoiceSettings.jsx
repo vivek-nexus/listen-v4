@@ -8,6 +8,7 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 export default function VoiceSettings({ }) {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const ref = useDetectClickOutside({ onTriggered: () => { setIsSettingsOpen(false) } });
+    const uniqueId = useState("stupid-select");
 
     const ColourOptions = [
         { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
@@ -46,16 +47,24 @@ export default function VoiceSettings({ }) {
     return (
         <>
             <style jsx global>{`
-                @keyframes fadeIn {
+                @keyframes openDropdown {
                     0% {height: 0px;}
                     100% {height: 300px;}
+                }
+
+                @keyframes closeDropdown {
+                    0% {height: 300px;}
+                    100% {height: 0px;}
                 }
 
                 .tailwind-pain__control {
                     border-color: ${colours["primary-800/50"]}; 
                 }
                 .tailwind-pain__menu{
-                    animation: fadeIn 0.5s; 
+                    animation: openDropdown 0.5s; 
+                }
+                .menu--close{
+                    animation: closeDropdown 0.5s;
                 }
             `}</style>
             <div className="flex gap-4 items-center mb-3 lg:mb-0">
@@ -63,11 +72,28 @@ export default function VoiceSettings({ }) {
                     className="flex-grow"
                 >
                     <Select
+                        id="stupid-select"
                         options={options}
                         isSearchable={false}
                         classNamePrefix="tailwind-pain"
                         placeholder="Default voice"
                         noOptionsMessage="Looks like text to speech is not supported on this browser!"
+                        onMenuClose={() => {
+                            const menuEl = document.querySelector(`.tailwind-pain__menu`);
+                            const menuElScrollTop = menuEl?.firstChild.scrollTop;
+                            const containerEl = menuEl?.parentElement;
+                            const clonedMenuEl = menuEl?.cloneNode(true);
+
+                            if (!clonedMenuEl) return; // safeguard
+
+                            clonedMenuEl.classList.add("menu--close");
+                            clonedMenuEl.addEventListener("animationend", () => {
+                                containerEl?.removeChild(clonedMenuEl);
+                            });
+
+                            containerEl?.appendChild(clonedMenuEl);
+                            clonedMenuEl.firstChild.scrollTop = menuElScrollTop;
+                        }}
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
