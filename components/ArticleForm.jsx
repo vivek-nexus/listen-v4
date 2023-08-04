@@ -6,6 +6,7 @@ import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
 import Image from "./Image"
 import Link from "next/link"
+import Eyes from "./Eyes"
 
 export default function ArticleForm({ }) {
     const router = useRouter()
@@ -65,7 +66,11 @@ export default function ArticleForm({ }) {
                                 Fetch
                             </Button>
                         </div>
-                        <div className="overflow-clip rounded-lg">
+                        <div className="flex gap-4 justify-center pt-48">
+                            <Eyes whichEye="left" />
+                            <Eyes whichEye="right" />
+                        </div>
+                        {false && <div className="overflow-clip rounded-lg">
                             <div className="px-4 py-2 bg-primary-800/40 font-bold">
                                 <p>Why Hybrid Work Can Become Toxic</p>
                             </div>
@@ -159,7 +164,7 @@ export default function ArticleForm({ }) {
                                     test.html:31:21
                                 </p>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 }
                 {currentTab == 2 &&
@@ -177,7 +182,7 @@ export default function ArticleForm({ }) {
                         </div>
                     </div>
                 }
-                {!isPlayerOpen &&
+                {!true &&
                     <div
                         className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                         style={{

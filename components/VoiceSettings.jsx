@@ -8,7 +8,6 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 export default function VoiceSettings({ }) {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const ref = useDetectClickOutside({ onTriggered: () => { setIsSettingsOpen(false) } });
-    const uniqueId = useState("stupid-select");
 
     const ColourOptions = [
         { value: 'ocean', label: 'Ocean', color: '#00B8D9' },

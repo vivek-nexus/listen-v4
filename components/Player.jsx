@@ -46,7 +46,7 @@ export default function Player() {
                         <VoiceSettings />
                     </div>
                     <div className="px-6 flex justify-center mb-24">
-                        <EqualiserGraphic height="96" playState="playing" />
+                        <EqualiserGraphic height="96" isPlaying />
                     </div>
                     <div className="mx-6 flex justify-center mb-32 max-h-16 overflow-y-auto custom-scrollbar">
                         <p className="text-center">Toxicity can be an unfortunate reality of some work environments.</p>

@@ -1,4 +1,4 @@
-export default function EqualiserGraphic({ height, playState }) {
+export default function EqualiserGraphic({ height, isPlaying }) {
     const heightInPixel = `${height}px`
     const widthOfEachBarInPixel = `${(0.075 * height)}px`;
     const gapInPixel = `${(0.15 * height)}px`
@@ -10,7 +10,7 @@ export default function EqualiserGraphic({ height, playState }) {
                     animation-duration: 2s;
                     animation-iteration-count: infinite;
                     animation-timing-function: linear;
-                    animation-play-state: ${playState == "paused" ? `paused` : `running`}
+                    animation-play-state: ${isPlaying ? `running` : `paused`}
                 }
                 @keyframes bar-1-animation{
                     0% {height: ${height * 0.2}px}
