@@ -65,6 +65,15 @@ export default function VoiceSettings({ }) {
                 .menu--close{
                     animation: closeDropdown 0.5s;
                 }
+
+                input[type=range][orient=vertical]
+                {
+                    writing-mode: bt-lr; /* IE */
+                    -webkit-appearance: slider-vertical; /* Chromium */
+                    width: 8px;
+                    height: 175px;
+                    padding: 0 5px;
+                }
             `}</style>
             <div className="flex gap-4 items-center mb-3 lg:mb-0">
                 <div
@@ -187,19 +196,39 @@ export default function VoiceSettings({ }) {
                             tune
                         </span>
                     </Button>
-                    {/* {isSettingsOpen && */}
                     <div
-
-                        className={`${isSettingsOpen ? `h-32 p-4` : `h-0 p-0`} overflow-clip absolute top-12 right-0 bg-black/40  rounded-md`}
+                        className={`${isSettingsOpen ? `h-64 px-6 py-0` : `h-0 p-0`} overflow-clip absolute top-12 right-0 bg-black/40 rounded-md flex gap-4 items-center justify-center`}
                         style={{
                             backdropFilter: "blur(8px)",
                             boxShadow: "0px 8px 32px 0px rgba(0, 128, 128, 0.75)",
                             transition: "all 0.5s"
                         }}
                     >
-                        Hellohello
+                        <div className={`flex flex-col items-center ${isSettingsOpen ? `opacity-80` : `opacity-0`}`}>
+                            <input
+                                type="range"
+                                orient="vertical"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                className=" accent-primary-800"
+                                style={{}}
+                            />
+                            <p>Speed</p>
+                        </div>
+                        <div className={`flex flex-col items-center ${isSettingsOpen ? `opacity-80` : `opacity-0`}`}>
+                            <input
+                                type="range"
+                                orient="vertical"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                className=" accent-primary-800"
+                                style={{}}
+                            />
+                            <p>Rate</p>
+                        </div>
                     </div>
-                    {/* } */}
                 </div>
             </div>
             <p className="lg:hidden text-primary-800 text-center text-sm">On mobile devices, change voice in your device text to speech settings</p>

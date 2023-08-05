@@ -9,6 +9,72 @@ import Link from "next/link"
 import { useState } from "react"
 import Eye from "./Eye"
 
+
+export const title = `A smart way to handle anxiety — courtesy of soccer great Lionel Messi`
+export const text = `What separates the very best in the world from the remaining 7 billion of us?
+
+Exceptional talent often looks like an act of revolution — a person doing something in a way no one has ever done it before — but many revolutionary talents are actually built on a foundation of evolutionary tweaks. These tweaks develop over time, often compensating for weaknesses and anxieties that might derail a lesser talent.
+
+    For all his brilliance, though, Messi is famously anxious. For several years, he habitually vomited on the field before big matches.
+
+Take the world’s best soccer player, an Argentinean named Lionel Messi. Messi has won more Ballon d’Or trophies, awarded to the best soccer player of the year, than any other player. He has scored more goals in a calendar year than any other living player, is the top all-time scorer in Spain’s La Liga, and has the highest goal ratio in the sport today, scoring almost once every match.
+
+For all his brilliance, though, he’s famously anxious. For several years, Messi habitually vomited on the field before big matches. After a string of disappointing national-team losses, another former Argentinean giant of the game, the late Diego Maradona, uncharitably criticized Messi by suggesting that it was “useless trying to make a leader out of a man who goes to the toilet twenty times before a game.”
+
+Being incredibly talented doesn’t immunize you against anxiety, and many of the world’s best grapple with anxiety precisely because they expect so much from themselves. But Messi hasn’t allowed his anxiety to diminish his brilliance because he’s mastered a coping mechanism that also doubles as the secret behind his tactical brilliance.
+
+    Messi does two things during these first few minutes. First, he calms himself. Second, he scopes out the opposition.
+
+A soccer match runs for 90 minutes (plus a few minutes for “injury time”), and most players are active in the game from the first minute. As soon as the whistle blows, they implore their teammates to pass the ball and pursue the tactics their coaches laid out before the game.
+
+But Messi is famous for not playing the game during its opening minutes. This is his evolutionary tweak, which developed as he played the game at progressively higher levels. For the opening minutes, Messi ambles back and forth near the middle of the field and almost never engages with his teammates. Whereas other players run and sometimes sprint, Messi spends much of his time walking, rarely breaking into more than a slow jog.
+
+Messi does two things during these first few minutes. First, he calms himself. Easing into the game is Messi’s way of ensuring he’s fully engaged for the remainder of the game. His on-field vomiting has resolved itself, in part perhaps because he’s found a more effective way to calm his nerves. Second, he spends this time scoping out the opposition. His legs move slowly, but his eyes dart from player to player, assessing his opponents’ strengths, weaknesses, and tactics, and monitoring his own team’s movement with and around the ball. Messi is less valuable to his team early in the game, but this tactical pause elevates his value for the remaining 95 percent of the game.
+
+If you split soccer game play into “preparatory” and “engaged” components, Messi leans heavily on preparation. During one classic game between Messi’s Barcelona and archrivals Real Madrid, in 2017, Messi ran for just four minutes and walked for more than eighty of the game’s ninety minutes. When he was engaged, though, he was dynamic, creating nine chances, scoring one goal, and feeding the ball to a teammate who scored another goal.
+
+    As you might imagine, pausing is harder than it sounds. In the face of silence and anxiety, our instinct is to act.
+
+That pattern isn’t unusual for Messi, and it’s often in the biggest games that he accentuates his in-game preparation. That preparation also explains his ability to find himself in the right place at the right time, over and over. Though his positional play appears otherworldly, it isn’t a miracle; it’s that he’s learned, minute by minute, that a particular defender leaves a particular square of pitch uncovered or that two midfielders leave a small corner of the pitch open when they gravitate to the middle of the field.
+
+The lesson for the rest of us is clear: When you’re anxious, whether in athletics or in life more broadly, pause. Slow down. Prepare.
+
+As you might imagine, pausing is harder than it sounds. In the face of silence and anxiety, our instinct is to act. Judson Brewer, a psychiatrist and neuroscientist, has spent much of his career thinking about how to do nothing.
+
+About fifteen years ago, Brewer developed a mindfulness-based treatment for addiction.
+
+His approach instructs addicts to resist the waves of anxiety during moments of craving by following the four steps of an approach that goes by the acronym RAIN:
+Recognize what is arising.
+Allow it to be there.
+Investigate your emotions and thoughts (e.g., “What is happening in my body now?”)
+Note what is happening from moment to moment.
+
+Brewer has said that his approach was inspired by clinical psychologist Tara Brach’s. To test the approach, Brewer worked with smokers who were struggling to quit. Nicotine addiction is notoriously stubborn — more so than many harder drugs that produce stronger immediate responses in users.
+
+Before unleashing the program on smokers, Brewer wanted to test the system on himself. The problem was “I was a nonsmoker,” Brewer wrote, “who needed to be able to relate to patients who felt as though their heads were going to explode unless they smoked.”
+
+Nicotine has a half-life of around two hours, so to begin, smokers need to resist the urge to light up for two hours at a time. Brewer reasoned that smokers who could last two hours without a cigarette would cultivate new nonsmoking habits, extending those stretches till they no longer felt the urge to smoke at all.
+
+He simulated these periods of resistance by learning to meditate for two-hour stretches without moving. During moments of restlessness, he followed the RAIN steps — recognize, allow, investigate, note — and if he moved his body, the clock would reset, and he’d have to start again.
+
+This might sound easy, but two hours is a long time to sit still without entertainment. “Surprisingly it wasn’t the physical pain of not shifting for a long time that got me,” Brewer wrote. “It was the restlessness … Those cravings shouted, ‘Get up!’ ”
+
+    Months later, when most of the patients on other treatment plans had relapsed, his mindfulness group stayed clean.
+
+For many months, Brewer would get close, then restlessness would defeat him. “Then one day,” he wrote, “I did it. I sat for the full two hours … Each subsequent sit got easier and easier because I had the confidence that it could be done. And I knew that my patients could quit smoking. They simply needed the proper tools.”
+
+Brewer was right. His patients had been stuck, incapable of quitting one of the most addictive substances on earth. But when he ran study after study, pitting his RAIN mindfulness method against the most effective addiction treatment approaches of the day, his approach was more than twice as effective.
+
+Months later, when most of the patients on other treatment plans had relapsed, his mindfulness group stayed clean. They were more than five times as likely to have shaken their addictions using an approach that essentially taught them to pause at the moment their bodies were most urgently driving them to act.
+
+Of the four steps in Brewer’s RAIN approach, the second — allowing — is perhaps the most critical. Allowing an experience to wash over you sounds disarmingly easy because it doesn’t require you to do anything. But that’s exactly the point. It’s difficult because you’re forced to do nothing despite the urge to act.
+
+For all the benefits of pausing and preparing, though, sometimes the main event doesn’t go to plan. Messi has lost countless matches, and not all of Brewer’s nicotine addicts stayed quit weeks or months after his experiments ended. Mastering the anxiety and discomfort that follow these failures is essential, and it’s one of the major differences between people who achieve breakthroughs and those who stay mired indefinitely.
+
+Excerpted from the new book Anatomy of a Breakthrough: How to Get Unstuck When It Matters Most by Adam Alter. Copyright © 2023 by Adam Alter. Reprinted by permission of Simon & Schuster Inc.
+
+Watch his TED Talk now:`
+
 export default function ArticleForm({ }) {
     const currentTab = useStore((state) => state.currentTab)
     const setCurrentTab = useStore((state) => state.setCurrentTab)
@@ -16,6 +82,10 @@ export default function ArticleForm({ }) {
     const setIsPlayerOpen = useStore((state) => state.setIsPlayerOpen)
     const linkToArticle = useStore((state) => state.linkToArticle)
     const setLinkToArticle = useStore((state) => state.setLinkToArticle)
+    const article = useStore((state) => state.article)
+    const setArticleTitle = useStore((state) => state.setArticleTitle)
+    const setArticleText = useStore((state) => state.setArticleText)
+
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -63,7 +133,10 @@ export default function ArticleForm({ }) {
                                 placeholder="Link to article"
                                 type="input-field"
                                 value={linkToArticle}
-                                onChange={(event) => { setLinkToArticle(event.value) }}
+                                onChange={(event) => {
+                                    console.log(event)
+                                    setLinkToArticle(event)
+                                }}
                             />
                             <Button
                                 type="primary"
@@ -71,126 +144,53 @@ export default function ArticleForm({ }) {
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
                                 onClick={() => {
                                     setIsLoading(true)
+                                    setArticleTitle(null)
+                                    setArticleText(null)
                                     setTimeout(() => {
                                         setIsLoading(false)
+                                        setArticleTitle(title)
+                                        setArticleText(text)
                                     }, 5000);
                                 }}
+                                isDisabled={linkToArticle == ""}
                             >
                                 Fetch
                             </Button>
                         </div>
-                        <div
-                            key={isLoading}
-                            className="mt-60 cursor-pointer animate__animated animate__bounceIn"
-                            onClick={() => setLinkToArticle("https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")}
-                        >
+                        {!article.title &&
                             <div
-                                className={`flex gap-4 justify-center mx-auto w-min mb-6`}
+                                key={isLoading}
+                                className="mt-48 cursor-pointer animate__animated animate__bounceIn"
+                                onClick={() => setLinkToArticle("https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")}
                             >
-                                <Eye whichEye="left" isLoading={isLoading} />
-                                <Eye whichEye="right" isLoading={isLoading} />
-                            </div>
-                            <p
+                                <div
+                                    className={`flex gap-4 justify-center mx-auto w-min mb-6`}
+                                >
+                                    <Eye whichEye="left" isLoading={isLoading} />
+                                    <Eye whichEye="right" isLoading={isLoading} />
+                                </div>
+                                <p
 
-                                className="text-center text-primary-800 ">
-                                {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
-                            </p>
-                        </div>
-                        {false && <div className="overflow-clip rounded-lg">
-                            <div className="px-4 py-2 bg-primary-800/40 font-bold">
-                                <p>Why Hybrid Work Can Become Toxic</p>
-                            </div>
-                            <div className="p-4 bg-primary-800/30 overflow-y-auto max-h-60 custom-scrollbar text-white/60">
-                                <p>Toxicity can be an unfortunate reality of some work environments. Toxic cultures share five attributes: they’re disrespectful, noninclusive, unethical, cutthroat, and abusive. Undeniably negative as these attributes are, there is no absolute, uniformly accepted scale against which we can measure any of them. Making matters more complicated, a hybrid environment by definition means that employees are experiencing their work in very different contexts — some face-to-face, others remote — and those may vary by the day. As a result, hybrid workspaces aren’t uniform; some people may experience a hybrid environment as toxic while others do not. The author presents four mechanisms through which hybridity can lead to toxic behaviors, as well as four strategies for preventing and addressing toxic behavior in a hybrid environment.
-
-
-
-
-
-
-
-
-                                    Tweet
-
-
-
-
-
-                                    Post
-
-
-
-
-
-                                    Share
-
-
-
-
-
-
-
-
-                                    Annotate
-
-
-
-
-                                    Save
-
-
-
-
-
-                                    Print
-
-
-
-
-
-
-
-                                    Toxicity at work — no matter where or how we do our jobs — is caused by a range of factors. It is important to recognize that some aspects of hybrid and remote work make toxicity more likely to occur.
-                                    First, though, let’s quickly outline what “toxic” actually means. It doesn’t refer to the misunderstandings, tensions, and conflicts that are a natural (and needed) part of any healthy organization. Nor does it refer to a one-off incident or a coworker who is a jerk every now and again. These kinds of irritations, for the most part, are best thought of as normal parts of (working) life.
-                                    So, what actually is considered toxic? A study by Donald Sull and his colleagues identified five attributes of a toxic culture: disrespectful, noninclusive, unethical, cutthroat, and abusive. In a recent discussion I had with two colleagues who are experts on the subject, Amy Edmondson of Harvard Business School and Constance Hadley of the Questrom School of Business, we agreed that toxicity also implies the behavior in question is both pervasive and ongoing. And that, we believe, is what makes bad behavior rise — or perhaps fall — to the level of toxic. Toxicity carries a sense of inescapability, which is part of what makes it so painful to experience at work.
-                                    Undeniably negative as these attributes are, there is no absolute, uniformly accepted scale against which we can measure any of them — all five are subjective, anchored in each person’s experience. Making matters more complicated, a hybrid environment by definition means that employees are experiencing their work in very different contexts — some face-to-face, others remote — and those may vary by the day. As a result, hybrid workspaces aren’t uniform; some people may experience a hybrid environment as toxic while others do not. That does not make a toxic hybrid environment any less painful or damaging to those who experience it as such. However, it does mean that some behaviors may be toxic even as a result of well-meaning — or at least not ill-meaning — actions.
-                                    When talking with executives about toxicity, I encourage them to think like social scientists, to understand the mechanisms through which hybrid working can lead to increased toxicity. Here’s what they should know.
-                                    How Hybrid Work Can Lead to Toxicity
-                                    My research and consulting experience has led me to think in terms of four mechanisms through which hybridity can lead to toxic behaviors.
-                                    1. Remoteness changes dynamics
-                                    Working hybrid means that, compared with full-time in-office work, more communication will take place via technologies like email, text, phone, or video. One of the early findings in research on the effects of technology-mediated communication was that people become more disinhibited and exhibit less self-monitoring and self-control when communicating through technology. In other words, when we talk to one another electronically, we are more likely to blurt out things that might be hurtful. Think about heated exchanges you’ve had with colleagues both in person and electronically — chances are, you were much more tempted to try to slip in a sharp quip in an email than face-to-face.
-                                    This dynamic is not (necessarily) about being a nasty person. We all have moments of anger, frustration, or passion, and if handled badly, those feelings have the potential to turn toxic.
-                                    In face-to-face interactions, though, the human on the other side of the conversation is far more salient to us, leading most of us to recognize the potential costs of a less-careful word and bite our tongues. The point isn’t that we shouldn’t speak our minds (if we feel that we can’t, that’s bad for psychological safety), but that we should choose our words well. While the reduced self-monitoring and self-control that come with remote interactions do not necessarily cause toxicity, they certainly make it more likely for disrespectful or abusive (two of Sull’s toxicity characteristics) comments to come out.
-                                    2. Hybridity is fundamentally imbalanced
-                                    Hybrid also means different people are working in different contexts. Some may be at home, while others are in the office — and those locations have undeniable differences. People in the office have greater access to resources and higher visibility, often leading to more credit and quicker promotion as a result. Remote workers, meanwhile, often feel left out and shunned. Negative as these effects may be, they are not strictly toxic if everyone is equally disadvantaged at some point. The problem is when some people (likely remote/hybrid workers) feel consistently excluded — as was the experience of one manager I recently worked with.
-                                    Company policy was to allow all employees to work remotely two days a week, and the manager had allowed her team members to choose those days. She quickly discovered her team had effectively split on the basis of different (but consistent) patterns of which days people chose to come into the office. Compounding the issue, team members’ remote-work choices were heavily driven by commutes and children’s school schedules, which aligned them with demographic differences in the team. Problems arose when some team members felt they were being excluded from the discussions and meetings that occurred on the in-office days of the other group. The split led to interpersonal tensions and conflict, people feeling excluded and disrespected (two toxicity characteristics), and it ultimately resulted in turnover.
-                                    3. Hybridity can reduce cohesion and trust
-                                    Research shows that lack of close contact reduces connection and trust, which are key elements of a healthy culture. During the pandemic, I spoke to many employees who had started new jobs remotely, and I consistently heard that they hadn’t gotten to know their colleagues and felt disconnected. Research from Microsoft found remote working leads employees to have smaller, less-well-developed networks.
-                                    Remote (and by extension hybrid) working does not necessarily mean organizations will have a weak or inconsistent culture. Take Linux as an example. Its open-source software development from day one has been carried out by a loosely structured community of developers who have never met in person, yet extensive research on the group has found it has strong social norms governing behavior. However, it is hard to deny that the group’s structure (or lack thereof) removes or impedes many of the mechanisms we traditionally use to establish, transmit, and maintain culture. Note that Linux started with a remote, dispersed culture. While many companies have embraced remote and hybrid since the pandemic started, their cultures were already established and then adjusted to handle the crisis.
-                                    Culture is so important because it is the compass organizations use to eschew cutthroat and, in more extreme cases, unethical behavior. To be clear, hybridity does not inherently lead people to be more cutthroat or unethical (though one might argue the sense of distance between people makes them less aware of the negative ramifications of their actions). However, in every social system we find a range of behaviors, and culture typically helps us rein in the negative ones. On top of that, while people are less likely to exhibit toxic behaviors toward those they feel close and connected to, the distance that a remote/hybrid environment brings makes us more likely to view some of our colleagues not as “us” but as “them” — and it’s much easier to act poorly toward “them.”
-                                    4. Hybridity makes it hard to resolve issues
-                                    There’s one more key challenge in remote and hybrid work: We have fewer face-to-face interactions with colleagues, and research shows that it is harder to resolve disputes (like those around toxic behaviors) virtually. Think about trying to address a sensitive topic over Zoom with someone and worrying about everything from where they’re looking to how fast they reply. Are they giving me their full attention? Am I sure my sincerity is coming through over video? Was their slow response because they disagreed or are just lagging?
-                                    When we’re face-to-face, we have more interpersonal tools at our disposal. We have better data, as we can more easily read facial expressions and can see off-camera behaviors. We also have better tools, as face-to-face interactions allow us to synchronously work together to resolve differences. And the propinquity effect (essentially, we like people we have more exposure to) means all of this happens from a starting point of a closer relationship.
-                                    One other issue it’s important to mention is microaggressions, which some people have argued happen less often in remote settings because we’re around one another less. However, I would caution leaders and employees alike to stay vigilant for signs of microaggressions (often reflected in toxic behaviors like noninclusion) in hybrid settings. While these settings may have fewer touchpoints where microaggressions can occur, they do not remove the underpinnings of why microaggressions happen — nor do they prevent them from coming out in other outlets, such as Slack, messaging apps, or videoconferencing. In effect, hybrid work can obscure the problem without resolving it.
-                                    What Leaders Can Do
-                                    I advise leaders to approach toxic behaviors in hybrid work in four ways: educate, lay a foundation, have ongoing conversations, and intervene quickly.
-                                    Educate employees
-                                    The first step toward avoiding toxic behavior in hybrid teams is to help people learn how it can arise. You may think, “Of course they know not to be disrespectful, abusive, or noninclusive,” but that’s not the issue. Sit down with your employees and have a conversation about how these outcomes can happen as unintended consequences of hybrid work arrangements and decisions. Remind them that toxicity is about behavior — and that what matters isn’t what your intention was but how others perceive your actions. A good starting point is to ask employees to reflect on hybrid work behaviors they may have experienced as toxic (for example, feeling routinely excluded from a social group or reading comments on Slack that they found abusive or disrespectful). The goal of this step is not to identify particular issues or point fingers but rather to increase employees’ self-awareness and the number of eyes out there looking for toxic behaviors or their antecedents.
-                                    Lay a foundation
-                                    As Benjamin Franklin famously said, “An ounce of prevention is worth a pound of cure.” One of the most effective tools you can put in place is a culture with built-in antibodies against toxic behaviors. In particular, focus on promoting empathy and psychological safety. A culture with a core of empathy encourages employees to consider the impact of their actions on their colleagues, increasing the likelihood that employees catch themselves before behaving in a way another might find troubling. In turn, a culture that includes psychological safety is critical for those cases that empathy doesn’t prevent. We don’t always recognize the impact of our actions, and building psychological safety ensures that employees can speak up about the behaviors they perceive as toxic. Research has provided excellent practical advice for promoting both empathy and psychological safety.
-                                    Have ongoing conversations
-                                    Because the experience of hybrid work is different among employees and dynamic over time (someone may be in the office today, surrounded by colleagues, and at home alone tomorrow), toxicity is a moving target. The only truly effective way to manage such dynamism is with an ongoing process — and the cornerstone is repeated, ongoing conversations. I encourage hybrid teams and organizations to have periodic check-ins where everyone is encouraged to raise concerns or flag toxic experiences. There is no hard-and-fast rule for frequency, as it depends on how dynamic the organization’s hybrid environment is: The more and faster it changes, the more frequent those conversations should be. As a starting point, aim for a monthly check-in and adjust as needed. Make sure the psychological safety foundation is in place if you want people to share honestly, and treat these conversations as more than a superficial box-ticking exercise.
-                                    Intervene quickly
-                                    Even with a good understanding of the issues, a positive cultural foundation in place, and ongoing discussions, hybrid working may still lead to behaviors that your employees find toxic. A big problem with toxic environments is that they tend to get worse: Toxic behaviors either feed on themselves, breeding more toxicity, or cause disgruntled employees to disengage, creating new tensions due to workloads needing to be redistributed. To break the cycle, you need to not only keep an eye out for toxic behaviors but also be ready to move fast when you see them, help all parties engage in a dialogue, and work to reach a mutually acceptable solution.
-                                    Let’s say you notice a situation like that of the manager whose team was split over their WFH days. In a case like that, call a team meeting and share your concerns of how the situation might feel exclusionary. It may turn out your concerns aren’t shared — but you’re still creating buy-in and ownership of the issue, making it easier to address later if it does become a problem. If, however, you’ve recognized a budding concern for some of your team members, you have a forum to discuss and collectively resolve it before it gets too far along.
-                                    . . .
-                                    Toxicity can be an unfortunate reality of some work environments. While hybrid work does not necessarily cause toxicity any more than in-person work does, it is important to recognize that hybrid introduces some different mechanisms through which toxicity may arise. Keeping these in mind can help leaders recognize, guard against, and eliminate toxicity when it occurs — or ideally before.
-
-
-                                    test.html:31:21
+                                    className="text-center text-primary-800 ">
+                                    {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
                                 </p>
-                            </div>
-                        </div>}
+                            </div>}
+                        {article.title &&
+                            <div className="overflow-clip rounded-lg animate__animated animate__fadeIn">
+                                <div className="px-6 py-4 bg-primary-800/40 font-bold">
+                                    <a href={linkToArticle} target="_blank">
+                                        <p
+                                            className="underline-none hover:underline hover:underline-offset-4 transition ease-in-out delay-800"
+                                        // style={{ transition: "all 0.5s" }}
+                                        >
+                                            {article.title}
+                                        </p>
+                                    </a>
+                                </div>
+                                <div className="p-6 bg-primary-800/30 overflow-y-auto max-h-60 custom-scrollbar text-white/60">
+                                    <p>{article.text}</p>
+                                </div>
+                            </div>}
                     </div>
                 }
                 {currentTab == 2 &&
@@ -208,7 +208,7 @@ export default function ArticleForm({ }) {
                         </div>
                     </div>
                 }
-                {!true &&
+                {(article.title && !isPlayerOpen) &&
                     <div
                         className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                         style={{

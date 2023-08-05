@@ -10,7 +10,7 @@ export default function ListeningPhone() {
                 classNameForPhoneContainer="mx-auto"
                 classNameForPhoneContents="flex justify-center items-center"
             >
-                <EqualiserGraphic height="80" playState="running" />
+                <EqualiserGraphic height="80" isPlaying={true} />
             </Phone>
             <div className="xl:hidden">
                 <AboutPhone viewport="mobile" />

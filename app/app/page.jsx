@@ -7,6 +7,7 @@ import InputField from "@/components/InputField";
 import { create } from 'zustand'
 import ArticleForm from "@/components/ArticleForm";
 import Player from "@/components/Player";
+import { colours } from "@/constants/colours";
 
 export const useStore = create((set) => ({
     isPlayerOpen: false,
@@ -15,12 +16,28 @@ export const useStore = create((set) => ({
     setCurrentTab: (currentTab) => set(() => ({ currentTab: currentTab })),
     linkToArticle: "",
     setLinkToArticle: (linkToArticle) => set(() => ({ linkToArticle: linkToArticle })),
+    article: {
+        title: null,
+        text: null
+    },
+    setArticleTitle: (title) => set((state) => ({
+        ...state.article,
+        article: {
+            ...state.article,
+            title
+        }
+    })),
+    setArticleText: (text) => set((state) => ({
+        ...state,
+        article: {
+            ...state.article,
+            text
+        }
+    }))
 }))
 
 
 export default function ListenApp() {
-    const isPlayerOpen = useStore((state) => state.isPlayerOpen)
-    const setIsPlayerOpen = useStore((state) => state.setIsPlayerOpen)
 
     return (
         <>
@@ -30,7 +47,7 @@ export default function ListenApp() {
             >
                 <div
                     className={`h-screen flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[75vh] lg:flex-row lg:overflow-clip`}
-                    style={{ boxShadow: "0px 10px 33px 4px rgba(0, 128, 128, 0.75)" }}
+                    style={{ boxShadow: `0px 8px 64px 4px ${colours["primary-800/40"]}` }}
                 >
                     <ArticleForm />
                     <Player />
