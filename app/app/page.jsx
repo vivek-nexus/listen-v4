@@ -13,6 +13,8 @@ export const useStore = create((set) => ({
     setIsPlayerOpen: (isPlayerOpen) => set(() => ({ isPlayerOpen: isPlayerOpen })),
     currentTab: 1,
     setCurrentTab: (currentTab) => set(() => ({ currentTab: currentTab })),
+    linkToArticle: "",
+    setLinkToArticle: (linkToArticle) => set(() => ({ linkToArticle: linkToArticle })),
 }))
 
 

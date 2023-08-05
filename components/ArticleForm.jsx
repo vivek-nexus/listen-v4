@@ -6,14 +6,17 @@ import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
 import Image from "./Image"
 import Link from "next/link"
-import Eyes from "./Eyes"
+import { useState } from "react"
+import Eye from "./Eye"
 
 export default function ArticleForm({ }) {
-    const router = useRouter()
     const currentTab = useStore((state) => state.currentTab)
     const setCurrentTab = useStore((state) => state.setCurrentTab)
     const isPlayerOpen = useStore((state) => state.isPlayerOpen)
     const setIsPlayerOpen = useStore((state) => state.setIsPlayerOpen)
+    const linkToArticle = useStore((state) => state.linkToArticle)
+    const setLinkToArticle = useStore((state) => state.setLinkToArticle)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     return (
@@ -55,20 +58,43 @@ export default function ArticleForm({ }) {
                 </div>
                 {currentTab == 1 &&
                     <div className="flex-grow animate__animated animate__fadeIn">
-                        <div className="relative mb-12">
-                            <InputField placeholder="Link to article" type="input-field" onChange={() => { }} />
+                        <div className={`relative mb-12 ${linkToArticle != "" && `animate__animated animate__pulse`}`}>
+                            <InputField
+                                placeholder="Link to article"
+                                type="input-field"
+                                value={linkToArticle}
+                                onChange={(event) => { setLinkToArticle(event.value) }}
+                            />
                             <Button
                                 type="primary"
                                 showHoverAnimation={false}
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
-                                onClick={() => { }}
+                                onClick={() => {
+                                    setIsLoading(true)
+                                    setTimeout(() => {
+                                        setIsLoading(false)
+                                    }, 5000);
+                                }}
                             >
                                 Fetch
                             </Button>
                         </div>
-                        <div className="flex gap-4 justify-center pt-48">
-                            <Eyes whichEye="left" />
-                            <Eyes whichEye="right" />
+                        <div
+                            key={isLoading}
+                            className="mt-60 cursor-pointer animate__animated animate__bounceIn"
+                            onClick={() => setLinkToArticle("https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")}
+                        >
+                            <div
+                                className={`flex gap-4 justify-center mx-auto w-min mb-6`}
+                            >
+                                <Eye whichEye="left" isLoading={isLoading} />
+                                <Eye whichEye="right" isLoading={isLoading} />
+                            </div>
+                            <p
+
+                                className="text-center text-primary-800 ">
+                                {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
+                            </p>
                         </div>
                         {false && <div className="overflow-clip rounded-lg">
                             <div className="px-4 py-2 bg-primary-800/40 font-bold">

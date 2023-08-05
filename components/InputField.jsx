@@ -1,4 +1,4 @@
-export default function InputField({ placeholder, onChange, type }) {
+export default function InputField({ placeholder, defaultValue, value, onChange, type }) {
     return (
         <>
             {type == "input-field" &&
@@ -8,6 +8,8 @@ export default function InputField({ placeholder, onChange, type }) {
                         onChange(event.target.value);
                     }}
                     placeholder={placeholder}
+                    defaultValue={defaultValue}
+                    value={value}
                 />
             }
             {type == "text-area" &&
