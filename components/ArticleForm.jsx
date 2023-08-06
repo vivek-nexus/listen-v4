@@ -82,9 +82,18 @@ export default function ArticleForm({ }) {
     const setIsPlayerOpen = useStore((state) => state.setIsPlayerOpen)
     const linkToArticle = useStore((state) => state.linkToArticle)
     const setLinkToArticle = useStore((state) => state.setLinkToArticle)
-    const article = useStore((state) => state.article)
-    const setArticleTitle = useStore((state) => state.setArticleTitle)
-    const setArticleText = useStore((state) => state.setArticleText)
+    const fetchedArticle = useStore((state) => state.fetchedArticle)
+    const setFetchedArticleTitle = useStore((state) => state.setFetchedArticleTitle)
+    const setFetchedArticleText = useStore((state) => state.setFetchedArticleText)
+    const pastedArticle = useStore((state) => state.pastedArticle)
+    const setPastedArticle = useStore((state) => state.setPastedArticle)
+    const sentencesArray = useStore((state) => state.sentencesArray)
+    const setSentencesArray = useStore((state) => state.setSentencesArray)
+    const currentSentence = useStore((state) => state.currentSentence)
+    const setCurrentSentence = useStore((state) => state.setCurrentSentence)
+    const pauseUtterance = useStore((state) => state.pauseUtterance)
+
+
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -144,12 +153,12 @@ export default function ArticleForm({ }) {
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
                                 onClick={() => {
                                     setIsLoading(true)
-                                    setArticleTitle(null)
-                                    setArticleText(null)
+                                    setFetchedArticleTitle("")
+                                    setFetchedArticleText("")
                                     setTimeout(() => {
                                         setIsLoading(false)
-                                        setArticleTitle(title)
-                                        setArticleText(text)
+                                        setFetchedArticleTitle(title)
+                                        setFetchedArticleText(text)
                                     }, 5000);
                                 }}
                                 isDisabled={linkToArticle == ""}
@@ -157,7 +166,7 @@ export default function ArticleForm({ }) {
                                 Fetch
                             </Button>
                         </div>
-                        {!article.title &&
+                        {fetchedArticle.title == "" &&
                             <div
                                 key={isLoading}
                                 className="mt-48 cursor-pointer animate__animated animate__bounceIn"
@@ -175,40 +184,54 @@ export default function ArticleForm({ }) {
                                     {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
                                 </p>
                             </div>}
-                        {article.title &&
+                        {fetchedArticle.title != "" &&
                             <div className="overflow-clip rounded-lg animate__animated animate__fadeIn">
                                 <div className="px-6 py-4 bg-primary-800/40 font-bold">
                                     <a href={linkToArticle} target="_blank">
                                         <p
                                             className="underline-none hover:underline hover:underline-offset-4 transition ease-in-out delay-800"
-                                        // style={{ transition: "all 0.5s" }}
                                         >
-                                            {article.title}
+                                            {fetchedArticle.title}
                                         </p>
                                     </a>
                                 </div>
                                 <div className="p-6 bg-primary-800/30 overflow-y-auto max-h-60 custom-scrollbar text-white/60">
-                                    <p>{article.text}</p>
+                                    <p>{fetchedArticle.text}</p>
                                 </div>
                             </div>}
                     </div>
                 }
                 {currentTab == 2 &&
                     <div className="relative flex-grow animate__animated animate__fadeIn">
-                        <InputField placeholder="Paste an article, short or long" type="text-area" onChange={() => { }} />
+                        <InputField
+                            placeholder="Paste an article, short or long"
+                            type="text-area"
+                            value={pastedArticle}
+                            onChange={(event) => {
+                                setPastedArticle(event)
+                                SplitArticleToSentencesHelper(text, setSentencesArray)
+                            }}
+                        />
                         <div className="text-right">
                             <Button
                                 type="tertiary"
                                 showHoverAnimation={true}
                                 className="py-0 pl-4 font-bold"
-                                onClick={() => { }}
+                                onClick={() => { setPastedArticle("") }}
                             >
                                 Clear
                             </Button>
                         </div>
+                        {/* <div className="overflow-y-auto h-40">
+                            {sentencesArray.map((sentence, i) => {
+                                return (
+                                    <p key={i}>{sentence}</p>
+                                )
+                            })}
+                        </div> */}
                     </div>
                 }
-                {(article.title && !isPlayerOpen) &&
+                {((fetchedArticle.title != "" || currentTab == 2) && !isPlayerOpen) &&
                     <div
                         className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                         style={{
@@ -218,7 +241,31 @@ export default function ArticleForm({ }) {
                         <Button
                             type="primary"
                             className="rounded-full w-min flex p-3"
-                            onClick={() => { setIsPlayerOpen(true) }}
+                            onClick={() => {
+                                setIsPlayerOpen(true)
+                                console.log("BUTTON CLICKED")
+                                console.log("Utterance at click " + speechSynthesis.speaking)
+
+                                if (speechSynthesis.speaking) {
+                                    console.log("Requested pause utterance")
+                                    pauseUtterance()
+                                }
+                                else {
+                                    const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
+                                        ? parseInt(localStorage.getItem("currentSentence"))
+                                        : 0
+                                    console.log("Previously saved sentence " + savedCurrentSentence)
+
+                                    if (localStorage.getItem("utteranceEndTrigger") == "pause") {
+                                        console.log("Requested resume utterance")
+                                        setCurrentSentence(savedCurrentSentence)
+                                    }
+                                    else {
+                                        console.log("Requested restart utterance")
+                                        setCurrentSentence(0)
+                                    }
+                                }
+                            }}
                         >
                             <span
                                 className="material-icons-round text-6xl"
@@ -231,4 +278,11 @@ export default function ArticleForm({ }) {
             </div >
         </>
     )
+}
+
+
+function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
+    const localSentencesArray = articleText.match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
+    console.log(localSentencesArray[83])
+    setSentencesArray(localSentencesArray)
 }

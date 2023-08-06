@@ -31,7 +31,7 @@ export default function Home() {
           <ReadingPhone viewport="desktop" />
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-primary-800 text-4xl mb-4">Skip long form reading</h2>
+          <h2 className="text-primary-800 text-4xl mb-4">Stop long form reading</h2>
           <h2 className="font-bold text-primary-800 text-6xl mb-12">START LISTENING!</h2>
           <Link
             href="/app"
@@ -52,7 +52,7 @@ export default function Home() {
       </div>
       <div className="xl:hidden mx-auto p-6 text-center flex flex-col items-center">
         <div className="flex flex-col items-center mt-4 mb-12">
-          <h2 className="text-primary-800 text-2xl md:text-3xl mb-4">Skip long form reading</h2>
+          <h2 className="text-primary-800 text-2xl md:text-3xl mb-4">Stop long form reading</h2>
           <h2 className="font-bold text-primary-800 text-3xl md:text-5xl mb-10">START LISTENING!</h2>
           <Link
             href="/app"
