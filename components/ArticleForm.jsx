@@ -6,7 +6,7 @@ import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
 import Image from "./Image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Eye from "./Eye"
 
 
@@ -97,11 +97,49 @@ export default function ArticleForm({ }) {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    useEffect(() => {
+        if (currentTab == 1) {
+            if (fetchedArticle.text)
+                SplitArticleToSentencesHelper((fetchedArticle.text), setSentencesArray)
+        }
+        if (currentTab == 2) {
+            if (pastedArticle)
+                SplitArticleToSentencesHelper((pastedArticle), setSentencesArray)
+        }
+    }, [currentTab])
+
+    function HandlePlayPauseButtonClick() {
+        console.log("BUTTON CLICKED")
+        console.log("Utterance at click " + speechSynthesis.speaking)
+
+        if (speechSynthesis.speaking) {
+            console.log("Requested pause utterance")
+            pauseUtterance()
+        }
+        else {
+            if (sentencesArray.length > 0) {
+                const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
+                    ? parseInt(localStorage.getItem("currentSentence"))
+                    : 0
+                console.log("Previously saved sentence " + savedCurrentSentence)
+
+                if (localStorage.getItem("utteranceEndTrigger") == "pause") {
+                    console.log("Requested resume utterance")
+                    setCurrentSentence(savedCurrentSentence)
+                }
+                else {
+                    console.log("Requested restart utterance")
+                    setCurrentSentence(0)
+                }
+            }
+        }
+    }
+
 
     return (
         <>
             <div
-                className={`relative bg-black p-6 flex flex-col
+                className={`relative bg-black p-6 flex flex-col flex-grow min-h-0
                 ${isPlayerOpen ? `w-full lg:w-1/2` : `w-full`}
                 `}
                 style={{ transition: "all 0.5s" }}
@@ -136,7 +174,7 @@ export default function ArticleForm({ }) {
                     </Button>
                 </div>
                 {currentTab == 1 &&
-                    <div className="flex-grow animate__animated animate__fadeIn">
+                    <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
                         <div className={`relative mb-12 ${linkToArticle != "" && `animate__animated animate__pulse`}`}>
                             <InputField
                                 placeholder="Link to article"
@@ -159,6 +197,7 @@ export default function ArticleForm({ }) {
                                         setIsLoading(false)
                                         setFetchedArticleTitle(title)
                                         setFetchedArticleText(text)
+                                        SplitArticleToSentencesHelper((text), setSentencesArray)
                                     }, 5000);
                                 }}
                                 isDisabled={linkToArticle == ""}
@@ -169,23 +208,23 @@ export default function ArticleForm({ }) {
                         {fetchedArticle.title == "" &&
                             <div
                                 key={isLoading}
-                                className="mt-48 cursor-pointer animate__animated animate__bounceIn"
+                                className="flex-grow cursor-pointer animate__animated animate__bounceIn flex flex-col justify-center items-center"
                                 onClick={() => setLinkToArticle("https://ideas.ted.com/how-to-handle-anxiety-lionel-messi/")}
                             >
                                 <div
-                                    className={`flex gap-4 justify-center mx-auto w-min mb-6`}
+                                    className={`flex gap-4 justify-center w-min mb-6`}
                                 >
                                     <Eye whichEye="left" isLoading={isLoading} />
                                     <Eye whichEye="right" isLoading={isLoading} />
                                 </div>
                                 <p
 
-                                    className="text-center text-primary-800 ">
+                                    className=" text-primary-800 ">
                                     {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
                                 </p>
                             </div>}
                         {fetchedArticle.title != "" &&
-                            <div className="overflow-clip rounded-lg animate__animated animate__fadeIn">
+                            <div className="flex-grow flex flex-col min-h-0 overflow-clip rounded-lg animate__animated animate__fadeIn">
                                 <div className="px-6 py-4 bg-primary-800/40 font-bold">
                                     <a href={linkToArticle} target="_blank">
                                         <p
@@ -195,7 +234,7 @@ export default function ArticleForm({ }) {
                                         </p>
                                     </a>
                                 </div>
-                                <div className="p-6 bg-primary-800/30 overflow-y-auto max-h-60 custom-scrollbar text-white/60">
+                                <div className="p-6 bg-primary-800/30 overflow-y-auto custom-scrollbar text-white/60">
                                     <p>{fetchedArticle.text}</p>
                                 </div>
                             </div>}
@@ -208,8 +247,9 @@ export default function ArticleForm({ }) {
                             type="text-area"
                             value={pastedArticle}
                             onChange={(event) => {
+                                console.log("Pasted article " + event)
                                 setPastedArticle(event)
-                                SplitArticleToSentencesHelper(text, setSentencesArray)
+                                SplitArticleToSentencesHelper((event), setSentencesArray)
                             }}
                         />
                         <div className="text-right">
@@ -217,7 +257,11 @@ export default function ArticleForm({ }) {
                                 type="tertiary"
                                 showHoverAnimation={true}
                                 className="py-0 pl-4 font-bold"
-                                onClick={() => { setPastedArticle("") }}
+                                onClick={() => {
+                                    setPastedArticle(text)
+                                    setPastedArticle("")
+                                    // SplitArticleToSentencesHelper(("Text from tab 2" + text), setSentencesArray)
+                                }}
                             >
                                 Clear
                             </Button>
@@ -231,9 +275,9 @@ export default function ArticleForm({ }) {
                         </div> */}
                     </div>
                 }
-                {((fetchedArticle.title != "" || currentTab == 2) && !isPlayerOpen) &&
+                {((sentencesArray.length > 0) && !isPlayerOpen) &&
                     <div
-                        className="fixed bottom-8 mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
+                        className="fixed bottom-8 w-min mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                         style={{
                             animationDelay: `0.25s`
                         }}
@@ -243,29 +287,9 @@ export default function ArticleForm({ }) {
                             className="rounded-full w-min flex p-3"
                             onClick={() => {
                                 setIsPlayerOpen(true)
-                                console.log("BUTTON CLICKED")
-                                console.log("Utterance at click " + speechSynthesis.speaking)
-
-                                if (speechSynthesis.speaking) {
-                                    console.log("Requested pause utterance")
-                                    pauseUtterance()
-                                }
-                                else {
-                                    const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
-                                        ? parseInt(localStorage.getItem("currentSentence"))
-                                        : 0
-                                    console.log("Previously saved sentence " + savedCurrentSentence)
-
-                                    if (localStorage.getItem("utteranceEndTrigger") == "pause") {
-                                        console.log("Requested resume utterance")
-                                        setCurrentSentence(savedCurrentSentence)
-                                    }
-                                    else {
-                                        console.log("Requested restart utterance")
-                                        setCurrentSentence(0)
-                                    }
-                                }
+                                HandlePlayPauseButtonClick()
                             }}
+                        // isDisabled={sentencesArray.length <= 0}
                         >
                             <span
                                 className="material-icons-round text-6xl"
@@ -283,6 +307,9 @@ export default function ArticleForm({ }) {
 
 function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     const localSentencesArray = articleText.match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
-    console.log(localSentencesArray[83])
-    setSentencesArray(localSentencesArray)
+    console.log(localSentencesArray)
+
+    if (localSentencesArray.length > 0) {
+        setSentencesArray(localSentencesArray)
+    }
 }

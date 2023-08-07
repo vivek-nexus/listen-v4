@@ -43,6 +43,8 @@ export const useStore = create((set) => ({
     currentSentence: null,
     setCurrentSentence: (currentSentence) => set(() => ({ currentSentence: currentSentence })),
     utterance: null,
+    voices: [],
+    setVoices: (voices) => set(() => ({ voices: voices })),
     startUtterance: (text) => {
         return new Promise((resolve, reject) => {
             if ('speechSynthesis' in window) {
@@ -107,7 +109,10 @@ export default function ListenApp() {
 
 
     useEffect(() => {
-        localStorage.setItem("currentSentenceFromState", currentSentence)
+
+    }, [])
+
+    useEffect(() => {
         console.log("Current sentence to read " + currentSentence)
 
         if (currentSentence == null)

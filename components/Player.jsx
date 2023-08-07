@@ -19,9 +19,12 @@ export default function Player() {
     const stopUtterance = useStore((state) => state.stopUtterance)
     const currentSentence = useStore((state) => state.currentSentence)
     const setCurrentSentence = useStore((state) => state.setCurrentSentence)
+    const sentencesArray = useStore((state) => state.sentencesArray)
+
 
     const [isDimmed, setIsDimmed] = useState(false)
     const timer = useRef(null)
+    const inputRangeValue = useRef(null)
 
     useEffect(() => {
         const handleEvent = () => {
@@ -41,6 +44,33 @@ export default function Player() {
         }
     }, [])
 
+    function HandlePlayPauseButtonClick() {
+        console.log("BUTTON CLICKED")
+        console.log("Utterance at click " + speechSynthesis.speaking)
+
+        if (speechSynthesis.speaking) {
+            console.log("Requested pause utterance")
+            pauseUtterance()
+        }
+        else {
+            if (sentencesArray.length > 0) {
+                const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
+                    ? parseInt(localStorage.getItem("currentSentence"))
+                    : 0
+                console.log("Previously saved sentence " + savedCurrentSentence)
+
+                if (localStorage.getItem("utteranceEndTrigger") == "pause") {
+                    console.log("Requested resume utterance")
+                    setCurrentSentence(savedCurrentSentence)
+                }
+                else {
+                    console.log("Requested restart utterance")
+                    setCurrentSentence(0)
+                }
+            }
+        }
+    }
+
     return (
         <>
             <div
@@ -52,7 +82,7 @@ export default function Player() {
                 style={{ transition: "all 0.5s" }}
             >
                 {isPlayerOpen &&
-                    <div>
+                    <div className="h-full flex flex-col">
                         <div className={`bg-primary-800/30 px-6 py-3 mb-8 lg:mb-12 ${isDimmed ? `opacity-0 pointer-events-none touch-none` : `opacity-100`}`}>
                             <Button
                                 type="tertiary"
@@ -74,23 +104,39 @@ export default function Player() {
                                 </p>
                             </Button>
                         </div>
-                        <div className={`px-6 mb-24 ${isDimmed ? `opacity-0 pointer-events-none touch-none` : `opacity-100`}`}>
+                        <div className={`px-6 ${isDimmed ? `opacity-0 pointer-events-none touch-none` : `opacity-100`}`}>
                             <VoiceSettings />
                         </div>
-                        <div className="px-6 flex justify-center mb-24">
-                            <EqualiserGraphic height="96" isPlaying />
-                        </div>
-                        <div className="mx-6 flex justify-center mb-32 max-h-16 overflow-y-auto custom-scrollbar">
-                            <p className="text-center">{currentSentence}</p>
+                        <div className="flex-grow min-h-0 flex flex-col gap-12 justify-center">
+                            <div className="px-6 flex justify-center">
+                                <EqualiserGraphic height="96" isPlaying={utterance ? true : false} />
+                            </div>
+                            <div className="mx-6 flex justify-center mb-16 h-[10vh] overflow-y-auto custom-scrollbar">
+                                <p className="text-center">{sentencesArray[currentSentence]}</p>
+                            </div>
                         </div>
                         <div className={` bg-primary-800/20 absolute bottom-0 w-full ${isMobile && `animate__animated animate__fadeInUp`} ${isDimmed && `invisible pointer-events-none touch-none`}`}>
                             <div className="opacity-80 mb-3">
                                 <input
+                                    ref={inputRangeValue}
                                     type="range"
                                     min={0}
-                                    max={1}
-                                    step={0.1}
+                                    max={sentencesArray.length}
+                                    step={1}
+                                    value={currentSentence}
                                     className="w-full absolute -top-1 accent-primary-800"
+                                    onClick={() => {
+                                        console.log("Click event with input range value " + inputRangeValue.current.value)
+                                    }}
+                                    onChange={(e) => {
+                                        const skipToSentence = parseInt(e.target.value);
+                                        console.log("Received event to skip to " + skipToSentence)
+                                        pauseUtterance()
+                                        setTimeout(() => {
+                                            setCurrentSentence(skipToSentence)
+                                        }, 100);
+                                    }}
+                                    disabled={currentSentence == null}
                                 />
                             </div>
                             <div className="flex gap-4 justify-center items-center px-6 py-6">
@@ -114,28 +160,7 @@ export default function Player() {
                                     type="primary"
                                     className="rounded-full w-min flex p-3"
                                     onClick={() => {
-                                        console.log("BUTTON CLICKED")
-                                        console.log("Utterance at click " + speechSynthesis.speaking)
-
-                                        if (speechSynthesis.speaking) {
-                                            console.log("Requested pause utterance")
-                                            pauseUtterance()
-                                        }
-                                        else {
-                                            const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
-                                                ? parseInt(localStorage.getItem("currentSentence"))
-                                                : 0
-                                            console.log("Previously saved sentence " + savedCurrentSentence)
-
-                                            if (localStorage.getItem("utteranceEndTrigger") == "pause") {
-                                                console.log("Requested resume utterance")
-                                                setCurrentSentence(savedCurrentSentence)
-                                            }
-                                            else {
-                                                console.log("Requested restart utterance")
-                                                setCurrentSentence(0)
-                                            }
-                                        }
+                                        HandlePlayPauseButtonClick()
                                     }}
                                 >
                                     <span

@@ -18,7 +18,6 @@ export default function Eye({ whichEye, isLoading }) {
         const eyeBall = document.querySelector(`#${whichEye}`)
         if (eyeBall && isLoading) {
             setTimeout(() => {
-                console.log(angle)
                 const translateX = (Math.cos(angle * (Math.PI / 180)) * 0.5 * 24)
                 const translateY = (Math.sin(angle * (Math.PI / 180)) * 0.5 * 64)
                 eyeBall.style.transform = `translate(${translateX}px, ${translateY}px)`

@@ -197,7 +197,7 @@ export default function VoiceSettings({ }) {
                         </span>
                     </Button>
                     <div
-                        className={`${isSettingsOpen ? `h-64 px-6 py-0` : `h-0 p-0`} overflow-clip absolute top-12 right-0 bg-black/40 rounded-md flex gap-4 items-center justify-center`}
+                        className={`${isSettingsOpen ? `h-64 px-6 py-0` : `h-0 p-0`} overflow-clip absolute top-12 right-0 bg-black/40 rounded-md flex gap-4 items-center justify-center z-20`}
                         style={{
                             backdropFilter: "blur(8px)",
                             boxShadow: "0px 8px 32px 0px rgba(0, 128, 128, 0.75)",
