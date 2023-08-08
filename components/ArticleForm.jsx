@@ -96,8 +96,39 @@ export default function ArticleForm({ }) {
 
 
     const [isLoading, setIsLoading] = useState(false)
+    const [isPlayButtonEnabled, setIsPlayButtonEnabled] = useState(false)
+
+    // useEffect(() => {
+    //     if (currentTab == 1) {
+    //         if (fetchedArticle.text)
+    //             SplitArticleToSentencesHelper((fetchedArticle.text), setSentencesArray)
+    //     }
+    //     if (currentTab == 2) {
+    //         if (pastedArticle)
+    //             SplitArticleToSentencesHelper((pastedArticle), setSentencesArray)
+    //     }
+    // }, [currentTab])
 
     useEffect(() => {
+        if (isPlayerOpen) {
+            setIsPlayButtonEnabled(false)
+            return
+        }
+        if ((currentTab == 1)) {
+            if (fetchedArticle.title != "")
+                setIsPlayButtonEnabled(true)
+            else
+                setIsPlayButtonEnabled(false)
+        }
+        else if ((currentTab == 2)) {
+            if (pastedArticle != "")
+                setIsPlayButtonEnabled(true)
+            else
+                setIsPlayButtonEnabled(false)
+        }
+    }, [currentTab, fetchedArticle, pastedArticle, isPlayerOpen])
+
+    function HandlePlayPauseButtonClick() {
         if (currentTab == 1) {
             if (fetchedArticle.text)
                 SplitArticleToSentencesHelper((fetchedArticle.text), setSentencesArray)
@@ -106,9 +137,6 @@ export default function ArticleForm({ }) {
             if (pastedArticle)
                 SplitArticleToSentencesHelper((pastedArticle), setSentencesArray)
         }
-    }, [currentTab])
-
-    function HandlePlayPauseButtonClick() {
         console.log("BUTTON CLICKED")
         console.log("Utterance at click " + speechSynthesis.speaking)
 
@@ -161,6 +189,8 @@ export default function ArticleForm({ }) {
                         showHoverAnimation={false}
                         className="px-6 py-2"
                         onClick={() => setCurrentTab(1)}
+                        isDisabled={isPlayerOpen}
+                        disabledTitle="I am frozen when the right thing is open!"
                     >
                         Fetch article
                     </Button>
@@ -169,6 +199,8 @@ export default function ArticleForm({ }) {
                         showHoverAnimation={false}
                         className="px-6 py-2"
                         onClick={() => setCurrentTab(2)}
+                        isDisabled={isPlayerOpen || isLoading}
+                        disabledTitle="I am frozen when the right thing is open!"
                     >
                         Paste article
                     </Button>
@@ -184,6 +216,8 @@ export default function ArticleForm({ }) {
                                     console.log(event)
                                     setLinkToArticle(event)
                                 }}
+                                isDisabled={isPlayerOpen}
+                                disabledTitle="I am frozen when the right thing is open!"
                             />
                             <Button
                                 type="primary"
@@ -200,7 +234,8 @@ export default function ArticleForm({ }) {
                                         SplitArticleToSentencesHelper((text), setSentencesArray)
                                     }, 5000);
                                 }}
-                                isDisabled={linkToArticle == ""}
+                                isDisabled={linkToArticle == "" || isPlayerOpen}
+                                disabledTitle="I am frozen when the right thing is open!"
                             >
                                 Fetch
                             </Button>
@@ -251,6 +286,8 @@ export default function ArticleForm({ }) {
                                 setPastedArticle(event)
                                 SplitArticleToSentencesHelper((event), setSentencesArray)
                             }}
+                            isDisabled={isPlayerOpen}
+                            disabledTitle="I am frozen when the right thing is open!"
                         />
                         <div className="text-right">
                             <Button
@@ -266,16 +303,9 @@ export default function ArticleForm({ }) {
                                 Clear
                             </Button>
                         </div>
-                        {/* <div className="overflow-y-auto h-40">
-                            {sentencesArray.map((sentence, i) => {
-                                return (
-                                    <p key={i}>{sentence}</p>
-                                )
-                            })}
-                        </div> */}
                     </div>
                 }
-                {((sentencesArray.length > 0) && !isPlayerOpen) &&
+                {isPlayButtonEnabled &&
                     <div
                         className="fixed bottom-8 w-min mx-auto right-0 left-0 flex justify-center lg:absolute lg:bottom-8 animate__animated animate__fadeInUp"
                         style={{
@@ -289,7 +319,6 @@ export default function ArticleForm({ }) {
                                 setIsPlayerOpen(true)
                                 HandlePlayPauseButtonClick()
                             }}
-                        // isDisabled={sentencesArray.length <= 0}
                         >
                             <span
                                 className="material-icons-round text-6xl"
@@ -309,7 +338,7 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     const localSentencesArray = articleText.match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
     console.log(localSentencesArray)
 
-    if (localSentencesArray.length > 0) {
+    if (localSentencesArray?.length > 0) {
         setSentencesArray(localSentencesArray)
     }
 }

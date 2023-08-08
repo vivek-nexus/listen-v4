@@ -3,43 +3,26 @@ import { colours } from "@/constants/colours"
 import Button from "./Button";
 import { useEffect, useState } from "react";
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useStore } from "@/app/app/page";
 
 
 export default function VoiceSettings({ }) {
+    const allVoices = useStore((state) => state.allVoices)
+    const voices = useStore((state) => state.voices)
+    const pauseUtterance = useStore((state) => state.pauseUtterance)
+    const setSelectedVoice = useStore((state) => state.setSelectedVoice)
+    const rate = useStore((state) => state.rate)
+    const setRate = useStore((state) => state.setRate)
+    const pitch = useStore((state) => state.pitch)
+    const setPitch = useStore((state) => state.setPitch)
+
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const ref = useDetectClickOutside({ onTriggered: () => { setIsSettingsOpen(false) } });
+    const options = voices;
 
-    const ColourOptions = [
-        { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
-        { value: 'blue', label: 'Blue', color: '#0052CC' },
-        { value: 'purple', label: 'Purple', color: '#5243AA' },
-        { value: 'red', label: 'Red', color: '#FF5630' },
-        { value: 'orange', label: 'Orange', color: '#FF8B00' },
-        { value: 'yellow', label: 'Yellow', color: '#FFC400' },
-        { value: 'green', label: 'Green', color: '#36B37E' },
-        { value: 'forest', label: 'Forest', color: '#00875A' },
-        { value: 'slate', label: 'Slate', color: '#253858' },
-        { value: 'silver', label: 'Silver', color: '#666666' },
-    ];
-
-    const flavourOptions = [
-        { value: 'vanilla', label: 'Vanilla', rating: 'safe' },
-        { value: 'chocolate', label: 'Chocolate', rating: 'good' },
-        { value: 'strawberry', label: 'Strawberry', rating: 'wild' },
-        { value: 'salted-caramel', label: 'Salted Caramel', rating: 'crazy' },
-    ];
-
-
-    const options = [
-        { label: "Colours", options: ColourOptions },
-        { label: "Flavour", options: flavourOptions },
-    ]
-
-    const groupStyles = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    };
+    useEffect(() => {
+        pauseUtterance()
+    }, [isSettingsOpen])
 
 
 
@@ -86,6 +69,15 @@ export default function VoiceSettings({ }) {
                         classNamePrefix="tailwind-pain"
                         placeholder="Default voice"
                         noOptionsMessage="Looks like text to speech is not supported on this browser!"
+                        onChange={(event) => {
+                            allVoices.map((voice) => {
+                                if (voice.voiceURI == event.value.voiceURI)
+                                    setSelectedVoice(voice)
+                            })
+                        }}
+                        onMenuOpen={() => {
+                            pauseUtterance()
+                        }}
                         onMenuClose={() => {
                             const menuEl = document.querySelector(`.tailwind-pain__menu`);
                             const menuElScrollTop = menuEl?.firstChild.scrollTop;
@@ -208,25 +200,35 @@ export default function VoiceSettings({ }) {
                             <input
                                 type="range"
                                 orient="vertical"
-                                min={0}
-                                max={1}
+                                min={0.1}
+                                max={2}
                                 step={0.1}
+                                value={rate}
                                 className=" accent-primary-800"
                                 style={{}}
+                                onChange={(e) => {
+                                    setRate(e.target.value)
+                                }}
                             />
-                            <p>Speed</p>
+                            <p>{rate}</p>
+                            <p className="text-primary-800 font-bold">Rate</p>
                         </div>
                         <div className={`flex flex-col items-center ${isSettingsOpen ? `opacity-80` : `opacity-0`}`}>
                             <input
                                 type="range"
                                 orient="vertical"
                                 min={0}
-                                max={1}
+                                max={2}
                                 step={0.1}
+                                value={pitch}
                                 className=" accent-primary-800"
                                 style={{}}
+                                onChange={(e) => {
+                                    setPitch(e.target.value)
+                                }}
                             />
-                            <p>Rate</p>
+                            <p>{pitch}</p>
+                            <p className="text-primary-800 font-bold">Pitch</p>
                         </div>
                     </div>
                 </div>

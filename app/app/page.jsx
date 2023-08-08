@@ -43,15 +43,60 @@ export const useStore = create((set) => ({
     currentSentence: null,
     setCurrentSentence: (currentSentence) => set(() => ({ currentSentence: currentSentence })),
     utterance: null,
+    allVoices: [],
     voices: [],
-    setVoices: (voices) => set(() => ({ voices: voices })),
+    setVoices: () => {
+        const speechSynthesisObject = window.speechSynthesis;
+        const allVoices = speechSynthesisObject.getVoices();
+        let googleVoices = [];
+        let nonGoogleVoices = [];
+
+        if (allVoices.length > 0) {
+            allVoices.map((voice) => {
+                if (voice.name.includes("Google")) {
+                    googleVoices.push({
+                        label: `${voice.name}, ${voice.lang}`,
+                        value: voice
+                    })
+                }
+                else {
+                    nonGoogleVoices.push({
+                        label: `${voice.name}, ${voice.lang}`,
+                        value: voice
+                    })
+                }
+            })
+        }
+        set({
+            allVoices: allVoices,
+            voices: [
+                { label: "Natural google voices", options: googleVoices },
+                { label: "Device voices", options: nonGoogleVoices },
+            ]
+        })
+    },
+    selectedVoice: null,
+    setSelectedVoice: (selectedVoice) => {
+        localStorage.setItem("selectedVoice", selectedVoice.voiceURI)
+        set(() => ({ selectedVoice: selectedVoice }))
+    },
+    rate: 1,
+    setRate: (rate) => {
+        localStorage.setItem("rate", rate)
+        set(() => ({ rate: rate }))
+    },
+    pitch: 1,
+    setPitch: (pitch) => {
+        localStorage.setItem("pitch", pitch)
+        set(() => ({ pitch: pitch }))
+    },
     startUtterance: (text) => {
         return new Promise((resolve, reject) => {
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.voice = speechSynthesis.getVoices()[0];
-                utterance.rate = 1.0;
-                utterance.pitch = 1.0;
+                utterance.voice = useStore.getState().selectedVoice;
+                utterance.rate = useStore.getState().rate;
+                utterance.pitch = useStore.getState().rate;
 
                 set({ utterance: utterance });
 
@@ -106,11 +151,46 @@ export default function ListenApp() {
     const currentSentence = useStore((state) => state.currentSentence)
     const setCurrentSentence = useStore((state) => state.setCurrentSentence)
     const startUtterance = useStore((state) => state.startUtterance)
+    const pauseUtterance = useStore((state) => state.pauseUtterance)
+    const setVoices = useStore((state) => state.setVoices)
+    const setSelectedVoice = useStore((state) => state.setSelectedVoice)
+    const allVoices = useStore((state) => state.allVoices)
+    const setRate = useStore((state) => state.setRate)
+    const setPitch = useStore((state) => state.setPitch)
+
+
 
 
     useEffect(() => {
+        setVoices()
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = setVoices;
+        }
 
+        if (isMobile) {
+            document.addEventListener("blur", () => {
+                pauseUtterance()
+            })
+        }
     }, [])
+
+    useEffect(() => {
+        const savedVoice = localStorage.getItem("selectedVoice")
+        const savedRate = localStorage.getItem("rate")
+        const savedPitch = localStorage.getItem("pitch")
+        if (savedVoice) {
+            allVoices.map((voice) => {
+                if (voice.voiceURI == savedVoice) {
+                    console.log("Saved voice is " + voice.voiceURI)
+                    setSelectedVoice(voice)
+                }
+            })
+        }
+        if (savedRate)
+            setRate(savedRate)
+        if (savedPitch)
+            setPitch(savedPitch)
+    }, [allVoices])
 
     useEffect(() => {
         console.log("Current sentence to read " + currentSentence)

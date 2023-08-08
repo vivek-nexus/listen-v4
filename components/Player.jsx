@@ -1,6 +1,5 @@
 // import React from 'react'
-import { pauseUtterance, useStore } from "@/app/app/page"
-import { AnimatePresence, motion } from "framer-motion"
+import { useStore } from "@/app/app/page"
 import { isMobile } from "react-device-detect"
 import Button from "./Button"
 import EqualiserGraphic from "./EqualiserGraphic"
@@ -40,12 +39,14 @@ export default function Player() {
             }, 7000);
         }
         document.addEventListener("mousemove", handleEvent, false)
-        document.addEventListener("scroll", handleEvent, false)
+        document.addEventListener("wheel", handleEvent, false)
         document.addEventListener("click", handleEvent, false)
+        document.addEventListener("touchmove", handleEvent, false)
         return () => {
             document.removeEventListener("mousemove", handleEvent)
-            document.removeEventListener("scroll", handleEvent)
+            document.removeEventListener("wheel", handleEvent)
             document.removeEventListener("click", handleEvent)
+            document.addEventListener("touchmove", handleEvent, false)
         }
     }, [])
 
@@ -139,7 +140,7 @@ export default function Player() {
                         <div className={`px-6 ${isDimmed ? `opacity-0 pointer-events-none touch-none` : `opacity-100`}`}>
                             <VoiceSettings />
                         </div>
-                        <div className="flex-grow min-h-0 flex flex-col gap-12 justify-center">
+                        <div className="flex-grow min-h-0 flex flex-col gap-8 justify-center pb-16">
                             <div className="px-6 flex flex-col items-center justify-center">
                                 <InvisibleVideo />
                                 <EqualiserGraphic height="96" isPlaying={utterance ? true : false} />
@@ -149,7 +150,7 @@ export default function Player() {
                                     {percentage}%
                                 </p>
                             </div>
-                            <div className="mx-6 mb-16 h-[5vh] overflow-y-auto custom-scrollbar">
+                            <div className="mx-6 mb-16 h-[10vh] overflow-y-auto custom-scrollbar">
                                 <p
                                     key={currentSentence}
                                     className="text-center animate__animated animate__fadeIn"
