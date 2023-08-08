@@ -5,6 +5,7 @@ import ListeningPhone from "@/components/ListeningPhone";
 import ReadingPhone from "@/components/ReadingPhone";
 import { isMobile } from 'react-device-detect';
 import Link from "next/link";
+import { env } from "@/next.config";
 
 export default function Home() {
   const [isReadingPhoneInView, setIsReadingPhoneInView] = useState(true)
@@ -25,7 +26,7 @@ export default function Home() {
   return (
     <div
       className="min-h-screen bg-black bg-[length:172px_172px] flex"
-      style={{ backgroundImage: "url(/bg-pattern.svg) " }}>
+      style={{ backgroundImage: `url(${env.LINK_PREFIX}/bg-pattern.svg)` }}>
       <div className="hidden xl:visible max-w-[1280px] mx-auto xl:flex gap-32 items-center justify-center p-6 text-center">
         <div>
           <ReadingPhone viewport="desktop" />
