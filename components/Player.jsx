@@ -108,11 +108,22 @@ export default function Player() {
                             <VoiceSettings />
                         </div>
                         <div className="flex-grow min-h-0 flex flex-col gap-12 justify-center">
-                            <div className="px-6 flex justify-center">
+                            <div className="px-6 flex flex-col items-center justify-center">
+                                <InvisibleVideo />
                                 <EqualiserGraphic height="96" isPlaying={utterance ? true : false} />
+                                <p
+                                    className="mt-8 block text-primary-800"
+                                >
+                                    {Math.round((currentSentence / sentencesArray.length) * 100)}%
+                                </p>
                             </div>
-                            <div className="mx-6 flex justify-center mb-16 h-[10vh] overflow-y-auto custom-scrollbar">
-                                <p className="text-center">{sentencesArray[currentSentence]}</p>
+                            <div className="mx-6 mb-16 h-[10vh] overflow-y-auto custom-scrollbar">
+                                <p
+                                    key={currentSentence}
+                                    className="text-center animate__animated animate__fadeIn"
+                                >
+                                    {sentencesArray[currentSentence]}
+                                </p>
                             </div>
                         </div>
                         <div className={` bg-primary-800/20 absolute bottom-0 w-full ${isMobile && `animate__animated animate__fadeInUp`} ${isDimmed && `invisible pointer-events-none touch-none`}`}>
@@ -192,5 +203,26 @@ export default function Player() {
             </div >
         </>
 
+    )
+}
+
+
+function InvisibleVideo() {
+    const utterance = useStore((state) => state.utterance)
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        videoRef.current.volume = isMobile ? 0.01 : 0.1;
+        if (utterance == null)
+            videoRef.current.pause()
+        else
+            videoRef.current.play()
+    }, [utterance])
+
+    return (
+        <video ref={videoRef} loop className="-z-50 h-2 w-2">
+            <source src="/the-beat-of-nature-122841.mp4" type="video/mp4" />
+            Your browser does not support video playback.
+        </video>
     )
 }
