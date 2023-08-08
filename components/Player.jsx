@@ -25,6 +25,11 @@ export default function Player() {
     const [isDimmed, setIsDimmed] = useState(false)
     const timer = useRef(null)
     const inputRangeValue = useRef(null)
+    const [percentage, setPercentage] = useState(0)
+
+    useEffect(() => {
+        setPercentage(Math.round((currentSentence / sentencesArray.length) * 100))
+    }, [currentSentence])
 
     useEffect(() => {
         const handleEvent = () => {
@@ -43,6 +48,33 @@ export default function Player() {
             document.removeEventListener("click", handleEvent)
         }
     }, [])
+
+    // function HandleKeyPresses(e) {
+    //     if (e.keyCode == 32) {
+    //         HandlePlayPauseButtonClick()
+    //     }
+    //     else if (e.key == "ArrowRight") {
+    //         pauseUtterance()
+    //         setTimeout(() => {
+    //             setCurrentSentence(currentSentence + 1)
+    //         }, 100);
+    //     }
+    //     else if (e.key == "ArrowLeft") {
+    //         pauseUtterance()
+    //         setTimeout(() => {
+    //             setCurrentSentence(currentSentence - 1)
+    //         }, 100);
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     document.addEventListener("keydown", function (e) {
+    //         HandleKeyPresses(e)
+    //     })
+    //     return () => {
+    //         document.removeEventListener("keydown", HandleKeyPresses)
+    //     }
+    // }, [])
 
     function HandlePlayPauseButtonClick() {
         console.log("BUTTON CLICKED")
@@ -112,12 +144,12 @@ export default function Player() {
                                 <InvisibleVideo />
                                 <EqualiserGraphic height="96" isPlaying={utterance ? true : false} />
                                 <p
-                                    className="mt-8 block text-primary-800"
+                                    className={`mt-8 block text-primary-800 ${percentage > 0 ? `visible` : `invisible`}`}
                                 >
-                                    {Math.round((currentSentence / sentencesArray.length) * 100)}%
+                                    {percentage}%
                                 </p>
                             </div>
-                            <div className="mx-6 mb-16 h-[10vh] overflow-y-auto custom-scrollbar">
+                            <div className="mx-6 mb-16 h-[5vh] overflow-y-auto custom-scrollbar">
                                 <p
                                     key={currentSentence}
                                     className="text-center animate__animated animate__fadeIn"
