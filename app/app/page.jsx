@@ -8,6 +8,7 @@ import { create } from 'zustand'
 import ArticleForm from "@/components/ArticleForm";
 import Player from "@/components/Player";
 import { colours } from "@/constants/colours";
+import { env } from "@/next.config";
 
 export const useStore = create((set) => ({
     isPlayerOpen: false,
@@ -245,10 +246,10 @@ export default function ListenApp() {
         <>
             <div
                 className="min-h-screen bg-black bg-[length:172px_172px] lg:flex lg:flex-col lg:items-center lg:justify-center"
-                style={{ backgroundImage: "url(/bg-pattern.svg)" }}
+                style={{ backgroundImage: `url(${env.LINK_PREFIX}/bg-pattern.svg)` }}
             >
                 <div
-                    className={`h-screen flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[75vh] lg:flex-row lg:overflow-clip`}
+                    className={`h-screen flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:flex-row lg:overflow-clip`}
                     style={{ boxShadow: `0px 8px 64px 4px ${colours["primary-800/40"]}` }}
                 >
                     <ArticleForm />

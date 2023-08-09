@@ -214,7 +214,6 @@ export default function ArticleForm({ }) {
                                 type="input-field"
                                 value={linkToArticle}
                                 onChange={(event) => {
-                                    console.log(event)
                                     setLinkToArticle(event)
                                 }}
                                 isDisabled={isPlayerOpen}
@@ -241,7 +240,7 @@ export default function ArticleForm({ }) {
                                                 SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
                                             }
                                             else {
-                                                alert(`Hmm lovely link, but seems to have nothing :P\nTry opening the link yourself and paste the article
+                                                alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
                                                 `)
                                             }
                                         })
@@ -272,6 +271,11 @@ export default function ArticleForm({ }) {
 
                                     className=" text-primary-800 ">
                                     {isLoading ? `Fetching, hold on...` : `Need a nice link?`}
+                                </p>
+                                <p
+
+                                    className=" text-primary-800 ">
+                                    {isLoading ? `Sometimes takes upto 30 seconds :(` : ``}
                                 </p>
                             </div>}
                         {fetchedArticle.title != "" &&
@@ -352,7 +356,7 @@ export default function ArticleForm({ }) {
 
 function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     const localSentencesArray = articleText.match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
-    console.log(localSentencesArray)
+    // console.log(localSentencesArray)
 
     if (localSentencesArray?.length > 0) {
         setSentencesArray(localSentencesArray)
