@@ -8,6 +8,7 @@ import Image from "./Image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import Eye from "./Eye"
+import { Readability } from "@mozilla/readability"
 
 
 export const title = `A smart way to handle anxiety — courtesy of soccer great Lionel Messi`
@@ -227,12 +228,27 @@ export default function ArticleForm({ }) {
                                     setIsLoading(true)
                                     setFetchedArticleTitle("")
                                     setFetchedArticleText("")
-                                    setTimeout(() => {
+                                    fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
+                                        response.text().then((result) => {
+                                            const parser = new DOMParser()
+                                            const html = parser.parseFromString(result, "text/html")
+                                            const parsedArticleFromHTML = new Readability(html).parse()
+                                            console.log(parsedArticleFromHTML)
+                                            setIsLoading(false)
+                                            if (parsedArticleFromHTML) {
+                                                setFetchedArticleTitle(parsedArticleFromHTML.title)
+                                                setFetchedArticleText(parsedArticleFromHTML.textContent)
+                                                SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
+                                            }
+                                            else {
+                                                alert(`Hmm lovely link, but seems to have nothing :P\nTry opening the link yourself and paste the article
+                                                `)
+                                            }
+                                        })
+                                    }).catch((error) => {
+                                        alert(error)
                                         setIsLoading(false)
-                                        setFetchedArticleTitle(title)
-                                        setFetchedArticleText(text)
-                                        SplitArticleToSentencesHelper((text), setSentencesArray)
-                                    }, 5000);
+                                    })
                                 }}
                                 isDisabled={linkToArticle == "" || isPlayerOpen}
                                 disabledTitle="I am frozen when the right thing is open!"

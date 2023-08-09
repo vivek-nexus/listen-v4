@@ -254,7 +254,7 @@ function InvisibleVideo() {
     }, [utterance])
 
     return (
-        <video ref={videoRef} loop className="-z-50 h-2 w-2">
+        <video ref={videoRef} loop className="-z-50 h-2 w-2 opacity-0">
             <source src={`${env.LINK_PREFIX}/the-beat-of-nature-122841.mp4`} type="video/mp4" />
             Your browser does not support video playback.
         </video>
