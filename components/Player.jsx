@@ -5,6 +5,7 @@ import Button from "./Button"
 import EqualiserGraphic from "./EqualiserGraphic"
 import VoiceSettings from "./VoiceSettings"
 import { useEffect, useRef, useState } from "react"
+import { env } from "@/next.config"
 
 
 
@@ -254,7 +255,7 @@ function InvisibleVideo() {
 
     return (
         <video ref={videoRef} loop className="-z-50 h-2 w-2">
-            <source src="/the-beat-of-nature-122841.mp4" type="video/mp4" />
+            <source src={`${env.LINK_PREFIX}/the-beat-of-nature-122841.mp4`} type="video/mp4" />
             Your browser does not support video playback.
         </video>
     )
