@@ -98,16 +98,30 @@ export const useStore = create((set) => ({
                 utterance.rate = useStore.getState().rate;
                 utterance.pitch = useStore.getState().rate;
 
+                localStorage.removeItem("utteranceEndTrigger")
+
                 set({ utterance: utterance });
 
                 utterance.onend = () => {
                     const utteranceEndTrigger = localStorage.getItem("utteranceEndTrigger")
                     console.log("[ONEND] Utterance will end due to " + utteranceEndTrigger)
 
-                    localStorage.setItem("utteranceEndTrigger", "sentence_complete")
-                    set({ utterance: null });
-                    console.log("[ONEND] Utterance was resolved to sentence_complete")
-                    resolve("sentence_complete");
+                    if (utteranceEndTrigger == "pause") {
+                        set({ utterance: null });
+                        console.log("[ONEND] Utterance was resolved to pause")
+                        resolve("pause");
+                    }
+                    else if (utteranceEndTrigger == "stop") {
+                        set({ utterance: null });
+                        console.log("[ONEND] Utterance was resolved to stop")
+                        resolve("stop");
+                    }
+                    else {
+                        localStorage.setItem("utteranceEndTrigger", "sentence_complete")
+                        set({ utterance: null });
+                        console.log("[ONEND] Utterance was resolved to sentence_complete")
+                        resolve("sentence_complete");
+                    }
                 };
 
                 utterance.onerror = (event) => {
@@ -124,6 +138,12 @@ export const useStore = create((set) => ({
                         set({ utterance: null });
                         console.log("[ONERROR] Utterance was resolved to stop")
                         resolve("stop");
+                    }
+                    else {
+                        localStorage.setItem("utteranceEndTrigger", "sentence_complete")
+                        set({ utterance: null });
+                        console.log("[ONERROR] Utterance was resolved to sentence_complete")
+                        resolve("sentence_complete");
                     }
                 };
                 speechSynthesis.speak(utterance);
