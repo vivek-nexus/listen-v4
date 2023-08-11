@@ -9,33 +9,6 @@ import { useEffect } from "react";
 
 const cabin = Cabin({ subsets: ["latin"] })
 
-// export const metadata = {
-//   title: "Listen",
-//   description: "Listen to articles, just like a podcast!",
-//   keywords: ["Text to speech", "TTS", "Podcast", "Listen", "Read out loud", "Screen time"],
-//   icons: {
-//     icon: "/logo.png",
-//     shortcut: "/logo.png",
-//   },
-//   themeColor: "#008080",
-//   manifest: "https://nextjs.org/manifest.json",
-//   openGraph: {
-//     title: "Listen",
-//     description: "Listen to articles, just like a podcast!",
-//     url: "https://yakshag.github.io/listen",
-//     siteName: "Listen",
-//     images: [
-//       {
-//         url: "https://yakshag.github.io/listen/logo.png",
-//         width: 800,
-//         height: 600,
-//       },
-//     ],
-//     locale: "en_IN",
-//     type: "website",
-//   },
-// }
-
 export default function RootLayout({ children }) {
   useEffect(() => {
     window._mfq = window._mfq || [];

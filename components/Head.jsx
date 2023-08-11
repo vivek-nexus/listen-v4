@@ -7,9 +7,8 @@ export default function Head() {
             <meta name="description" content="Stop long form reading, cut screen time and start listening!" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <link rel="icon" href={`${env.LINK_PREFIX}/logo.png`} />
-            {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" /> */}
             {/* https://melvingeorge.me/blog/nextjs-pwa */}
-            {/* <link rel="manifest" href="/manifest.json" /> */}
+            <link rel="manifest" href={`${env.LINK_PREFIX}/manifest.json`} />
             <meta name="theme-color" content="#00a885" />
             {/* Open graph tags */}
             <meta property="og:type" content="website" />
