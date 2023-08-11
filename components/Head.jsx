@@ -11,6 +11,12 @@ export default function Head() {
             {/* https://melvingeorge.me/blog/nextjs-pwa */}
             {/* <link rel="manifest" href="/manifest.json" /> */}
             <meta name="theme-color" content="#00a885" />
+            {/* Open graph tags */}
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Listen" />
+            <meta property="og:url" content="https://yakshag.github.io/listen/" />
+            <meta property="og:image" content="https://yakshag.github.io/listen/link-preview.png" />
+            <meta property="og:description" content="Your own podcast buddy!" />
         </head>
     )
 }
