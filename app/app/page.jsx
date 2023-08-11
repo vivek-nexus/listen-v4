@@ -100,7 +100,6 @@ export const useStore = create((set) => ({
                 utterance.pitch = useStore.getState().rate;
 
                 localStorage.removeItem("utteranceEndTrigger")
-
                 set({ utterance: utterance });
 
                 utterance.onend = () => {

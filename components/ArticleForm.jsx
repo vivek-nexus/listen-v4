@@ -6,7 +6,7 @@ import InputField from "./InputField"
 import { useStore } from "@/app/app/page"
 import Image from "./Image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Eye from "./Eye"
 import { Readability } from "@mozilla/readability"
 
@@ -98,6 +98,7 @@ export default function ArticleForm({ }) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [isPlayButtonEnabled, setIsPlayButtonEnabled] = useState(false)
+    const shouldLoadArticleFromURLParam = useRef(null)
 
     // useEffect(() => {
     //     if (currentTab == 1) {
@@ -109,6 +110,23 @@ export default function ArticleForm({ }) {
     //             SplitArticleToSentencesHelper((pastedArticle), setSentencesArray)
     //     }
     // }, [currentTab])
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+        const paramValue = searchParams.get("url")
+
+        if (paramValue !== null) {
+            shouldLoadArticleFromURLParam.current = true
+            setLinkToArticle(paramValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (shouldLoadArticleFromURLParam.current && linkToArticle) {
+            shouldLoadArticleFromURLParam.current = false
+            FetchArticle()
+        }
+    }, [linkToArticle])
 
     useEffect(() => {
         if (isPlayerOpen) {
@@ -161,6 +179,38 @@ export default function ArticleForm({ }) {
                     setCurrentSentence(0)
                 }
             }
+        }
+    }
+
+    function FetchArticle() {
+        {
+            setIsLoading(true)
+            setFetchedArticleTitle("")
+            setFetchedArticleText("")
+            fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
+                if (response.status >= 400 && response.status <= 599)
+                    alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
+                `)
+                response.text().then((result) => {
+                    const parser = new DOMParser()
+                    const html = parser.parseFromString(result, "text/html")
+                    const parsedArticleFromHTML = new Readability(html).parse()
+                    console.log(parsedArticleFromHTML)
+                    setIsLoading(false)
+                    if (parsedArticleFromHTML) {
+                        setFetchedArticleTitle(parsedArticleFromHTML.title)
+                        setFetchedArticleText(parsedArticleFromHTML.textContent)
+                        SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
+                    }
+                    else {
+                        alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
+                        `)
+                    }
+                })
+            }).catch((error) => {
+                alert(error)
+                setIsLoading(false)
+            })
         }
     }
 
@@ -223,32 +273,7 @@ export default function ArticleForm({ }) {
                                 type="primary"
                                 showHoverAnimation={false}
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
-                                onClick={() => {
-                                    setIsLoading(true)
-                                    setFetchedArticleTitle("")
-                                    setFetchedArticleText("")
-                                    fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
-                                        response.text().then((result) => {
-                                            const parser = new DOMParser()
-                                            const html = parser.parseFromString(result, "text/html")
-                                            const parsedArticleFromHTML = new Readability(html).parse()
-                                            console.log(parsedArticleFromHTML)
-                                            setIsLoading(false)
-                                            if (parsedArticleFromHTML) {
-                                                setFetchedArticleTitle(parsedArticleFromHTML.title)
-                                                setFetchedArticleText(parsedArticleFromHTML.textContent)
-                                                SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
-                                            }
-                                            else {
-                                                alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
-                                                `)
-                                            }
-                                        })
-                                    }).catch((error) => {
-                                        alert(error)
-                                        setIsLoading(false)
-                                    })
-                                }}
+                                onClick={FetchArticle}
                                 isDisabled={linkToArticle == "" || isPlayerOpen}
                                 disabledTitle="I am frozen when the right thing is open!"
                             >
