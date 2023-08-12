@@ -62,7 +62,7 @@ export default function Player() {
         if (appInstallPrompt)
             appInstallPrompt.prompt()
         else
-            alert(`To install this app, find and click the "Add to home screen" or "Install Listen" option in your browser`)
+            alert(`To install this app, find and click the "Add to home screen" or "Install app" option in your browser`)
     }
 
     // function HandleKeyPresses(e) {
@@ -249,7 +249,7 @@ export default function Player() {
                                     onClick={ShowAppInstallPrompt}
                                 >
                                     <span
-                                        className="material-icons-round text-6xl"
+                                        className="material-icons-round text-4xl"
                                     >
                                         install_mobile
                                     </span>
@@ -259,7 +259,7 @@ export default function Player() {
                                     onClick={ShowAppInstallPrompt}
                                 >
                                     <span
-                                        className="material-icons-round text-4xl "
+                                        className="material-icons-round text-4xl"
                                     >
                                         install_desktop
                                     </span>

@@ -258,7 +258,7 @@ export default function ArticleForm({ }) {
                 </div>
                 {currentTab == 1 &&
                     <div className="flex-grow min-h-0 flex flex-col animate__animated animate__fadeIn">
-                        <div className={`relative mb-12 ${linkToArticle != "" && `animate__animated animate__pulse`}`}>
+                        <div className={`relative mb-12 ${linkToArticle != "" && `animate__animated animate__bounceIn`}`}>
                             <InputField
                                 placeholder="Link to article"
                                 type="input-field"
