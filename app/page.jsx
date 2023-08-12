@@ -27,6 +27,7 @@ export default function Home() {
     <div
       className="min-h-screen bg-black bg-[length:172px_172px] flex"
       style={{ backgroundImage: `url(${env.LINK_PREFIX}/bg-pattern.svg)` }}>
+      {/* Desktop */}
       <div className="hidden xl:visible max-w-[1280px] mx-auto xl:flex gap-32 items-center justify-center p-6 text-center">
         <div>
           <ReadingPhone viewport="desktop" />
@@ -40,17 +41,19 @@ export default function Home() {
             <Button
               type="primary"
               showHoverAnimation={true}
-              className="text-lg font-bold px-6 py-2"
+              className="text-lg font-bold px-6 py-2 mb-3"
               onClick={() => { }}
             >
               Let's go!
             </Button>
           </Link>
+          <p className="text-center text-primary-800">Another project by <a href="https://yakshaG.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
         </div>
         <div>
           <ListeningPhone />
         </div>
       </div>
+      {/* Mobile */}
       <div className="xl:hidden mx-auto p-6 text-center flex flex-col items-center">
         <div className="flex flex-col items-center mt-4 mb-12">
           <h2 className="text-primary-800 text-2xl md:text-3xl mb-4">Stop long form reading</h2>
@@ -61,12 +64,13 @@ export default function Home() {
             <Button
               type="primary"
               showHoverAnimation={true}
-              className="text-lg font-bold px-6 py-2"
+              className="text-lg font-bold px-6 py-2 mb-3"
               onClick={() => { }}
             >
               Let's go!
             </Button>
           </Link>
+          <p className="text-center text-primary-800">Another project by <a href="https://yakshaG.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
         </div>
         <div>
           {isReadingPhoneInView ?
