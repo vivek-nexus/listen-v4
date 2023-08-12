@@ -6,9 +6,25 @@ import ReadingPhone from "@/components/ReadingPhone";
 import { isMobile } from 'react-device-detect';
 import Link from "next/link";
 import { env } from "@/next.config";
+import { create } from "zustand";
+
+export const useStoreAtRoot = create((set) => ({
+  appInstallPrompt: null,
+  setAppInstallPrompt: (appInstallPrompt) => set(() => ({ appInstallPrompt: appInstallPrompt })),
+}))
 
 export default function Home() {
+  const appInstallPrompt = useStoreAtRoot((state) => state.appInstallPrompt)
+  const setAppInstallPrompt = useStoreAtRoot((state) => state.setAppInstallPrompt)
+
   const [isReadingPhoneInView, setIsReadingPhoneInView] = useState(true)
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      console.log("Registered beoreinstallprompt " + appInstallPrompt)
+      setAppInstallPrompt(e)
+    })
+  }, [])
 
   useEffect(() => {
     if (isMobile) {

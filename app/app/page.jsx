@@ -9,6 +9,7 @@ import ArticleForm from "@/components/ArticleForm";
 import Player from "@/components/Player";
 import { colours } from "@/constants/colours";
 import { env } from "@/next.config";
+import { useStoreAtRoot } from "../page";
 
 export const useStore = create((set) => ({
     isPlayerOpen: false,
@@ -167,6 +168,9 @@ export const useStore = create((set) => ({
 
 
 export default function ListenApp() {
+    const appInstallPrompt = useStoreAtRoot((state) => state.appInstallPrompt)
+    const setAppInstallPrompt = useStoreAtRoot((state) => state.setAppInstallPrompt)
+
     const sentencesArray = useStore((state) => state.sentencesArray)
     const currentSentence = useStore((state) => state.currentSentence)
     const setCurrentSentence = useStore((state) => state.setCurrentSentence)
@@ -179,6 +183,12 @@ export default function ListenApp() {
     const setPitch = useStore((state) => state.setPitch)
 
 
+    useEffect(() => {
+        window.addEventListener("beforeinstallprompt", (e) => {
+            console.log("Registered beoreinstallprompt " + appInstallPrompt)
+            setAppInstallPrompt(e)
+        })
+    }, [])
 
 
     useEffect(() => {

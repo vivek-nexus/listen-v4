@@ -6,8 +6,10 @@ import EqualiserGraphic from "./EqualiserGraphic"
 import VoiceSettings from "./VoiceSettings"
 import { useEffect, useRef, useState } from "react"
 import { env } from "@/next.config"
+import { useStoreAtRoot } from "@/app/page"
 
-let appInstallPrompt;
+// let appInstallPrompt;
+
 
 export default function Player() {
     const isPlayerOpen = useStore((state) => state.isPlayerOpen)
@@ -20,6 +22,8 @@ export default function Player() {
     const currentSentence = useStore((state) => state.currentSentence)
     const setCurrentSentence = useStore((state) => state.setCurrentSentence)
     const sentencesArray = useStore((state) => state.sentencesArray)
+    const appInstallPrompt = useStoreAtRoot((state) => state.appInstallPrompt)
+
 
 
     const [isDimmed, setIsDimmed] = useState(false)
@@ -51,12 +55,12 @@ export default function Player() {
         }
     }, [])
 
-    useEffect(() => {
-        window.addEventListener("beforeinstallprompt", (e) => {
-            console.log("Registered beoreinstallprompt " + appInstallPrompt)
-            appInstallPrompt = e;
-        })
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener("beforeinstallprompt", (e) => {
+    //         console.log("Registered beoreinstallprompt " + appInstallPrompt)
+    //         appInstallPrompt = e;
+    //     })
+    // }, [])
 
     function ShowAppInstallPrompt() {
         if (appInstallPrompt)
