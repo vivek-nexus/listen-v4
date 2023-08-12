@@ -198,9 +198,7 @@ export default function ListenApp() {
         }
 
         if (isMobile) {
-            document.addEventListener("blur", () => {
-                pauseUtterance()
-            })
+            window.addEventListener("blur", pauseUtterance)
         }
     }, [])
 
