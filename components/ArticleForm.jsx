@@ -251,7 +251,7 @@ export default function ArticleForm({ }) {
                         className="px-6 py-2"
                         onClick={() => setCurrentTab(2)}
                         isDisabled={isPlayerOpen || isLoading}
-                        disabledTitle="I am frozen when the right thing is open!"
+                        disabledTitle="I am frozen when the right thing is open or when fetching an article!"
                     >
                         Paste article
                     </Button>

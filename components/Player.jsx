@@ -7,7 +7,7 @@ import VoiceSettings from "./VoiceSettings"
 import { useEffect, useRef, useState } from "react"
 import { env } from "@/next.config"
 
-
+let appInstallPrompt;
 
 export default function Player() {
     const isPlayerOpen = useStore((state) => state.isPlayerOpen)
@@ -50,6 +50,20 @@ export default function Player() {
             document.addEventListener("touchmove", handleEvent, false)
         }
     }, [])
+
+    useEffect(() => {
+        window.addEventListener("beforeinstallprompt", (e) => {
+            console.log("Registered beoreinstallprompt " + appInstallPrompt)
+            appInstallPrompt = e;
+        })
+    }, [])
+
+    function ShowAppInstallPrompt() {
+        if (appInstallPrompt)
+            appInstallPrompt.prompt()
+        else
+            alert(`To install this app, find and click the "Add to home screen" or "Install Listen" option in your browser`)
+    }
 
     // function HandleKeyPresses(e) {
     //     if (e.keyCode == 32) {
@@ -184,7 +198,7 @@ export default function Player() {
                                     disabled={currentSentence == null}
                                 />
                             </div>
-                            <div className="flex gap-4 justify-center items-center px-6 py-6">
+                            <div className="flex gap-4 justify-center items-center px-6 py-6 relative">
                                 <Button
                                     type="tertiary"
                                     className="flex gap-2 items-center"
@@ -228,6 +242,26 @@ export default function Player() {
                                         className="material-icons-round text-4xl"
                                     >
                                         fast_forward
+                                    </span>
+                                </Button>
+                                <Button
+                                    className="absolute right-1 top-1/3 lg:hidden animate__animated animate__slideInRight animate__delay-2s"
+                                    onClick={ShowAppInstallPrompt}
+                                >
+                                    <span
+                                        className="material-icons-round text-6xl"
+                                    >
+                                        install_mobile
+                                    </span>
+                                </Button>
+                                <Button
+                                    className="absolute right-1 top-1/3 hidden lg:block animate__animated animate__slideInRight animate__delay-2s"
+                                    onClick={ShowAppInstallPrompt}
+                                >
+                                    <span
+                                        className="material-icons-round text-4xl "
+                                    >
+                                        install_desktop
                                     </span>
                                 </Button>
                             </div>
