@@ -36,22 +36,25 @@ export default function Player() {
     }, [currentSentence])
 
     useEffect(() => {
-        const handleEvent = () => {
-            clearTimeout(timer.current)
-            setIsDimmed(false)
-            timer.current = setTimeout(() => {
-                setIsDimmed(true)
-            }, 7000);
-        }
-        document.addEventListener("mousemove", handleEvent, false)
-        document.addEventListener("wheel", handleEvent, false)
-        document.addEventListener("click", handleEvent, false)
-        document.addEventListener("touchmove", handleEvent, false)
-        return () => {
-            document.removeEventListener("mousemove", handleEvent)
-            document.removeEventListener("wheel", handleEvent)
-            document.removeEventListener("click", handleEvent)
+        if (isMobile) {
+            const handleEvent = () => {
+                clearTimeout(timer.current)
+                setIsDimmed(false)
+                timer.current = setTimeout(() => {
+                    setIsDimmed(true)
+                }, 7000);
+            }
+
+            document.addEventListener("mousemove", handleEvent, false)
+            document.addEventListener("wheel", handleEvent, false)
+            document.addEventListener("click", handleEvent, false)
             document.addEventListener("touchmove", handleEvent, false)
+            return () => {
+                document.removeEventListener("mousemove", handleEvent)
+                document.removeEventListener("wheel", handleEvent)
+                document.removeEventListener("click", handleEvent)
+                document.addEventListener("touchmove", handleEvent, false)
+            }
         }
     }, [])
 
