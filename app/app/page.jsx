@@ -100,11 +100,11 @@ export const useStore = create((set) => ({
                 utterance.rate = useStore.getState().rate;
                 utterance.pitch = useStore.getState().rate;
 
-                localStorage.removeItem("utteranceEndTrigger")
+                sessionStorage.removeItem("utteranceEndTrigger")
                 set({ utterance: utterance });
 
                 utterance.onend = () => {
-                    const utteranceEndTrigger = localStorage.getItem("utteranceEndTrigger")
+                    const utteranceEndTrigger = sessionStorage.getItem("utteranceEndTrigger")
                     console.log("[ONEND] Utterance will end due to " + utteranceEndTrigger)
 
                     if (utteranceEndTrigger == "pause") {
@@ -118,7 +118,7 @@ export const useStore = create((set) => ({
                         resolve("stop");
                     }
                     else {
-                        localStorage.setItem("utteranceEndTrigger", "sentence_complete")
+                        sessionStorage.setItem("utteranceEndTrigger", "sentence_complete")
                         set({ utterance: null });
                         console.log("[ONEND] Utterance was resolved to sentence_complete")
                         resolve("sentence_complete");
@@ -127,7 +127,7 @@ export const useStore = create((set) => ({
 
                 utterance.onerror = (event) => {
                     console.log("Error is " + event.error)
-                    const utteranceEndTrigger = localStorage.getItem("utteranceEndTrigger")
+                    const utteranceEndTrigger = sessionStorage.getItem("utteranceEndTrigger")
                     console.log("[ONERROR] Utterance will end due to " + utteranceEndTrigger)
 
                     if (utteranceEndTrigger == "pause") {
@@ -141,7 +141,7 @@ export const useStore = create((set) => ({
                         resolve("stop");
                     }
                     else {
-                        localStorage.setItem("utteranceEndTrigger", "sentence_complete")
+                        sessionStorage.setItem("utteranceEndTrigger", "sentence_complete")
                         set({ utterance: null });
                         console.log("[ONERROR] Utterance was resolved to sentence_complete")
                         resolve("sentence_complete");
@@ -155,12 +155,12 @@ export const useStore = create((set) => ({
         });
     },
     pauseUtterance: () => {
-        localStorage.setItem("utteranceEndTrigger", "pause")
+        sessionStorage.setItem("utteranceEndTrigger", "pause")
         speechSynthesis.cancel();
         console.log("Paused utterance and set utteranceEndTrigger to pause")
     },
     stopUtterance: () => {
-        localStorage.setItem("utteranceEndTrigger", "stop")
+        sessionStorage.setItem("utteranceEndTrigger", "stop")
         speechSynthesis.cancel();
         console.log("Stopped utterance and set utteranceEndTrigger to stop")
     },
@@ -230,19 +230,19 @@ export default function ListenApp() {
                 console.log("Utterance ended due to " + utteranceEndTrigger)
 
                 if (utteranceEndTrigger == "pause") {
-                    localStorage.setItem("currentSentence", currentSentence)
+                    sessionStorage.setItem("currentSentence", currentSentence)
                     setCurrentSentence(null)
                     console.log("Set current sentence to null")
                     return
                 }
                 else if (utteranceEndTrigger == "stop") {
-                    localStorage.setItem("currentSentence", 0)
+                    sessionStorage.setItem("currentSentence", 0)
                     setCurrentSentence(null)
                     console.log("Set current sentence to null")
                     return
                 }
                 else if (utteranceEndTrigger == "sentence_complete") {
-                    localStorage.setItem("currentSentence", currentSentence + 1)
+                    sessionStorage.setItem("currentSentence", currentSentence + 1)
                     setCurrentSentence(currentSentence + 1)
                 }
             })

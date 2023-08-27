@@ -165,12 +165,12 @@ export default function ArticleForm({ }) {
         }
         else {
             if (sentencesArray.length > 0) {
-                const savedCurrentSentence = parseInt(localStorage.getItem("currentSentence"))
-                    ? parseInt(localStorage.getItem("currentSentence"))
+                const savedCurrentSentence = parseInt(sessionStorage.getItem("currentSentence"))
+                    ? parseInt(sessionStorage.getItem("currentSentence"))
                     : 0
                 console.log("Previously saved sentence " + savedCurrentSentence)
 
-                if (localStorage.getItem("utteranceEndTrigger") == "pause") {
+                if (sessionStorage.getItem("utteranceEndTrigger") == "pause") {
                     console.log("Requested resume utterance")
                     setCurrentSentence(savedCurrentSentence)
                 }
