@@ -6,14 +6,28 @@ A text to speech web application that speaks word, sentences or even long articl
 <img src="https://yakshag.github.io/listen/link-preview.png" />
 
 
----
+<br />
 
-## Passing a URL to fetch
-Pass the URL as a URL param
-https://yakshag.github.io/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
+<br />
 
----
+<br />
 
-## Intergrating Listen on your blog
-- Load the site as an iframe in a suitable way. Try to make sure the iframe size is at least 360px by 780px for optimal UI experience.
+## Passing a link to fetch
+Pass the link as a URL parameter
+
+Example: https://yakshag.github.io/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
+
+<br />
+
+<br />
+
+<br />
+
+## Integrating Listen on your blog
+#### [Option 1] Load Listen as an iframe
+- On your blog pages, load the site as an iframe in a suitable way. Make sure the iframe size is at least 360px by 780px for optimal UI experience.
 - Set the iframe src to `https://yakshag.github.io/listen/app?url=https://yourblog.com/article-1.html`
+
+#### [Option 2] Open Listen in a new tab
+- On your blog page, provide a button such as `Listen to this article`
+- On click of the button, open Listen in a new tab, by passing the blog page link as url parameter `https://yakshag.github.io/listen/app?url=https://yourblog.com/article-1.html`
