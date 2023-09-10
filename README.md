@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Listen
+A text to speech web application that speaks word, sentences or even long articles in a music player like interface.
 
-## Getting Started
+**View the app at https://yakshag.github.io/listen**
 
-First, run the development server:
+<img src="https://yakshag.github.io/listen/link-preview.png" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<br />
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br />
 
-## Learn More
+## Passing a link to fetch
+Pass the link as a URL parameter
 
-To learn more about Next.js, take a look at the following resources:
+Example: https://yakshag.github.io/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<br />
 
-## Deploy on Vercel
+<br />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Integrating Listen on your blog
+#### [Option 1] Load Listen as an iframe
+- On your blog pages, load the site as an iframe in a suitable way. Make sure the iframe size is at least 360px by 780px for optimal UI experience.
+- Set the iframe src to `https://yakshag.github.io/listen/app?url=https://yourblog.com/article-1.html`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### [Option 2] Open Listen in a new tab
+- On your blog page, provide a button such as `Listen to this article`
+- On click of the button, open Listen in a new tab, by passing the blog page link as url parameter `https://yakshag.github.io/listen/app?url=https://yourblog.com/article-1.html`
