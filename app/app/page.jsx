@@ -252,12 +252,12 @@ export default function ListenApp() {
     return (
         <>
             <div
-                className="min-h-screen bg-black bg-[length:172px_172px] lg:flex lg:flex-col lg:items-center lg:justify-center"
-                style={{ backgroundImage: `url(${env.LINK_PREFIX}/bg-pattern.svg)` }}
+                className="bg-black bg-[length:172px_172px] lg:flex lg:flex-col lg:items-center lg:justify-center"
+                style={{ backgroundImage: `url(${env.LINK_PREFIX}/bg-pattern.svg)`, minHeight: "100dvh" }}
             >
                 <div
-                    className={`h-screen flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:flex-row lg:overflow-clip`}
-                    style={{ boxShadow: `0px 8px 64px 4px ${colours["primary-800/40"]}` }}
+                    className={`flex flex-col bg-black lg:rounded-2xl lg:w-[70vw] xl:w-[50vw] lg:h-[80vh] lg:flex-row lg:overflow-clip`}
+                    style={{ boxShadow: `0px 8px 64px 4px ${colours["primary-800/40"]}`, height: "100dvh" }}
                 >
                     <ArticleForm />
                     <Player />
