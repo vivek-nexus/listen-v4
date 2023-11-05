@@ -153,7 +153,7 @@ export default function Player() {
                                     close
                                 </span>
                                 <p
-                                    className="text-white/70 font-bold text-left whitespace-nowrap overflow-clip text-ellipsis"
+                                    className="text-white/70 font-semibold text-left whitespace-nowrap overflow-clip text-ellipsis"
                                 >
                                     {currentTab == 1 ? fetchedArticle.title : `Pasted article`}
                                 </p>

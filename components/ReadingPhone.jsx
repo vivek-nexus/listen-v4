@@ -80,7 +80,7 @@ function ContentRow({ className }) {
 function AboutPhone({ viewport }) {
     return (
         <div className={`mt-8 text-center animate__animated ${viewport == "mobile" ? `animate__bounceIn` : `animate__bounceInLeft`}`}>
-            <p className="text-3xl font-bold">READ</p>
+            <p className="text-3xl font-semibold">READ</p>
             <p className="text-2xl text-red-500">High screen time 😫</p>
         </div>
     )

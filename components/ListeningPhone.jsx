@@ -25,7 +25,7 @@ export default function ListeningPhone() {
 function AboutPhone({ viewport }) {
     return (
         <div className={`mt-8 text-center animate__animated ${viewport == "mobile" ? `animate__bounceIn` : `animate__bounceInRight`}`}>
-            <p className="text-3xl font-bold">LISTEN</p>
+            <p className="text-3xl font-semibold">LISTEN</p>
             <p className="text-2xl text-green-500">Low screen time 😍</p>
         </div>
     )

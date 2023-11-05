@@ -2,12 +2,17 @@
 
 import "./globals.css"
 import 'material-icons/iconfont/material-icons.css';
-import { Cabin } from "next/font/google"
+import { Cabin, Figtree, Lexend, Sora } from "next/font/google"
 import "animate.css";
 import Head from "@/components/Head";
 import { useEffect } from "react";
 
 const cabin = Cabin({ subsets: ["latin"] })
+const sora = Sora({ subsets: ["latin"] })
+const figtree = Figtree({ subsets: ["latin"] })
+const lexend = Lexend({ subsets: ["latin"] })
+
+
 
 export default function RootLayout({ children }) {
   useEffect(() => {
@@ -24,7 +29,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head />
       <body
-        className={`${cabin.className} animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
+        className={`${sora.className} animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
       >
         {children}
       </body>
