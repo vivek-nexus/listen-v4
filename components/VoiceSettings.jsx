@@ -211,7 +211,7 @@ export default function VoiceSettings({ }) {
                                 }}
                             />
                             <p>{rate}</p>
-                            <p className="text-primary-800 font-semibold">Rate</p>
+                            <p className="text-primary-800 font-bold">Rate</p>
                         </div>
                         <div className={`flex flex-col items-center ${isSettingsOpen ? `opacity-80` : `opacity-0`}`}>
                             <input
@@ -228,7 +228,7 @@ export default function VoiceSettings({ }) {
                                 }}
                             />
                             <p>{pitch}</p>
-                            <p className="text-primary-800 font-semibold">Pitch</p>
+                            <p className="text-primary-800 font-bold">Pitch</p>
                         </div>
                     </div>
                 </div>

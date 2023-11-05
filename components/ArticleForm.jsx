@@ -232,7 +232,7 @@ export default function ArticleForm({ }) {
                     >
                         graphic_eq
                     </span>
-                    <h3 className="text-primary-800 font-semibold text-2xl">LISTEN</h3>
+                    <h3 className="text-primary-800 font-bold text-2xl">LISTEN</h3>
                 </Link>
                 <div className="flex w-max mx-auto mb-8 bg-primary-800/30 rounded-full">
                     <Button
@@ -305,7 +305,7 @@ export default function ArticleForm({ }) {
                             </div>}
                         {fetchedArticle.title != "" &&
                             <div className="flex-grow flex flex-col min-h-0 overflow-clip rounded-lg animate__animated animate__fadeIn">
-                                <div className="px-6 py-4 bg-primary-800/40 font-semibold">
+                                <div className="px-6 py-4 bg-primary-800/40 font-bold">
                                     <a href={linkToArticle} target="_blank">
                                         <p
                                             className="underline-none hover:underline hover:underline-offset-4 transition ease-in-out delay-800"
@@ -338,7 +338,7 @@ export default function ArticleForm({ }) {
                             <Button
                                 type="tertiary"
                                 showHoverAnimation={true}
-                                className="py-0 pl-4 font-semibold"
+                                className="py-0 pl-4 font-bold"
                                 onClick={() => {
                                     setPastedArticle(text)
                                     setPastedArticle("")

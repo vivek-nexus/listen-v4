@@ -50,14 +50,14 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center">
           <h2 className="text-primary-800 text-4xl mb-4">Stop long form reading</h2>
-          <h2 className="font-semibold text-primary-800 text-6xl mb-12">Start Listening!</h2>
+          <h2 className="font-bold text-primary-800 text-6xl mb-12">START LISTENING!</h2>
           <Link
             href="/app"
           >
             <Button
               type="primary"
               showHoverAnimation={true}
-              className="text-lg font-semibold px-6 py-2 mb-3"
+              className="text-lg font-bold px-6 py-2 mb-3"
               onClick={() => { }}
             >
               Let's go!
@@ -73,14 +73,14 @@ export default function Home() {
       <div className="xl:hidden mx-auto p-6 text-center flex flex-col items-center">
         <div className="flex flex-col items-center mt-4 mb-12">
           <h2 className="text-primary-800 text-2xl md:text-3xl mb-4">Stop long form reading</h2>
-          <h2 className="font-semibold text-primary-800 text-3xl md:text-5xl mb-10">Start Listening!</h2>
+          <h2 className="font-bold text-primary-800 text-3xl md:text-5xl mb-10">START LISTENING!</h2>
           <Link
             href="/app"
           >
             <Button
               type="primary"
               showHoverAnimation={true}
-              className="text-lg font-semibold px-6 py-2 mb-3"
+              className="text-lg font-bold px-6 py-2 mb-3"
               onClick={() => { }}
             >
               Let's go!
