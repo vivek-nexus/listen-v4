@@ -6,6 +6,7 @@ import { Cabin, Figtree, Lexend, Sora } from "next/font/google"
 import "animate.css";
 import Head from "@/components/Head";
 import { useEffect } from "react";
+import Script from "next/script";
 
 const cabin = Cabin({ subsets: ["latin"] })
 const sora = Sora({ subsets: ["latin"] })
@@ -28,6 +29,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-7ZYB56R4BT"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-7ZYB56R4BT');
+        `}
+      </Script>
       <body
         className={`${figtree.className} animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
       >
