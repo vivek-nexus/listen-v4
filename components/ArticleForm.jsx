@@ -219,7 +219,7 @@ export default function ArticleForm({ }) {
         <>
             <div
                 className={`relative bg-black p-6 flex flex-col flex-grow min-h-0
-                ${isPlayerOpen ? `w-full lg:w-1/2` : `w-full`}
+                ${isPlayerOpen ? `w-full lg:w-1/2 pointer-events-none touch-none cursor-not-allowed opacity-70` : `w-full`}
                 `}
                 style={{ transition: "all 0.5s" }}
             >
@@ -240,8 +240,6 @@ export default function ArticleForm({ }) {
                         showHoverAnimation={false}
                         className="px-6 py-2"
                         onClick={() => setCurrentTab(1)}
-                        isDisabled={isPlayerOpen}
-                        disabledTitle="I am frozen when the right thing is open!"
                     >
                         Fetch article
                     </Button>
@@ -250,8 +248,8 @@ export default function ArticleForm({ }) {
                         showHoverAnimation={false}
                         className="px-6 py-2"
                         onClick={() => setCurrentTab(2)}
-                        isDisabled={isPlayerOpen || isLoading}
-                        disabledTitle="I am frozen when the right thing is open or when fetching an article!"
+                        isDisabled={isLoading}
+                        disabledTitle="I am frozen when fetching an article!"
                     >
                         Paste article
                     </Button>
@@ -266,16 +264,13 @@ export default function ArticleForm({ }) {
                                 onChange={(event) => {
                                     setLinkToArticle(event)
                                 }}
-                                isDisabled={isPlayerOpen}
-                                disabledTitle="I am frozen when the right thing is open!"
                             />
                             <Button
                                 type="primary"
                                 showHoverAnimation={false}
                                 className="absolute right-0 rounded-l-none py-2 px-4 h-full"
                                 onClick={FetchArticle}
-                                isDisabled={linkToArticle == "" || isPlayerOpen}
-                                disabledTitle="I am frozen when the right thing is open!"
+                                isDisabled={linkToArticle == ""}
                             >
                                 Fetch
                             </Button>
@@ -314,7 +309,7 @@ export default function ArticleForm({ }) {
                                         </p>
                                     </a>
                                 </div>
-                                <div className="p-6 bg-primary-800/30 overflow-y-auto custom-scrollbar text-white/60">
+                                <div className="p-6 bg-primary-800/30 overflow-y-auto pointer-events-auto cursor-auto custom-scrollbar text-white/60">
                                     <p>{fetchedArticle.text}</p>
                                 </div>
                             </div>}
@@ -326,13 +321,12 @@ export default function ArticleForm({ }) {
                             placeholder="Paste an article, short or long"
                             type="text-area"
                             value={pastedArticle}
+                            className="pointer-events-auto cursor-auto"
                             onChange={(event) => {
                                 console.log("Pasted article " + event)
                                 setPastedArticle(event)
                                 SplitArticleToSentencesHelper((event), setSentencesArray)
                             }}
-                            isDisabled={isPlayerOpen}
-                            disabledTitle="I am frozen when the right thing is open!"
                         />
                         <div className="text-right">
                             <Button
