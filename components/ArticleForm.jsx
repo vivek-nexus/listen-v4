@@ -219,7 +219,7 @@ export default function ArticleForm({ }) {
         <>
             <div
                 className={`relative bg-black p-6 flex flex-col flex-grow min-h-0
-                ${isPlayerOpen ? `w-full lg:w-1/2 pointer-events-none touch-none cursor-not-allowed opacity-70` : `w-full`}
+                ${isPlayerOpen ? `w-full lg:w-1/2 pointer-events-none touch-none cursor-not-allowed opacity-50` : `w-full`}
                 `}
                 style={{ transition: "all 0.5s" }}
             >
