@@ -40,26 +40,6 @@ export default function RootLayout({ children }) {
           gtag('js', new Date());
         
           gtag('config', 'G-7ZYB56R4BT');
-
-          // Check if the app is running as a standalone PWA
-          if (window.matchMedia('(display-mode: standalone)').matches) {
-            console.log("This is running as standalone (PWA).");
-            gtag('event', 'pwa_launch', {
-              'event_category': 'PWA Events',
-              'event_label': 'PWA User'
-            });
-            gtag('event', 'total_users', {
-              'event_category': 'PWA Events',
-              'event_label': 'User'
-            });
-          } else {
-            // If not a PWA launch, only increment the custom metric for total users
-            console.log("This is not a PWA.");
-            gtag('event', 'total_users', {
-              'event_category': 'PWA Events',
-              'event_label': 'User'
-            });
-          }
         `}
       </Script>
       <body
@@ -70,6 +50,3 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
-
-
-
