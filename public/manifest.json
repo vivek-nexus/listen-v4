@@ -9,22 +9,22 @@
     "theme_color": "#008080",
     "icons": [
         {
-            "src": "https://yakshag.github.io/listen/icon-192.png",
+            "src": "https://vivek-nexus.github.io/listen/icon-192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "https://yakshag.github.io/listen/icon-256.png",
+            "src": "https://vivek-nexus.github.io/listen/icon-256.png",
             "sizes": "256x256",
             "type": "image/png"
         },
         {
-            "src": "https://yakshag.github.io/listen/icon-384.png",
+            "src": "https://vivek-nexus.github.io/listen/icon-384.png",
             "sizes": "384x384",
             "type": "image/png"
         },
         {
-            "src": "https://yakshag.github.io/listen/icon-512.png",
+            "src": "https://vivek-nexus.github.io/listen/icon-512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
