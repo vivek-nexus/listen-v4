@@ -327,6 +327,8 @@ export default function ArticleForm({ }) {
                                 setPastedArticle(event)
                                 SplitArticleToSentencesHelper((event), setSentencesArray)
                             }}
+                            isDisabled={isPlayerOpen ? true : false}
+                            disabledTitle="You shouldn't edit the very thing you're listening to, should you?"
                         />
                         <div className="text-right">
                             <Button
