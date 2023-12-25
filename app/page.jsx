@@ -63,7 +63,7 @@ export default function Home() {
               Let's go!
             </Button>
           </Link>
-          <p className="text-center text-primary-800">Another project by <a href="https://yakshaG.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
+          <p className="text-center text-primary-800">Another project by <a href="https://vivek-nexus.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
         </div>
         <div>
           <ListeningPhone />
@@ -86,7 +86,7 @@ export default function Home() {
               Let's go!
             </Button>
           </Link>
-          <p className="text-center text-primary-800">Another project by <a href="https://yakshaG.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
+          <p className="text-center text-primary-800">Another project by <a href="https://vivek-nexus.github.io" target="_blank" className="underline underline-offset-4">Vivek</a></p>
         </div>
         <div>
           {isReadingPhoneInView ?

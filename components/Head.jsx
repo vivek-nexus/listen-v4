@@ -13,8 +13,8 @@ export default function Head() {
             {/* Open graph tags */}
             <meta property="og:type" content="website" />
             <meta property="og:title" content="Listen" />
-            <meta property="og:url" content="https://yakshag.github.io/listen/" />
-            <meta property="og:image" content="https://yakshag.github.io/listen/link-preview.png" />
+            <meta property="og:url" content="https://vivek-nexus.github.io/listen/" />
+            <meta property="og:image" content="https://vivek-nexus.github.io/listen/link-preview.png" />
             <meta property="og:description" content="Stop long form reading, cut screen time and start listening!" />
         </head>
     )
