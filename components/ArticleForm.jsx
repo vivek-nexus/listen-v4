@@ -75,6 +75,7 @@ For all the benefits of pausing and preparing, though, sometimes the main event 
 Excerpted from the new book Anatomy of a Breakthrough: How to Get Unstuck When It Matters Most by Adam Alter. Copyright © 2023 by Adam Alter. Reprinted by permission of Simon & Schuster Inc.
 
 Watch his TED Talk now:`
+const defaultPastedText = "This is a sample pasted text. You can use this tool to listen to news or web pages, just like a podcast. You can also use it to proof-read your articles, explore pronunciation or even just to have fun! On desktop devices, try to use natural Google voices available in the Chrome browser. On Android/iOS, good voices are installed by default, but may need tweaking in device settings. If you like Listen, you can also install it as an app on your phone or desktop. Ok bye now!"
 
 export default function ArticleForm({ }) {
     const currentTab = useStore((state) => state.currentTab)
@@ -120,6 +121,14 @@ export default function ArticleForm({ }) {
             setLinkToArticle(paramValue)
         }
     }, [])
+
+    useEffect(() => {
+        if (currentTab == 2) {
+            if (!pastedArticle)
+                setPastedArticle(defaultPastedText)
+            SplitArticleToSentencesHelper(defaultPastedText, setSentencesArray)
+        }
+    }, [currentTab])
 
     useEffect(() => {
         if (shouldLoadArticleFromURLParam.current && linkToArticle) {
