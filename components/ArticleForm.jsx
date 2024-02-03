@@ -406,8 +406,8 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
 }
 
 function IsPresentInBlockList(item) {
-    for (let i = 0; i < array.length; i++) {
-        if (blockList[i].includes(item))
+    for (let i = 0; i < blockList.length; i++) {
+        if (item.includes(blockList[i]))
             return true;
     }
     return false;
