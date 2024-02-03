@@ -1,1 +1,1 @@
-export const blockList = ["corrieredellacalabria.it"]
+export const blockList = []
