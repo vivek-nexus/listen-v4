@@ -114,11 +114,17 @@ export default function ArticleForm({ }) {
 
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
-        const paramValue = searchParams.get("url")
+        const paramURLValue = searchParams.get("url")
+        const paramTextValue = searchParams.get("text")
 
-        if (paramValue !== null) {
+        if (paramURLValue !== null) {
             shouldLoadArticleFromURLParam.current = true
-            setLinkToArticle(paramValue)
+            setLinkToArticle(paramURLValue)
+        }
+        if (paramTextValue !== null) {
+            setPastedArticle(paramTextValue)
+            SplitArticleToSentencesHelper(paramTextValue, setSentencesArray)
+            setCurrentTab(2)
         }
     }, [])
 
