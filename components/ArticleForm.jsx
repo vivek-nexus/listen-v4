@@ -203,8 +203,13 @@ export default function ArticleForm({ }) {
             setFetchedArticleTitle("")
             setFetchedArticleText("")
             fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
-                if (!response.ok)
-                    throw new Error(`${response.status} ${response.statusText}`)
+                if (!response.ok) {
+                    setIsLoading(false)
+                    if (response.status == 401)
+                        response.json().then((result) => { throw new Error(result.error) })
+                    else
+                        response.json().then((result) => { alert(result.error) })
+                }
                 else
                     response.text().then((result) => {
                         const parser = new DOMParser()
@@ -224,7 +229,7 @@ export default function ArticleForm({ }) {
                     })
             }).catch((error) => {
                 setIsLoading(false)
-                throw new Error(error)
+                alert(error)
             })
         }
     }
