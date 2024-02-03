@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import Eye from "./Eye"
 import { Readability } from "@mozilla/readability"
+import { blockList } from "@/constants/blockList"
 
 
 export const title = `A smart way to handle anxiety — courtesy of soccer great Lionel Messi`
@@ -117,7 +118,7 @@ export default function ArticleForm({ }) {
         const paramURLValue = searchParams.get("url")
         const paramTextValue = searchParams.get("text")
 
-        if (paramURLValue !== null) {
+        if ((paramURLValue !== null) || !IsPresentInBlockList(paramURLValue)) {
             shouldLoadArticleFromURLParam.current = true
             setLinkToArticle(paramURLValue)
         }
@@ -402,4 +403,12 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     if (localSentencesArray?.length > 0) {
         setSentencesArray(localSentencesArray)
     }
+}
+
+function IsPresentInBlockList(item) {
+    for (let i = 0; i < array.length; i++) {
+        if (blockList[i].includes(item))
+            return true;
+    }
+    return false;
 }
