@@ -223,8 +223,8 @@ export default function ArticleForm({ }) {
                         }
                     })
             }).catch((error) => {
-                alert(error)
                 setIsLoading(false)
+                throw new Error(error)
             })
         }
     }
