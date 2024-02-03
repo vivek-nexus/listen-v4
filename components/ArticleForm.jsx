@@ -203,24 +203,25 @@ export default function ArticleForm({ }) {
             setFetchedArticleTitle("")
             setFetchedArticleText("")
             fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
-                if (response.status == 400 && response.status <= 599)
-                    alert(response.text())
-                response.text().then((result) => {
-                    const parser = new DOMParser()
-                    const html = parser.parseFromString(result, "text/html")
-                    const parsedArticleFromHTML = new Readability(html).parse()
-                    console.log(parsedArticleFromHTML)
-                    setIsLoading(false)
-                    if (parsedArticleFromHTML) {
-                        setFetchedArticleTitle(parsedArticleFromHTML.title)
-                        setFetchedArticleText(parsedArticleFromHTML.textContent)
-                        SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
-                    }
-                    else {
-                        alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
+                if (!response.ok)
+                    throw new Error(`${response.status} ${response.statusText}`)
+                else
+                    response.text().then((result) => {
+                        const parser = new DOMParser()
+                        const html = parser.parseFromString(result, "text/html")
+                        const parsedArticleFromHTML = new Readability(html).parse()
+                        console.log(parsedArticleFromHTML)
+                        setIsLoading(false)
+                        if (parsedArticleFromHTML) {
+                            setFetchedArticleTitle(parsedArticleFromHTML.title)
+                            setFetchedArticleText(parsedArticleFromHTML.textContent)
+                            SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
+                        }
+                        else {
+                            alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
                         `)
-                    }
-                })
+                        }
+                    })
             }).catch((error) => {
                 alert(error)
                 setIsLoading(false)
