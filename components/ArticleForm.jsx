@@ -118,9 +118,14 @@ export default function ArticleForm({ }) {
         const paramURLValue = searchParams.get("url")
         const paramTextValue = searchParams.get("text")
 
-        if ((paramURLValue !== null) && !IsPresentInBlockList(paramURLValue)) {
-            shouldLoadArticleFromURLParam.current = true
-            setLinkToArticle(paramURLValue)
+        if ((paramURLValue !== null)) {
+            if (IsPresentInBlockList(paramURLValue)) {
+                throw new Error("Fetching article blocked due to server overload. Pass article text as URL parameter instead.")
+            }
+            else {
+                shouldLoadArticleFromURLParam.current = true
+                setLinkToArticle(paramURLValue)
+            }
         }
         if (paramTextValue !== null) {
             setPastedArticle(paramTextValue)
