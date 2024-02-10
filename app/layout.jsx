@@ -48,19 +48,6 @@ export default function RootLayout({ children }) {
           posthog.init('phc_BvPTm6vzvUAlXGLUZlcA5zgpOmzpXEvB5OGlMqALHQi',{api_host:'https://app.posthog.com'})
         `}
       </Script>
-      <Script>
-        {`
-          <!-- Hotjar Tracking Code for https://vivek-nexus.github.io/listen -->
-              (function(h,o,t,j,a,r){
-                  h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                  h._hjSettings={hjid:2800643,hjsv:6};
-                  a=o.getElementsByTagName('head')[0];
-                  r=o.createElement('script');r.async=1;
-                  r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                  a.appendChild(r);
-              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-        `}
-      </Script>
       <body
         className={`${figtree.className} animate__animated animate__fadeIn text-white/70 selection:bg-primary-800 selection:text-white/60`}
       >
