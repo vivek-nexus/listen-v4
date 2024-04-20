@@ -283,8 +283,8 @@ function Logger() {
     const log = {}
     const voiceKey = []
     log["speechSynthesisSupported"] = window.speechSynthesis ? `true` : `false`
-    log["browser"] = `${parserResults.browser.name} ${parserResults.browser.version}`
-    log["os"] = `${parserResults.os.name} ${parserResults.os.version}`
+    log["browser"] = `${parserResults.browser.name} | ${parserResults.browser.version}`
+    log["os"] = `${parserResults.os.name} | ${parserResults.os.version}`
     for (const voice of voices)
         voiceKey.push(`${voice.name} | ${voice.lang} | default-${voice.default} | localService-${voice.localService}`)
     log["voices"] = JSON.stringify(voiceKey)
