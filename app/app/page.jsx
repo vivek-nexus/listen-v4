@@ -296,6 +296,6 @@ function Logger() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: log
+        body: JSON.stringify(log)
     })
 }
