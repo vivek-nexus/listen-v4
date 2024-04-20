@@ -10,6 +10,7 @@ import Player from "@/components/Player";
 import { colours } from "@/constants/colours";
 import { env } from "@/next.config";
 import { useStoreAtRoot } from "../page";
+import UAParser from 'ua-parser-js';
 
 export const useStore = create((set) => ({
     isPlayerOpen: false,
@@ -182,6 +183,11 @@ export default function ListenApp() {
     const setRate = useStore((state) => state.setRate)
     const setPitch = useStore((state) => state.setPitch)
 
+    useEffect(() => {
+        setTimeout(() => {
+            Logger()
+        }, 2000);
+    }, [])
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e) => {
@@ -265,4 +271,29 @@ export default function ListenApp() {
             </div >
         </>
     )
+}
+
+
+function Logger() {
+    const speechSynthesisObject = window.speechSynthesis
+    const voices = speechSynthesisObject.getVoices()
+    console.log(voices)
+    let parser = new UAParser()
+    let parserResults = parser.getResult()
+    const log = {}
+    const voiceKey = []
+    log["speechSynthesisSupported"] = window.speechSynthesis ? `true` : `false`
+    log["browser"] = `${parserResults.browser.name} ${parserResults.browser.version}`
+    log["os"] = `${parserResults.os.name} ${parserResults.os.version}`
+    for (const voice of voices)
+        voiceKey.push(`${voice.name} | ${voice.lang} | default-${voice.default} | localService-${voice.localService}`)
+    log["voices"] = voiceKey
+    console.log(log)
+    fetch("http://logs-01.loggly.com/inputs/7c563a11-8fcd-438a-8abe-44cf54fb300e/tag/http/", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(log)
+    })
 }
