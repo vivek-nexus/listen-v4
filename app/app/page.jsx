@@ -287,7 +287,7 @@ function Logger() {
     log["os"] = `${parserResults.os.name} ${parserResults.os.version}`
     for (const voice of voices)
         voiceKey.push(`${voice.name} | ${voice.lang} | default-${voice.default} | localService-${voice.localService}`)
-    log["voices"] = voiceKey
+    log["voices"] = JSON.stringify(voiceKey)
     console.log(log)
     fetch("http://logs-01.loggly.com/inputs/7c563a11-8fcd-438a-8abe-44cf54fb300e/tag/http/", {
         method: 'POST',
