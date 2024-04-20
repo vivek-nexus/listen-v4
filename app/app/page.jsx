@@ -277,17 +277,19 @@ export default function ListenApp() {
 function Logger() {
     const speechSynthesisObject = window.speechSynthesis
     const voices = speechSynthesisObject.getVoices()
-    console.log(voices)
     let parser = new UAParser()
     let parserResults = parser.getResult()
-    const log = {}
-    const voiceKey = []
-    log["speechSynthesisSupported"] = window.speechSynthesis ? `true` : `false`
-    log["browser"] = `${parserResults.browser.name} ${parserResults.browser.version}`
-    log["os"] = `${parserResults.os.name} ${parserResults.os.version}`
+    const log = []
     for (const voice of voices)
-        voiceKey.push(`${voice.name} | ${voice.lang} | default-${voice.default} | localService-${voice.localService}`)
-    log["voices"] = voiceKey
+        log.push({
+            "isSpeechSynthesSupported": window.speechSynthesis ? `true` : `false`,
+            "browser": `${parserResults.browser.name} | ${parserResults.browser.version}`,
+            "os": `${parserResults.os.name} | ${parserResults.os.version}`,
+            "voiceName": `${voice.name}`,
+            "voiceLang": `${voice.lang}`,
+            "isDefault": `${voice.default}`,
+            "isLocalService": `${voice.localService}`
+        })
     console.log(log)
     fetch("https://logs-01.loggly.com/inputs/7c563a11-8fcd-438a-8abe-44cf54fb300e/tag/http/", {
         method: 'POST',
