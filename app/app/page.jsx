@@ -186,7 +186,7 @@ export default function ListenApp() {
     useEffect(() => {
         setTimeout(() => {
             Logger()
-        }, 2000);
+        }, 5000);
     }, [])
 
     useEffect(() => {
