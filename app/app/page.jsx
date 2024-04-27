@@ -183,11 +183,11 @@ export default function ListenApp() {
     const setRate = useStore((state) => state.setRate)
     const setPitch = useStore((state) => state.setPitch)
 
-    useEffect(() => {
-        setTimeout(() => {
-            Logger()
-        }, 5000);
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         Logger()
+    //     }, 5000);
+    // }, [])
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e) => {
