@@ -225,7 +225,7 @@ export default function ArticleForm({ }) {
             }).catch((error) => {
                 setIsLoading(false)
                 console.error(error)
-                console.error("[LISTEN]: To fetch the article, make sure to allow cross origin requests (CORS) on your server from https://www.vivek.nexus. See https://www.w3.org/wiki/CORS_Enabled.")
+                console.error("[LISTEN]: To fetch the article, make sure to allow cross origin requests (CORS) on your server from https://www.vivek.nexus. See https://github.com/vivek-nexus/listen/blob/main/README.md#passing-a-link-to-fetch.")
             })
         }
     }
