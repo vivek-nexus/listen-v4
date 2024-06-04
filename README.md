@@ -20,7 +20,7 @@ Example: https://vivek-nexus.github.io/listen/app?text=This%20is%20the%20first%2
 <br />
 
 ## Passing a link to fetch
-Pass the link as a URL parameter. Make sure to allow cross origin requests (CORS) on your website server from https://www.vivek.nexus/ origin.
+Pass the link as a URL parameter. Make sure to allow cross origin requests (CORS) on your website server from https://www.vivek.nexus origin.
 - If you use no-code hosting methods, consult your hosting provider's documentation to enable CORS
 - If you control the code on your server, see https://www.w3.org/wiki/CORS_Enabled for instructions
 
