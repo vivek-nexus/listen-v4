@@ -20,9 +20,9 @@ Example: https://vivek-nexus.github.io/listen/app?text=This%20is%20the%20first%2
 <br />
 
 ## Passing a link to fetch
-Pass the link as a URL parameter 
-- This is not a reliable method. There can be failures in fetching the article or in parsing the article. Pass the article text as a URL param instead.
-- Do not use this for high traffic sites, results in slow performance and poor UX. Pass the article text as a URL param instead.
+Pass the link as a URL parameter. Make sure to allow cross origin requests (CORS) on your website server from https://www.vivek.nexus/ origin.
+- If you use no-code hosting methods, consult your hosting provider's documentation to enable CORS
+- If you control the code on your server, see https://www.w3.org/wiki/CORS_Enabled for instructions
 
 Example: https://vivek-nexus.github.io/listen/app?url=https://ideas.ted.com/how-to-handle-anxiety-lionel
 
@@ -34,12 +34,15 @@ Example: https://vivek-nexus.github.io/listen/app?url=https://ideas.ted.com/how-
 
 
 ## Integrating Listen on your blog
-**NON-COMMERCIAL USE ONLY**
 
-#### [Option 1] Load Listen as an iframe
+#### [Option 1] Load Listen as an iframe (recommended method)
 - On your blog pages, load the site as an iframe in a suitable way. Make sure the iframe size is at least 360px by 780px for optimal UI experience.
 - Use URL params to send your article
 
 #### [Option 2] Open Listen in a new tab
 - On your blog page, provide a button such as `Listen to this article`
 - On click of the button, open Listen in a new tab. Send your article using URL params.
+
+
+## Help
+Create an issue here https://github.com/vivek-nexus/listen/issues

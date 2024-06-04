@@ -119,13 +119,8 @@ export default function ArticleForm({ }) {
         const paramTextValue = searchParams.get("text")
 
         if ((paramURLValue !== null)) {
-            if (IsPresentInBlockList(paramURLValue)) {
-                throw new Error("Fetching article blocked due to server overload. Pass article text as URL parameter instead.")
-            }
-            else {
-                shouldLoadArticleFromURLParam.current = true
-                setLinkToArticle(paramURLValue)
-            }
+            shouldLoadArticleFromURLParam.current = true
+            setLinkToArticle(paramURLValue)
         }
         if (paramTextValue !== null) {
             setPastedArticle(paramTextValue)
@@ -208,34 +203,29 @@ export default function ArticleForm({ }) {
             setIsLoading(true)
             setFetchedArticleTitle("")
             setFetchedArticleText("")
-            fetch(`https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`).then((response) => {
-                if (!response.ok) {
-                    setIsLoading(false)
-                    if (response.status == 401)
-                        response.json().then((result) => { throw new Error(result.error) })
-                    else
-                        response.json().then((result) => { alert(result.error) })
-                }
-                else
-                    response.text().then((result) => {
-                        const parser = new DOMParser()
-                        const html = parser.parseFromString(result, "text/html")
-                        const parsedArticleFromHTML = new Readability(html).parse()
-                        console.log(parsedArticleFromHTML)
-                        setIsLoading(false)
-                        if (parsedArticleFromHTML) {
-                            setFetchedArticleTitle(parsedArticleFromHTML.title)
-                            setFetchedArticleText(parsedArticleFromHTML.textContent)
-                            SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
-                        }
-                        else {
-                            alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
+            const urlToFetch = IsLoadedAsIframe() ? `${linkToArticle}` : `https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`
+
+            fetch(urlToFetch).then((response) => {
+                response.text().then((result) => {
+                    const parser = new DOMParser()
+                    const html = parser.parseFromString(result, "text/html")
+                    const parsedArticleFromHTML = new Readability(html).parse()
+                    console.log(parsedArticleFromHTML)
+                    if (parsedArticleFromHTML) {
+                        setFetchedArticleTitle(parsedArticleFromHTML.title)
+                        setFetchedArticleText(parsedArticleFromHTML.textContent)
+                        SplitArticleToSentencesHelper((parsedArticleFromHTML.textContent), setSentencesArray)
+                    }
+                    else {
+                        alert(`Hmm lovely link, but seems to return nothing :P\nCheck the link or try opening the link yourself and paste the article
                         `)
-                        }
-                    })
+                    }
+                    setIsLoading(false)
+                })
             }).catch((error) => {
                 setIsLoading(false)
-                alert(error)
+                console.error(error)
+                console.error("[LISTEN]: To fetch the article, make sure to allow cross origin requests (CORS) on your server from https://www.vivek.nexus/. See https://www.w3.org/wiki/CORS_Enabled.")
             })
         }
     }
@@ -410,10 +400,10 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     }
 }
 
-function IsPresentInBlockList(item) {
-    for (let i = 0; i < blockList.length; i++) {
-        if (item.includes(blockList[i]))
-            return true;
+function IsLoadedAsIframe() {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
     }
-    return false;
 }
