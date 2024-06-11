@@ -405,12 +405,14 @@ function toFetchDirectly() {
         // loaded as an iframe
         if (window.self !== window.top) {
             // loaded as same origin iframe
-            if (parent.document) {
+            try {
+                parent.document
                 console.log("loaded as same origin iframe")
                 return false
             }
             // loaded as cross origin iframe
-            else {
+            catch (e) {
+                console.error(e)
                 console.log("loaded as cross origin iframe")
                 return true
             }
@@ -420,7 +422,8 @@ function toFetchDirectly() {
             console.log("loaded as an independent page")
             return false
         }
-    } catch (e) {
+    }
+    catch (e) {
         console.log(e)
         console.log("Error determining iframe status")
         // default to direct fetch
