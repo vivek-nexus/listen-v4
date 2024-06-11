@@ -402,15 +402,18 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
 
 function toFetchDirectly() {
     try {
-        // not loaded as iframe
-        if (window.self === window.top)
-            return false
-        // loaded as iframe, but same origin
-        else if (iframe.contentDocument)
-            return false
-        // loaded as iframe
+        // loaded as an iframe
+        if (window.self !== window.top) {
+            // loaded as same origin iframe
+            if (window.parent.location.host == window.location.host)
+                return false
+            // loaded as cross origin iframe
+            else
+                return true
+        }
+        // loaded as an independent page
         else
-            return true
+            return false
     } catch (e) {
         // default to direct fetch
         return true;
