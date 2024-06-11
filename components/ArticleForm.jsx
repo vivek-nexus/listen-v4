@@ -114,7 +114,6 @@ export default function ArticleForm({ }) {
     // }, [currentTab])
 
     useEffect(() => {
-        console.log(`Fetch decision: ${toFetchDirectly()}`)
         const searchParams = new URLSearchParams(window.location.search);
         const paramURLValue = searchParams.get("url")
         const paramTextValue = searchParams.get("text")
@@ -408,19 +407,15 @@ function toFetchDirectly() {
             // loaded as same origin iframe
             try {
                 parent.document
-                console.log("loaded as same origin iframe")
                 return false
             }
             // loaded as cross origin iframe
             catch (e) {
-                console.error(e)
-                console.log("loaded as cross origin iframe")
                 return true
             }
         }
         // loaded as an independent page
         else {
-            console.log("loaded as an independent page")
             return false
         }
     }
