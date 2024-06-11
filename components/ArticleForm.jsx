@@ -405,16 +405,24 @@ function toFetchDirectly() {
         // loaded as an iframe
         if (window.self !== window.top) {
             // loaded as same origin iframe
-            if (parent.document)
+            if (parent.document) {
+                console.log("loaded as same origin iframe")
                 return false
+            }
             // loaded as cross origin iframe
-            else
+            else {
+                console.log("loaded as cross origin iframe")
                 return true
+            }
         }
         // loaded as an independent page
-        else
+        else {
+            console.log("loaded as an independent page")
             return false
+        }
     } catch (e) {
+        console.log(e)
+        console.log("Error determining iframe status")
         // default to direct fetch
         return true;
     }
