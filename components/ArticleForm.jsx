@@ -114,6 +114,7 @@ export default function ArticleForm({ }) {
     // }, [currentTab])
 
     useEffect(() => {
+        console.log(`Fetch decision: ${toFetchDirectly()}`)
         const searchParams = new URLSearchParams(window.location.search);
         const paramURLValue = searchParams.get("url")
         const paramTextValue = searchParams.get("text")
