@@ -404,10 +404,13 @@ function toFetchDirectly() {
     try {
         // loaded as an iframe
         if (window.self !== window.top) {
-            // loaded as same origin iframe
-            if (window.parent.location.host == window.location.host)
-                return false
             // loaded as cross origin iframe
+            if (!window.parent.location.host)
+                return true
+            // loaded as same origin iframe
+            else if (window.parent.location.host === window.location.host)
+                return false
+            // unknown iframe
             else
                 return true
         }
