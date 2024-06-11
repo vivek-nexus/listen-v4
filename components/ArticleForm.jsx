@@ -203,7 +203,7 @@ export default function ArticleForm({ }) {
             setIsLoading(true)
             setFetchedArticleTitle("")
             setFetchedArticleText("")
-            const urlToFetch = IsLoadedAsIframe() ? `${linkToArticle}` : `https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`
+            const urlToFetch = toFetchDirectly() ? `${linkToArticle}` : `https://render-express-server-q222.onrender.com/fetch-html?url=${linkToArticle}`
 
             fetch(urlToFetch).then((response) => {
                 response.text().then((result) => {
@@ -400,10 +400,19 @@ function SplitArticleToSentencesHelper(articleText, setSentencesArray) {
     }
 }
 
-function IsLoadedAsIframe() {
+function toFetchDirectly() {
     try {
-        return window.self !== window.top;
+        // not loaded as iframe
+        if (window.self === window.top)
+            return false
+        // loaded as iframe, but same origin
+        else if (iframe.contentDocument)
+            return false
+        // loaded as iframe
+        else
+            return true
     } catch (e) {
+        // default to direct fetch
         return true;
     }
 }
