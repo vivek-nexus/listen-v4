@@ -18,6 +18,18 @@ const lexend = Lexend({ subsets: ["latin"] })
 export default function RootLayout({ children }) {
 
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      const newURL = "https://vivek-nexus.github.io/listen/"
+      const result = confirm("There's a new version of this tool. Would you like to use that?")
+      if (result) {
+        window.location.href = newURL
+      }
+    }, 1000)
+
+    return (() => clearTimeout(timeout))
+  }, [])
+
+  useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const paramURLValue = searchParams.get("url")
 
